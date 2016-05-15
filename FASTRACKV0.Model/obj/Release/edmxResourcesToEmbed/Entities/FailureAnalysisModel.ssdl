@@ -1,0 +1,1117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="FabSites">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FAR_DeviceDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MasterId" Type="int" Nullable="false" />
+    <Property Name="LotNo" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MfgPartNo" Type="nvarchar" MaxLength="25" />
+    <Property Name="Technology" Type="nvarchar" MaxLength="50" />
+    <Property Name="PackageTypeId" Type="int" Nullable="false" />
+    <Property Name="AssembliesSiteId" Type="int" Nullable="false" />
+    <Property Name="FabSiteId" Type="int" Nullable="false" />
+    <Property Name="ServiceId" Type="int" Nullable="false" />
+    <Property Name="DateCode" Type="nvarchar" MaxLength="4" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Stage" Type="bit" Nullable="false" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="MechanismId" Type="int" />
+    <Property Name="FailureDetail" Type="nvarchar" MaxLength="1024" />
+  </EntityType>
+  <EntityType Name="FAR_Master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="OriginId" Type="int" Nullable="false" />
+    <Property Name="Requestor" Type="nvarchar" MaxLength="50" />
+    <Property Name="RefNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="FailureTypeId" Type="int" Nullable="false" />
+    <Property Name="FailureOriginId" Type="int" Nullable="false" />
+    <Property Name="FailureRate" Type="tinyint" Nullable="false" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
+    <Property Name="Analyst" Type="nvarchar" MaxLength="150" />
+    <Property Name="RequestDate" Type="datetime" Nullable="false" />
+    <Property Name="SamplesArriveDate" Type="datetime" />
+    <Property Name="PriorityId" Type="int" Nullable="false" />
+    <Property Name="InitialReportTargetDate" Type="datetime" />
+    <Property Name="BUId" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="FailureDesc" Type="nvarchar" MaxLength="250" />
+    <Property Name="FinalReportTargetDate" Type="datetime" />
+    <Property Name="Customer" Type="nvarchar" MaxLength="50" />
+    <Property Name="Submitted" Type="bit" Nullable="false" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="LabSiteId" Type="int" />
+  </EntityType>
+  <EntityType Name="FAR_Mechanism">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FAR_ProcessHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeviceId" Type="int" Nullable="false" />
+    <Property Name="ProcessTypeId" Type="int" Nullable="false" />
+    <Property Name="ProcessResultId" Type="int" />
+    <Property Name="IsIncluded" Type="bit" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="SeqNum" Type="int" Nullable="false" />
+    <Property Name="Iteration" Type="int" />
+    <Property Name="Analystor" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateIn" Type="datetime" />
+    <Property Name="DateOut" Type="datetime" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="250" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOG_FARAnalystReassign">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MasterId" Type="int" Nullable="false" />
+    <Property Name="AnalystFrom" Type="nvarchar" MaxLength="50" />
+    <Property Name="AnalystTo" Type="nvarchar" MaxLength="50" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOG_FARFinalTarget">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MasterId" Type="int" Nullable="false" />
+    <Property Name="TargetDate" Type="date" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="ReasonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOG_FARHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MasterId" Type="int" Nullable="false" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
+    <Property Name="ReasonId" Type="int" Nullable="false" />
+    <Property Name="LogDate" Type="datetime" Nullable="false" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOG_FARInitialTarget">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MasterId" Type="int" Nullable="false" />
+    <Property Name="TargetDate" Type="date" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="ReasonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOG_FARPriority">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MasterId" Type="int" Nullable="false" />
+    <Property Name="PriorityOld" Type="int" Nullable="false" />
+    <Property Name="PriorityNew" Type="int" Nullable="false" />
+    <Property Name="ReasonId" Type="int" Nullable="false" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOG_FARUpload">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MasterId" Type="int" Nullable="false" />
+    <Property Name="FAType" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="ReasonId" Type="int" />
+    <Property Name="UploadedDate" Type="datetime" Nullable="false" />
+    <Property Name="UploadedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_AssemblySites">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_BU">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EndCustomer" Type="bit" Nullable="false" />
+    <Property Name="Location" Type="nvarchar" MaxLength="255" />
+    <Property Name="Strategic" Type="bit" Nullable="false" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_FailureOrigin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Description" Type="nchar" MaxLength="150" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_FailureType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nchar" MaxLength="50" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_FARReport">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReportTypeId" Type="int" Nullable="false" />
+    <Property Name="OriginId" Type="int" Nullable="false" />
+    <Property Name="Required" Type="bit" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_LabSite">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_Origin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_PackageTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="25" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_Priority">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_ProcessProduct">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProcessTypeId" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="InChargePerson" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_ProcessResult">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProcessTypeId" Type="int" Nullable="false" />
+    <Property Name="Value" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_ProcessTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="Duration" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="SeqNumber" Type="int" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="MainPerson" Type="nvarchar" MaxLength="150" />
+    <Property Name="SecondaryPerson" Type="nvarchar" MaxLength="150" />
+    <Property Name="TertiaryPerson" Type="nvarchar" MaxLength="150" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_Reason">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_ReasonChangingFINTarget">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_ReasonChangingINITarget">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_ReasonChangingPriority">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_ReasonFARClose">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_ReasonFAROnHold">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_ReasonFINReport">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_ReasonINIReport">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_ReportTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="DaysAfter" Type="int" Nullable="false" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_Services">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_Sites">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="Address1" Type="nvarchar" MaxLength="1024" />
+    <Property Name="Address2" Type="nvarchar" MaxLength="1024" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MST_Status">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SYS_Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SYS_Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Salt" Type="nchar" MaxLength="250" Nullable="false" />
+    <Property Name="RegistedDate" Type="datetime" Nullable="false" />
+    <Property Name="IsLocked" Type="bit" Nullable="false" />
+    <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="DepartmentId" Type="int" Nullable="false" />
+    <Property Name="SiteId" Type="int" Nullable="false" />
+    <Property Name="LastLoginDate" Type="datetime" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+    <Property Name="RecoverPass" Type="nvarchar" MaxLength="250" />
+    <Property Name="IsComfiredEmail" Type="bit" Nullable="false" />
+    <Property Name="Guid" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="FK_FAR_AnalystReassignLog_FAR_Master">
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="1" />
+    <End Role="LOG_FARAnalystReassign" Type="Self.LOG_FARAnalystReassign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAR_Master">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LOG_FARAnalystReassign">
+        <PropertyRef Name="MasterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_DeviceDetails_FabSites">
+    <End Role="FabSites" Type="Self.FabSites" Multiplicity="1" />
+    <End Role="FAR_DeviceDetails" Type="Self.FAR_DeviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FabSites">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_DeviceDetails">
+        <PropertyRef Name="FabSiteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_DeviceDetails_FAR_Master">
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="1" />
+    <End Role="FAR_DeviceDetails" Type="Self.FAR_DeviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAR_Master">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_DeviceDetails">
+        <PropertyRef Name="MasterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_DeviceDetails_MST_AssemblySites">
+    <End Role="MST_AssemblySites" Type="Self.MST_AssemblySites" Multiplicity="1" />
+    <End Role="FAR_DeviceDetails" Type="Self.FAR_DeviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_AssemblySites">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_DeviceDetails">
+        <PropertyRef Name="AssembliesSiteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_DeviceDetails_MST_PackageTypes">
+    <End Role="MST_PackageTypes" Type="Self.MST_PackageTypes" Multiplicity="1" />
+    <End Role="FAR_DeviceDetails" Type="Self.FAR_DeviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_PackageTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_DeviceDetails">
+        <PropertyRef Name="PackageTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_DeviceDetails_MST_Services">
+    <End Role="MST_Services" Type="Self.MST_Services" Multiplicity="1" />
+    <End Role="FAR_DeviceDetails" Type="Self.FAR_DeviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Services">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_DeviceDetails">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_Master_MST_BU">
+    <End Role="MST_BU" Type="Self.MST_BU" Multiplicity="1" />
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_BU">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_Master">
+        <PropertyRef Name="BUId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_Master_MST_FailureOrigin">
+    <End Role="MST_FailureOrigin" Type="Self.MST_FailureOrigin" Multiplicity="1" />
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_FailureOrigin">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_Master">
+        <PropertyRef Name="FailureOriginId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_Master_MST_FailureType">
+    <End Role="MST_FailureType" Type="Self.MST_FailureType" Multiplicity="1" />
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_FailureType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_Master">
+        <PropertyRef Name="FailureTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_Master_MST_Origin">
+    <End Role="MST_Origin" Type="Self.MST_Origin" Multiplicity="1" />
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Origin">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_Master">
+        <PropertyRef Name="OriginId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_Master_MST_Priority">
+    <End Role="MST_Priority" Type="Self.MST_Priority" Multiplicity="1" />
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Priority">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_Master">
+        <PropertyRef Name="PriorityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_Master_MST_Product">
+    <End Role="MST_Product" Type="Self.MST_Product" Multiplicity="1" />
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_Master">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_Master_MST_Status">
+    <End Role="MST_Status" Type="Self.MST_Status" Multiplicity="1" />
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Status">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_Master">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_ProcessHistory_FAR_DeviceDetails">
+    <End Role="FAR_DeviceDetails" Type="Self.FAR_DeviceDetails" Multiplicity="1" />
+    <End Role="FAR_ProcessHistory" Type="Self.FAR_ProcessHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAR_DeviceDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_ProcessHistory">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_ProcessHistory_MST_ProcessResult1">
+    <End Role="MST_ProcessResult" Type="Self.MST_ProcessResult" Multiplicity="0..1" />
+    <End Role="FAR_ProcessHistory" Type="Self.FAR_ProcessHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_ProcessResult">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_ProcessHistory">
+        <PropertyRef Name="ProcessResultId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FAR_ProcessHistory_MST_ProcessTypes">
+    <End Role="MST_ProcessTypes" Type="Self.MST_ProcessTypes" Multiplicity="1" />
+    <End Role="FAR_ProcessHistory" Type="Self.FAR_ProcessHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_ProcessTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_ProcessHistory">
+        <PropertyRef Name="ProcessTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LabSite">
+    <End Role="MST_LabSite" Type="Self.MST_LabSite" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_LabSite">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_Master">
+        <PropertyRef Name="LabSiteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOG_FARFinalTarget_FAR_Master">
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="1" />
+    <End Role="LOG_FARFinalTarget" Type="Self.LOG_FARFinalTarget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAR_Master">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LOG_FARFinalTarget">
+        <PropertyRef Name="MasterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOG_FARHistory_FAR_Master">
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="1" />
+    <End Role="LOG_FARHistory" Type="Self.LOG_FARHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAR_Master">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LOG_FARHistory">
+        <PropertyRef Name="MasterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOG_FARHoldRelease_MST_Reason">
+    <End Role="MST_Reason" Type="Self.MST_Reason" Multiplicity="1" />
+    <End Role="LOG_FARHistory" Type="Self.LOG_FARHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Reason">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LOG_FARHistory">
+        <PropertyRef Name="ReasonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOG_FARHoldRelease_MST_Status">
+    <End Role="MST_Status" Type="Self.MST_Status" Multiplicity="1" />
+    <End Role="LOG_FARHistory" Type="Self.LOG_FARHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Status">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LOG_FARHistory">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOG_FARInitialTarget_FAR_Master">
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="1" />
+    <End Role="LOG_FARInitialTarget" Type="Self.LOG_FARInitialTarget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAR_Master">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LOG_FARInitialTarget">
+        <PropertyRef Name="MasterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOG_FARPriority_FAR_Master">
+    <End Role="FAR_Master" Type="Self.FAR_Master" Multiplicity="1" />
+    <End Role="LOG_FARPriority" Type="Self.LOG_FARPriority" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAR_Master">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LOG_FARPriority">
+        <PropertyRef Name="MasterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOG_FARPriority_MST_PriorityNew">
+    <End Role="MST_Priority" Type="Self.MST_Priority" Multiplicity="1" />
+    <End Role="LOG_FARPriority" Type="Self.LOG_FARPriority" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Priority">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LOG_FARPriority">
+        <PropertyRef Name="PriorityNew" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOG_FARPriority_MST_PriorityOld">
+    <End Role="MST_Priority" Type="Self.MST_Priority" Multiplicity="1" />
+    <End Role="LOG_FARPriority" Type="Self.LOG_FARPriority" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Priority">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LOG_FARPriority">
+        <PropertyRef Name="PriorityOld" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOG_FARPriority_MST_Reason">
+    <End Role="MST_Reason" Type="Self.MST_Reason" Multiplicity="1" />
+    <End Role="LOG_FARPriority" Type="Self.LOG_FARPriority" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Reason">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LOG_FARPriority">
+        <PropertyRef Name="ReasonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mechanism">
+    <End Role="FAR_Mechanism" Type="Self.FAR_Mechanism" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FAR_DeviceDetails" Type="Self.FAR_DeviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAR_Mechanism">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FAR_DeviceDetails">
+        <PropertyRef Name="MechanismId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MST_FARReport_MST_Origin">
+    <End Role="MST_Origin" Type="Self.MST_Origin" Multiplicity="1" />
+    <End Role="MST_FARReport" Type="Self.MST_FARReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Origin">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MST_FARReport">
+        <PropertyRef Name="OriginId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MST_FARReport_MST_ReportTypes">
+    <End Role="MST_ReportTypes" Type="Self.MST_ReportTypes" Multiplicity="1" />
+    <End Role="MST_FARReport" Type="Self.MST_FARReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_ReportTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MST_FARReport">
+        <PropertyRef Name="ReportTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MST_ProcessProduct_MST_ProcessTypes">
+    <End Role="MST_ProcessTypes" Type="Self.MST_ProcessTypes" Multiplicity="1" />
+    <End Role="MST_ProcessProduct" Type="Self.MST_ProcessProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_ProcessTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MST_ProcessProduct">
+        <PropertyRef Name="ProcessTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MST_ProcessProduct_MST_Product">
+    <End Role="MST_Product" Type="Self.MST_Product" Multiplicity="1" />
+    <End Role="MST_ProcessProduct" Type="Self.MST_ProcessProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MST_ProcessProduct">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MST_ProcessResult_MST_ProcessTypes">
+    <End Role="MST_ProcessTypes" Type="Self.MST_ProcessTypes" Multiplicity="1" />
+    <End Role="MST_ProcessResult" Type="Self.MST_ProcessResult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_ProcessTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MST_ProcessResult">
+        <PropertyRef Name="ProcessTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_Users_MST_Department">
+    <End Role="MST_Department" Type="Self.MST_Department" Multiplicity="1" />
+    <End Role="SYS_Users" Type="Self.SYS_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_Users">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_Users_MST_Sites">
+    <End Role="MST_Sites" Type="Self.MST_Sites" Multiplicity="1" />
+    <End Role="SYS_Users" Type="Self.SYS_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MST_Sites">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_Users">
+        <PropertyRef Name="SiteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SYS_Users_SYS_Roles">
+    <End Role="SYS_Roles" Type="Self.SYS_Roles" Multiplicity="1" />
+    <End Role="SYS_Users" Type="Self.SYS_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SYS_Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="FabSites" EntityType="Self.FabSites" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FAR_DeviceDetails" EntityType="Self.FAR_DeviceDetails" Schema="dbo" Table="FAR.DeviceDetails" store:Type="Tables" />
+    <EntitySet Name="FAR_Master" EntityType="Self.FAR_Master" Schema="dbo" Table="FAR.Master" store:Type="Tables" />
+    <EntitySet Name="FAR_Mechanism" EntityType="Self.FAR_Mechanism" Schema="dbo" Table="FAR.Mechanism" store:Type="Tables" />
+    <EntitySet Name="FAR_ProcessHistory" EntityType="Self.FAR_ProcessHistory" Schema="dbo" Table="FAR.ProcessHistory" store:Type="Tables" />
+    <EntitySet Name="LOG_FARAnalystReassign" EntityType="Self.LOG_FARAnalystReassign" Schema="dbo" Table="LOG.FARAnalystReassign" store:Type="Tables" />
+    <EntitySet Name="LOG_FARFinalTarget" EntityType="Self.LOG_FARFinalTarget" Schema="dbo" Table="LOG.FARFinalTarget" store:Type="Tables" />
+    <EntitySet Name="LOG_FARHistory" EntityType="Self.LOG_FARHistory" Schema="dbo" Table="LOG.FARHistory" store:Type="Tables" />
+    <EntitySet Name="LOG_FARInitialTarget" EntityType="Self.LOG_FARInitialTarget" Schema="dbo" Table="LOG.FARInitialTarget" store:Type="Tables" />
+    <EntitySet Name="LOG_FARPriority" EntityType="Self.LOG_FARPriority" Schema="dbo" Table="LOG.FARPriority" store:Type="Tables" />
+    <EntitySet Name="LOG_FARUpload" EntityType="Self.LOG_FARUpload" Schema="dbo" Table="LOG.FARUpload" store:Type="Tables" />
+    <EntitySet Name="MST_AssemblySites" EntityType="Self.MST_AssemblySites" Schema="dbo" Table="MST.AssemblySites" store:Type="Tables" />
+    <EntitySet Name="MST_BU" EntityType="Self.MST_BU" Schema="dbo" Table="MST.BU" store:Type="Tables" />
+    <EntitySet Name="MST_Customer" EntityType="Self.MST_Customer" Schema="dbo" Table="MST.Customer" store:Type="Tables" />
+    <EntitySet Name="MST_Department" EntityType="Self.MST_Department" Schema="dbo" Table="MST.Department" store:Type="Tables" />
+    <EntitySet Name="MST_FailureOrigin" EntityType="Self.MST_FailureOrigin" Schema="dbo" Table="MST.FailureOrigin" store:Type="Tables" />
+    <EntitySet Name="MST_FailureType" EntityType="Self.MST_FailureType" Schema="dbo" Table="MST.FailureType" store:Type="Tables" />
+    <EntitySet Name="MST_FARReport" EntityType="Self.MST_FARReport" Schema="dbo" Table="MST.FARReport" store:Type="Tables" />
+    <EntitySet Name="MST_LabSite" EntityType="Self.MST_LabSite" Schema="dbo" Table="MST.LabSite" store:Type="Tables" />
+    <EntitySet Name="MST_Origin" EntityType="Self.MST_Origin" Schema="dbo" Table="MST.Origin" store:Type="Tables" />
+    <EntitySet Name="MST_PackageTypes" EntityType="Self.MST_PackageTypes" Schema="dbo" Table="MST.PackageTypes" store:Type="Tables" />
+    <EntitySet Name="MST_Priority" EntityType="Self.MST_Priority" Schema="dbo" Table="MST.Priority" store:Type="Tables" />
+    <EntitySet Name="MST_ProcessProduct" EntityType="Self.MST_ProcessProduct" Schema="dbo" Table="MST.ProcessProduct" store:Type="Tables" />
+    <EntitySet Name="MST_ProcessResult" EntityType="Self.MST_ProcessResult" Schema="dbo" Table="MST.ProcessResult" store:Type="Tables" />
+    <EntitySet Name="MST_ProcessTypes" EntityType="Self.MST_ProcessTypes" Schema="dbo" Table="MST.ProcessTypes" store:Type="Tables" />
+    <EntitySet Name="MST_Product" EntityType="Self.MST_Product" Schema="dbo" Table="MST.Product" store:Type="Tables" />
+    <EntitySet Name="MST_Reason" EntityType="Self.MST_Reason" Schema="dbo" Table="MST.Reason" store:Type="Tables" />
+    <EntitySet Name="MST_ReasonChangingFINTarget" EntityType="Self.MST_ReasonChangingFINTarget" Schema="dbo" Table="MST.ReasonChangingFINTarget" store:Type="Tables" />
+    <EntitySet Name="MST_ReasonChangingINITarget" EntityType="Self.MST_ReasonChangingINITarget" Schema="dbo" Table="MST.ReasonChangingINITarget" store:Type="Tables" />
+    <EntitySet Name="MST_ReasonChangingPriority" EntityType="Self.MST_ReasonChangingPriority" Schema="dbo" Table="MST.ReasonChangingPriority" store:Type="Tables" />
+    <EntitySet Name="MST_ReasonFARClose" EntityType="Self.MST_ReasonFARClose" Schema="dbo" Table="MST.ReasonFARClose" store:Type="Tables" />
+    <EntitySet Name="MST_ReasonFAROnHold" EntityType="Self.MST_ReasonFAROnHold" Schema="dbo" Table="MST.ReasonFAROnHold" store:Type="Tables" />
+    <EntitySet Name="MST_ReasonFINReport" EntityType="Self.MST_ReasonFINReport" Schema="dbo" Table="MST.ReasonFINReport" store:Type="Tables" />
+    <EntitySet Name="MST_ReasonINIReport" EntityType="Self.MST_ReasonINIReport" Schema="dbo" Table="MST.ReasonINIReport" store:Type="Tables" />
+    <EntitySet Name="MST_ReportTypes" EntityType="Self.MST_ReportTypes" Schema="dbo" Table="MST.ReportTypes" store:Type="Tables" />
+    <EntitySet Name="MST_Services" EntityType="Self.MST_Services" Schema="dbo" Table="MST.Services" store:Type="Tables" />
+    <EntitySet Name="MST_Sites" EntityType="Self.MST_Sites" Schema="dbo" Table="MST.Sites" store:Type="Tables" />
+    <EntitySet Name="MST_Status" EntityType="Self.MST_Status" Schema="dbo" Table="MST.Status" store:Type="Tables" />
+    <EntitySet Name="SYS_Roles" EntityType="Self.SYS_Roles" Schema="dbo" Table="SYS.Roles" store:Type="Tables" />
+    <EntitySet Name="SYS_Users" EntityType="Self.SYS_Users" Schema="dbo" Table="SYS.Users" store:Type="Tables" />
+    <AssociationSet Name="FK_FAR_AnalystReassignLog_FAR_Master" Association="Self.FK_FAR_AnalystReassignLog_FAR_Master">
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+      <End Role="LOG_FARAnalystReassign" EntitySet="LOG_FARAnalystReassign" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_DeviceDetails_FabSites" Association="Self.FK_FAR_DeviceDetails_FabSites">
+      <End Role="FabSites" EntitySet="FabSites" />
+      <End Role="FAR_DeviceDetails" EntitySet="FAR_DeviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_DeviceDetails_FAR_Master" Association="Self.FK_FAR_DeviceDetails_FAR_Master">
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+      <End Role="FAR_DeviceDetails" EntitySet="FAR_DeviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_DeviceDetails_MST_AssemblySites" Association="Self.FK_FAR_DeviceDetails_MST_AssemblySites">
+      <End Role="MST_AssemblySites" EntitySet="MST_AssemblySites" />
+      <End Role="FAR_DeviceDetails" EntitySet="FAR_DeviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_DeviceDetails_MST_PackageTypes" Association="Self.FK_FAR_DeviceDetails_MST_PackageTypes">
+      <End Role="MST_PackageTypes" EntitySet="MST_PackageTypes" />
+      <End Role="FAR_DeviceDetails" EntitySet="FAR_DeviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_DeviceDetails_MST_Services" Association="Self.FK_FAR_DeviceDetails_MST_Services">
+      <End Role="MST_Services" EntitySet="MST_Services" />
+      <End Role="FAR_DeviceDetails" EntitySet="FAR_DeviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_Master_MST_BU" Association="Self.FK_FAR_Master_MST_BU">
+      <End Role="MST_BU" EntitySet="MST_BU" />
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_Master_MST_FailureOrigin" Association="Self.FK_FAR_Master_MST_FailureOrigin">
+      <End Role="MST_FailureOrigin" EntitySet="MST_FailureOrigin" />
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_Master_MST_FailureType" Association="Self.FK_FAR_Master_MST_FailureType">
+      <End Role="MST_FailureType" EntitySet="MST_FailureType" />
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_Master_MST_Origin" Association="Self.FK_FAR_Master_MST_Origin">
+      <End Role="MST_Origin" EntitySet="MST_Origin" />
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_Master_MST_Priority" Association="Self.FK_FAR_Master_MST_Priority">
+      <End Role="MST_Priority" EntitySet="MST_Priority" />
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_Master_MST_Product" Association="Self.FK_FAR_Master_MST_Product">
+      <End Role="MST_Product" EntitySet="MST_Product" />
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_Master_MST_Status" Association="Self.FK_FAR_Master_MST_Status">
+      <End Role="MST_Status" EntitySet="MST_Status" />
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_ProcessHistory_FAR_DeviceDetails" Association="Self.FK_FAR_ProcessHistory_FAR_DeviceDetails">
+      <End Role="FAR_DeviceDetails" EntitySet="FAR_DeviceDetails" />
+      <End Role="FAR_ProcessHistory" EntitySet="FAR_ProcessHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_ProcessHistory_MST_ProcessResult1" Association="Self.FK_FAR_ProcessHistory_MST_ProcessResult1">
+      <End Role="MST_ProcessResult" EntitySet="MST_ProcessResult" />
+      <End Role="FAR_ProcessHistory" EntitySet="FAR_ProcessHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FAR_ProcessHistory_MST_ProcessTypes" Association="Self.FK_FAR_ProcessHistory_MST_ProcessTypes">
+      <End Role="MST_ProcessTypes" EntitySet="MST_ProcessTypes" />
+      <End Role="FAR_ProcessHistory" EntitySet="FAR_ProcessHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LabSite" Association="Self.FK_LabSite">
+      <End Role="MST_LabSite" EntitySet="MST_LabSite" />
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOG_FARFinalTarget_FAR_Master" Association="Self.FK_LOG_FARFinalTarget_FAR_Master">
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+      <End Role="LOG_FARFinalTarget" EntitySet="LOG_FARFinalTarget" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOG_FARHistory_FAR_Master" Association="Self.FK_LOG_FARHistory_FAR_Master">
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+      <End Role="LOG_FARHistory" EntitySet="LOG_FARHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOG_FARHoldRelease_MST_Reason" Association="Self.FK_LOG_FARHoldRelease_MST_Reason">
+      <End Role="MST_Reason" EntitySet="MST_Reason" />
+      <End Role="LOG_FARHistory" EntitySet="LOG_FARHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOG_FARHoldRelease_MST_Status" Association="Self.FK_LOG_FARHoldRelease_MST_Status">
+      <End Role="MST_Status" EntitySet="MST_Status" />
+      <End Role="LOG_FARHistory" EntitySet="LOG_FARHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOG_FARInitialTarget_FAR_Master" Association="Self.FK_LOG_FARInitialTarget_FAR_Master">
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+      <End Role="LOG_FARInitialTarget" EntitySet="LOG_FARInitialTarget" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOG_FARPriority_FAR_Master" Association="Self.FK_LOG_FARPriority_FAR_Master">
+      <End Role="FAR_Master" EntitySet="FAR_Master" />
+      <End Role="LOG_FARPriority" EntitySet="LOG_FARPriority" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOG_FARPriority_MST_PriorityNew" Association="Self.FK_LOG_FARPriority_MST_PriorityNew">
+      <End Role="MST_Priority" EntitySet="MST_Priority" />
+      <End Role="LOG_FARPriority" EntitySet="LOG_FARPriority" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOG_FARPriority_MST_PriorityOld" Association="Self.FK_LOG_FARPriority_MST_PriorityOld">
+      <End Role="MST_Priority" EntitySet="MST_Priority" />
+      <End Role="LOG_FARPriority" EntitySet="LOG_FARPriority" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOG_FARPriority_MST_Reason" Association="Self.FK_LOG_FARPriority_MST_Reason">
+      <End Role="MST_Reason" EntitySet="MST_Reason" />
+      <End Role="LOG_FARPriority" EntitySet="LOG_FARPriority" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mechanism" Association="Self.FK_Mechanism">
+      <End Role="FAR_Mechanism" EntitySet="FAR_Mechanism" />
+      <End Role="FAR_DeviceDetails" EntitySet="FAR_DeviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MST_FARReport_MST_Origin" Association="Self.FK_MST_FARReport_MST_Origin">
+      <End Role="MST_Origin" EntitySet="MST_Origin" />
+      <End Role="MST_FARReport" EntitySet="MST_FARReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MST_FARReport_MST_ReportTypes" Association="Self.FK_MST_FARReport_MST_ReportTypes">
+      <End Role="MST_ReportTypes" EntitySet="MST_ReportTypes" />
+      <End Role="MST_FARReport" EntitySet="MST_FARReport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MST_ProcessProduct_MST_ProcessTypes" Association="Self.FK_MST_ProcessProduct_MST_ProcessTypes">
+      <End Role="MST_ProcessTypes" EntitySet="MST_ProcessTypes" />
+      <End Role="MST_ProcessProduct" EntitySet="MST_ProcessProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MST_ProcessProduct_MST_Product" Association="Self.FK_MST_ProcessProduct_MST_Product">
+      <End Role="MST_Product" EntitySet="MST_Product" />
+      <End Role="MST_ProcessProduct" EntitySet="MST_ProcessProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MST_ProcessResult_MST_ProcessTypes" Association="Self.FK_MST_ProcessResult_MST_ProcessTypes">
+      <End Role="MST_ProcessTypes" EntitySet="MST_ProcessTypes" />
+      <End Role="MST_ProcessResult" EntitySet="MST_ProcessResult" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_Users_MST_Department" Association="Self.FK_SYS_Users_MST_Department">
+      <End Role="MST_Department" EntitySet="MST_Department" />
+      <End Role="SYS_Users" EntitySet="SYS_Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_Users_MST_Sites" Association="Self.FK_SYS_Users_MST_Sites">
+      <End Role="MST_Sites" EntitySet="MST_Sites" />
+      <End Role="SYS_Users" EntitySet="SYS_Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SYS_Users_SYS_Roles" Association="Self.FK_SYS_Users_SYS_Roles">
+      <End Role="SYS_Roles" EntitySet="SYS_Roles" />
+      <End Role="SYS_Users" EntitySet="SYS_Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

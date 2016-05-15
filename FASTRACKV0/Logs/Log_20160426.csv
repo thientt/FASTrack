@@ -1,0 +1,6 @@
+2016-04-26 21:57:02,343 ERROR - Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at FASTrack.Model.Concretes.FARProcessHistoryRepository.Update(FARProcessHistoryDto entity) in e:\Projects\FASTrack\TurnOverFiles\FASTrack\FASTRACKV0.Model\Concretes\FARProcessHistoryRepository.cs:line 374

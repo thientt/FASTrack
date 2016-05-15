@@ -1,0 +1,56 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<FASTrack.Model.DTO.MSTProductDto>
+@{
+    ViewBag.Title = "Index";
+    
+    AjaxOptions ajaxPaging = new AjaxOptions
+    {
+        UpdateTargetId = "tblProducts",
+        HttpMethod = "GET"
+    };
+}
+<link href="~/Content/main.css" rel="stylesheet" />
+<div id="tblProducts">
+    <table class="table table-bordered">
+        <thead class="header">
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Lab Site</th>
+                <th class="text-center">MainPerson</th>
+                <th class="text-center">SecondaryPerson</th>
+                <th class="text-center">TertiaryPerson</th>
+                <th class="text-center">Description</th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.LabSite.Name</td>
+                    <td>@item.MainPerson</td>
+                    <td>@item.SecondaryPerson</td>
+                    <td>@item.TertiaryPerson</td>
+                    <td>@item.Description</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8">
+                    <div id="contentPager" class="pull-right">
+                        @Html.PagedListPager(Model, page => Url.Action("List", new { page }),
+                        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPaging))
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

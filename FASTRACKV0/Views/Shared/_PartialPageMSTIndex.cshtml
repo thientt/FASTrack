@@ -1,0 +1,13 @@
+﻿@model string
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <h2>@Model</h2>
+    <br />
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    @Html.Action("List")
+</div>

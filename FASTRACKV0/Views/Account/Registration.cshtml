@@ -1,0 +1,66 @@
+﻿@model FASTrack.ViewModel.RegisterViewModel
+
+@{
+    ViewBag.Title = "Registration";
+}
+<h2>New User Registration</h2>
+<hr />
+<br />
+<div class="row">
+    @using (@Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, "Registration failed. Check your inputs!")
+        <div class="form-horizontal col-offset-xs-1 col-xs-11">
+            <div class="form-group">
+                <label class="control-label col-md-2">First Name</label>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(u => u.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.FirstName)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Last Name</label>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(u => u.LastName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.LastName)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Email</label>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(u => u.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.Email)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Password</label>
+                <div class="col-md-10">
+                    @Html.PasswordFor(u => u.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.Password)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Confirm Password</label>
+                <div class="col-md-10">
+                    @Html.PasswordFor(u => u.ConfirmPassword, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.ConfirmPassword)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Site</label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(x => x.SiteId, new SelectList(Model.Sites, "Id", "Name"), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button class="btn btn-primary" name="btnSubmit" id="btnSubmit">Register</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@Html.Partial("_PartialPageLoading")
+@section Scripts{
+}

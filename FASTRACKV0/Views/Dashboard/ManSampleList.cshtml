@@ -1,0 +1,77 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<FASTrack.Model.DTO.FARDeviceDetailsDto>
+
+@{
+    AjaxOptions ajaxPaging = new AjaxOptions()
+    {
+        UpdateTargetId = "tblSamples",
+        HttpMethod = "GET",
+    };
+}
+<link href="~/Content/main.css" rel="stylesheet" />
+<div id="tblSamples">
+    <table class="table table-bordered">
+        <thead>
+            <tr style="background-color:#f2e9e9;">
+                <th class="text-center"> Lot No.</th>
+                <th class="text-center">Mfg Part No.</th>
+                <th class="text-center">Technology </th>
+                <th class="text-center"> Package Type</th>
+                <th class="text-center">Assembly Site</th>
+                <th class="text-center">Fab Site</th>
+                <th class="text-center">Date Code </th>
+                <th class="text-center">Quantity</th>
+                <th class="text-center"> NPI Stage</th>
+                <th class="text-center">FAILURE MECHANISM</th>
+                <th class="text-center">Process Flow</th>
+            </tr>
+        </thead>
+        @if (Model.Count() > 0)
+        {
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.LotNo</td>
+                        <td>@item.MfgPartNo</td>
+                        <td>@item.Technogoly.Name</td>
+                        <td>@item.PackageType.Name</td>
+                        <td>@item.AssemblySites.Name</td>
+                        <td>@item.FabSite.Name</td>
+                        <td>@item.DateCode</td>
+                        <td>@item.Quantity</td>
+                        <td>
+                            @if (item.Stage)
+                            {
+                                @("Y");
+                            }
+                            else
+                            {
+                                @("N");
+                            }
+                        </td>
+                        <td class="text-center"><a href="#" onclick="failureMechanism(@item.Id)">Findings </a></td>
+                        <td>@Html.ActionLink(item.FARServices.Name, "ManProcess", new { id = item.Id })</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="11">
+                        <div id="contentPager" class="pull-right">
+                            @Html.PagedListPager(Model, page => Url.Action("ManSampleList",
+                            new { id = Model.First().MasterId, page }),
+                            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPaging))
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+        else
+        {
+            <tr><td colspan="11">No rows found.</td></tr>
+        }
+    </table>
+</div>
+
+<div id="popupContainer"></div>

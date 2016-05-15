@@ -1,0 +1,60 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<FASTrack.Model.DTO.SYSUsersDto>
+@{
+    AjaxOptions ajaxPaging = new AjaxOptions()
+    {
+        UpdateTargetId = "tblUsers",
+        HttpMethod = "GET",
+    };
+}
+
+<link href="~/Content/main.css" rel="stylesheet" />
+<div id="tblUsers">
+    <table class="table table-bordered">
+        <thead class="header">
+            <tr>
+                <th class="text-center">Email</th>
+                <th class="text-center">Full Name</th>
+                <th class="text-center">Phone</th>
+                <th class="text-center">Role</th>
+                <th class="text-center">Locked</th>
+                <th class="text-center">Register Date</th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Email</td>
+                <td>@item.FullName</td>
+                <td>@item.Phone</td>
+                <td>@item.Role.Name</td>
+                <td class="text-center">@Html.CheckBoxFor(x => item.IsLocked, htmlAttributes: new { @disabled = "disabled" })</td>
+                <td>@Html.DisplayFor(x => item.RegistedDate, "DisplayDateTime")</td>
+                <td>
+                    <a href="@Url.Action("SetRole", "User", new { id = item.Id })">Set Role</a>  |
+                    @if (item.IsLocked)
+                        {
+                        <a href="@Url.Action("Unlocked", "User", new { id = item.Id })">Unlocked User</a>
+                        }
+                        else
+                        {
+                        <a href="@Url.Action("Lock", "User", new { id = item.Id })">Lock User</a>
+                        }
+                </td>
+            </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <div id="contentPager" class="pull-right">
+                        @Html.PagedListPager(Model, page => Url.Action("List", new { page }),
+                        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPaging))
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

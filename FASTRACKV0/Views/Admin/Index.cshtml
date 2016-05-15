@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Admin Modules";
+}
+
+<p>
+    <br />
+    @using (@Html.BeginForm())
+    {
+        <div>
+            <fieldset>
+                <legend>@ViewBag.Title</legend>
+                <ul>
+                    <li><a href="@Url.Action("Index", "Roles")">Roles</a></li>
+                    <li><a href="@Url.Action("Index", "Sites")">FA Sites</a></li>
+                    <li><a href="@Url.Action("Index", "FAStatus")">Request Status</a></li>
+                    <li><a href="@Url.Action("Index", "BusinessUnit")">Business Unit</a></li>
+                    <li><a href="@Url.Action("Index", "Origin")">Request Origin</a></li>
+                    <li><a href="@Url.Action("Index", "FAPriority")">Priority Codes</a></li>
+                    <li><a href="@Url.Action("Index", "FAProduct")">Product Codes</a></li>
+                    <li><a href="@Url.Action("Index", "FAProcessProduct")">Process&Product</a></li>
+                    <li><a href="@Url.Action("Index", "FAService")">Service Types</a></li>
+
+                    <li><a href="@Url.Action("Index", "FailureType")">Failure Types</a></li>
+                    <li><a href="@Url.Action("Index", "FailureOrigin")">Failure Origin</a></li>
+                    <li><a href="@Url.Action("Index", "Dept")">Departments</a></li>
+                    <li><a href="@Url.Action("Index", "User")">Users</a></li>
+                    <li><a href="@Url.Action("Index", "FACustomer")">Customer</a></li>
+                    <li><a href="@Url.Action("Index", "AssySites")">Assembly Sites</a></li>
+                    <li><a href="@Url.Action("Index", "Fabsite")">FAB Sites</a></li>
+                    <li><a href="@Url.Action("Index", "PackageType")">Package Types</a></li>
+                    <li><a href="@Url.Action("Index", "FAResult")">Process Results</a></li>
+                    <li><a href="@Url.Action("Index", "LabSite")">Lab Site</a></li>
+                    <li><a href="@Url.Action("Index", "FARMechanism")">Failure Mechanism</a></li>
+
+                    <li><a href="@Url.Action("Index", "ReportType")">Report Types</a></li>
+                    <li><a href="@Url.Action("Index", "FAReport")">FAR Report</a></li>
+
+                    <li><a href="@Url.Action("Index", "ReaDeINI")">Reasons for Delay in INI Report</a></li>
+                    <li><a href="@Url.Action("Index", "ReaDeFIN")">Reasons for Delay in FIN Report</a></li>
+                    <li><a href="@Url.Action("Index", "ReaDeChangingPriority")">Reasons for Changing Priority</a></li>
+                    <li><a href="@Url.Action("Index", "ReaDeFAROnHold")">Reasons of putting  the FAR On-hold</a></li>
+                    <li><a href="@Url.Action("Index", "ReaDeChangingINITarget")">Reasons for Changing the INI report Target date</a></li>
+                    <li><a href="@Url.Action("Index", "ReaDeChangingFINTarget")">Reasons for Changing the FIN report Target date</a></li>
+
+                    <li><a href="@Url.Action("Index", "FARating")">Rating</a></li>
+                    <li><a href="@Url.Action("Index", "Tech")">Technogoly</a></li>
+                </ul>
+            </fieldset>
+        </div>
+    }
+</p>

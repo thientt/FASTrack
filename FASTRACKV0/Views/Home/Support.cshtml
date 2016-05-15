@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Support";
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<h5>@ViewBag.Message</h5>
+
+<address>
+    <strong>System Admin:</strong>   <a href="mailto:Lemuel.Sevilleno@atmel.com?subject=FASTrack">John Lemuel Sevilleno</a><br />
+    <strong>IT:</strong> <a href="mailto:Alexander.Diez@atmel.com?subject=FASTrack">Mark Ledesma</a> <br />
+    <strong>Version:</strong> @ViewContext.Controller.GetType().Assembly.GetName().Version
+</address>
+

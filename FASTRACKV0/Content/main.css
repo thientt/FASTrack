@@ -1,0 +1,22 @@
+﻿tbody tr:hover {
+    background-color: #f3f0b6;
+}
+
+.header {
+    background-color: #CC9999;
+    color: white;
+}
+
+    .header > tr:hover {
+        background-color: #CC9999;
+        color: white;
+    }
+
+.pagination-container {
+    height: 30px;
+}
+
+.pagination {
+    height: 28px !important;
+    margin-top: -1px !important;
+}

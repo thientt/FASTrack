@@ -1,0 +1,698 @@
+﻿@model FASTrack.ViewModel.ManRequestViewModel
+@{
+    ViewBag.Title = "EditFA";
+    AjaxOptions ajaxOption = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+    };
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-theme.min.css")" />
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")" />
+<style>
+    .editor-multiline-field textarea {
+        height: 80px;
+    }
+
+    .max-width-calendar {
+        max-width: 267px !important;
+    }
+
+    .ui-datepicker-buttonpane {
+        display: inline;
+        float: left;
+    }
+
+    .modal-dialog {
+        /*max-width: 400px;*/
+        max-width: 520px;
+    }
+
+    .required {
+        color: red;
+        font-size: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    table > tbody > tr:hover {
+        background: rgb(250, 249, 248);
+    }
+
+    .td-back-white {
+        background-color: white;
+    }
+</style>
+
+<h2>FA Detail </h2>
+<br />
+<div class="row">
+    <p>
+        @Html.ActionLink("Device/Samples List", "ManSamples", routeValues: new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-link" })
+        |
+        @Html.ActionLink("Report Upload", "ManAttach", "Upload", routeValues: new { id = Model.Id, Number = Model.FARNumber }, htmlAttributes: new { @class = "btn btn-link" })
+    </p>
+</div>
+
+@using (Ajax.BeginForm(ajaxOption))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">Origins</label>
+            </div>
+            <div class="col-lg-12">
+                @Html.DropDownListFor(x => x.OriginId, new SelectList(Model.Origins, "Id", "Name"), new { @class = "form-control", @readonly = "readonly", disabled = "disabled" })
+            </div>
+            @Html.HiddenFor(x => x.OriginId)
+        </div>
+    </div>
+    <br />
+
+    <div>
+        <hr />
+        <h4>FA REQUEST DETAILS</h4>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">FARNumber</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.FARNumber, new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                        @Html.HiddenFor(x => x.FARNumber)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">RefNo</label>
+                    </div>                        <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                        @Html.HiddenFor(x => x.RefNo)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">FailureTypes</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DropDownListFor(w => w.FailureTypeId, new SelectList(Model.FailureTypes, "Id", "Name"), htmlAttributes: new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                        @Html.HiddenFor(w => w.FailureTypeId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Failure Origin</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DropDownListFor(w => w.FailureOriginId, new SelectList(Model.FailureOrigins, "Id", "Name"), htmlAttributes: new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                        @Html.HiddenFor(w => w.FailureOriginId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">FailureRate</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.FailureRate, new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                        @Html.HiddenFor(x => x.FailureRate)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">RequestDate</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DisplayFor(m => m.RequestDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Requestor</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">@Html.TextBoxFor(m => m.Requestor, htmlAttributes: new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Site</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">@Html.TextBoxFor(m => m.Site, htmlAttributes: new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Analyst<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @if (Model.StatusId != (int)FASTrack.Model.Types.StatusType.REPORTUPLOADED)
+                        {
+                        @Html.DropDownListFor(w => w.UserId, new SelectList(Model.Users, "Id", "Email"), "            ", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.UserId)
+                        @Html.HiddenFor(w => w.UserId)
+                        }
+                        else
+                        {
+                        @Html.TextBoxFor(m => m.Analyst, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Arrive Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @if ((Model.StatusId != (int)FASTrack.Model.Types.StatusType.REPORTUPLOADED ||
+                            Model.StatusId != (int)FASTrack.Model.Types.StatusType.INITIAL_REPORT_UPLOADED ||
+                            Model.StatusId != (int)FASTrack.Model.Types.StatusType.FINAL_REPORT_UPLOADED) &&
+                            Model.Analyst == User.Identity.Name)
+                        {
+                        <table style="max-width:280px;">
+                            <tr>
+                                <td width="100%">@Html.TextBoxFor(x => x.SamplesArriveDate, htmlAttributes: new { @class = "form-control", @Value = @Model.SamplesArriveDate.HasValue ? @Model.SamplesArriveDate.Value.ToString("MM/dd/yyyy") : "" }) </td>
+                                <td>
+                                    <img src="~/Content/images/calendar.png" class="img-calendar" id="imgCalendar" />
+                                </td>
+                            </tr>
+                        </table>
+                        }
+                        else
+                        {
+                        @Html.DisplayFor(x => x.SamplesArriveDate)
+                        @Html.HiddenFor(x => x.SamplesArriveDate)
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Priority<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        <table style="max-width:280px">
+                            <tr>
+                                <td width="100%">
+                                    @if (Model.StatusId != (int)FASTrack.Model.Types.StatusType.REPORTUPLOADED)
+                                    {
+                                    @Html.DropDownListFor(w => w.PriorityId, new SelectList(Model.Priorities, "Id", "Name"), htmlAttributes: new { @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                    @Html.DropDownListFor(w => w.PriorityId, new SelectList(Model.Priorities, "Id", "Name"), htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                                    }
+                                </td>
+                                <td class="td-back-white">
+                                    <a style="padding-right:0px;" href="#" id="btnLinkReason" class="btn btn-link">Reasons</a>
+                                </td>
+                            </tr>
+                        </table>
+                        @Html.ValidationMessageFor(x => x.PriorityId)
+                        @Html.HiddenFor(w => w.PriorityId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Initial Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @*@Html.DisplayFor(x => x.InitialReportTargetDate)
+                            @Html.HiddenFor(x => x.InitialReportTargetDate)*@
+                        <!--Enhancement-->
+                        @if ((Model.StatusId != (int)FASTrack.Model.Types.StatusType.REPORTUPLOADED ||
+                            Model.StatusId != (int)FASTrack.Model.Types.StatusType.INITIAL_REPORT_UPLOADED ||
+                            Model.StatusId != (int)FASTrack.Model.Types.StatusType.FINAL_REPORT_UPLOADED) &&
+                            Model.Analyst == User.Identity.Name)
+                        {
+                        <table style="max-width:280px;">
+                            <tr>
+                                <td width="100%;">
+                                    @Html.TextBoxFor(x => x.InitialReportTargetDate,
+                                            htmlAttributes: new
+                                            {
+                                                @Value = @Model.InitialReportTargetDate.HasValue ? @Model.InitialReportTargetDate.Value.ToString("MM/dd/yyyy") : "",
+                                                @class = "form-control",
+                                                @readonly = "true",
+                                                @id = "txtInitial"
+                                            })
+                                </td>
+                                <td class="td-back-white"><a style="padding-right:0px;" href="#" id="changeInitial" class="btn btn-link">Change</a></td>
+                            </tr>
+                        </table>
+                        }
+                        else
+                        {
+                        @Html.DisplayFor(x => x.InitialReportTargetDate)
+                        }
+                        <!-- End Enhancement-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Status</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DropDownListFor(w => w.StatusId, new SelectList(Model.Status, "Id", "Name"), new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                        @Html.HiddenFor(w => w.StatusId, htmlAttributes: new { @id = "cboStatusId" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Business Unit</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DropDownListFor(w => w.BUId, new SelectList(Model.BUs, "Id", "Name"), htmlAttributes: new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                        @Html.HiddenFor(w => w.BUId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Product</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(w => w.Product, htmlAttributes: new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                        @Html.HiddenFor(w => w.Product)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Description</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9 editor-multiline-field">
+                        @Html.TextAreaFor(m => m.FailureDesc, new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                        @Html.HiddenFor(x => x.FailureDesc)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Final Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @*@Html.DisplayFor(x => x.FinalReportTargetDate)
+                            @Html.HiddenFor(x => x.FinalReportTargetDate)*@
+                        <!--Begin Enhancement-->
+                        @if ((Model.StatusId != (int)FASTrack.Model.Types.StatusType.REPORTUPLOADED ||
+                            Model.StatusId != (int)FASTrack.Model.Types.StatusType.INITIAL_REPORT_UPLOADED ||
+                            Model.StatusId != (int)FASTrack.Model.Types.StatusType.FINAL_REPORT_UPLOADED) &&
+                            Model.Analyst == User.Identity.Name)
+                        {
+                        <table style="max-width:280px;">
+                            <tr>
+                                <td width="100%;">
+                                    @Html.TextBoxFor(x => x.FinalReportTargetDate,
+                                        htmlAttributes: new
+                                        {
+                                            @Value = @Model.FinalReportTargetDate.HasValue ? @Model.FinalReportTargetDate.Value.ToString("MM/dd/yyyy") : "",
+                                            @class = "form-control",
+                                            @readonly = "true",
+                                            @id = "txtFinal"
+                                        })
+                                </td>
+                                <td class="td-back-white"><a style="padding-right:0px;" href="#" id="changeFinal" class="btn btn-link">Change</a></td>
+                            </tr>
+                        </table>
+                        }
+                        else
+                        {
+                        @Html.DisplayFor(x => x.FinalReportTargetDate)
+                        }
+                        <!--End Enhancement-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-md-offset-0 col-lg-offset-4 col-lg-8">
+                        @if (Model.StatusId != (int)FASTrack.Model.Types.StatusType.REPORTUPLOADED ||
+                            Model.StatusId != (int)FASTrack.Model.Types.StatusType.FINAL_REPORT_UPLOADED ||
+                            Model.StatusId != (int)FASTrack.Model.Types.StatusType.INITIAL_REPORT_UPLOADED)
+                        {
+                            <input class="btn btn-primary btn-width-md" type="submit" value="Save" name="btnSubmit" id="btnSubmit" />
+                            @Html.ActionLink("Report Generator", "Index", "FAReportGenerator", routeValues: new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="reasonChangePriority">
+        <div class="modal-dialog" style="max-width:450px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <h3 class="modal-title text-info">Reason change Priority</h3>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <h4><label class="control-label">Select reason</label></h4>
+                    @Html.DropDownListFor(x => x.ReasonId, new SelectList(Model.Reasons, "Id", "Description"), htmlAttributes: new { @class = "form-control", @style = "min-width: 420px;" })
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancelReason" value="Close" class="btn btn-default btn-width-md" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button type="button" id="btnApplyReason" value="Apply" class="btn btn-primary btn-width-md">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*Popup change InitialTargetDate and FinalTargetDate *@
+<div class="modal fade in" id="popupChangeInitialReportTargetDate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Edit Initial Report Target Date</h2>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" style="padding-top:0px;">Initial Report <br />Target Date<span class="required">*</span></label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control control-datepicker ui-datepicker-buttonpane max-width-calendar"
+                                   id="txtInitialReportTargetDate" name="InitialReportTargetDate" style="max-width:300px;" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Reason</label>
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(x => x.InitialReasonId, new SelectList(Model.InitialReason, "Id", "Description"), htmlAttributes: new { @class = "form-control", @style = "max-width:300px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                            </div>
+                            <div class="col-md-9" style="max-width:300px;">
+                                <input type="button" class="btn btn-default btn-width-md" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+                                <input type="button" class="btn btn-primary btn-width-md" data-dismiss="modal" aria-hidden="true" value="Save" id="btnSaveInitial" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade in" id="popupChangeFinalReportTargetDate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Edit Final Report Target Date</h2>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-3 col-md-3 control-label" style="padding-top:0px;">Final Report <br />Target Date<span class="required">*</span></label>
+                        <div class="col-lg-9 col-md-9">
+                            <input type="text" class="form-control control-datepicker ui-datepicker-buttonpane max-width-calendar" id="txtFinalReportTargetDate" name="InitialReportTargetDate" style="max-width:300px;" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 col-md-3 control-label">Reason</label>
+                        <div class="col-lg-9 col-md-9">
+                            @Html.DropDownListFor(x => x.FinalReasonId, new SelectList(Model.FinalReason, "Id", "Description"), htmlAttributes: new { @class = "form-control", @style = "max-width: 300px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-9" style="max-width:300px;">
+                                <input type="button" class="btn btn-default btn-width-md" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+                                <input type="button" class="btn btn-primary btn-width-md" data-dismiss="modal" aria-hidden="true" value="Save" id="btnSaveFinal" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*End Popup change InitialTargetDate and FinalTargetDate*@
+
+@* Modal popup Edit Successfully *@
+<div class="modal fade in" id="modalEditSuccess">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-success">Edit FA Request</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The FA Request was successfully saved!</span>
+            </div>
+            <div class="modal-footer">
+                <a href='@Url.Action("ManEditFA", new { id = Model.Id })' id="btnED01" class="btn btn-success btn-width-md">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Edit Failure *@
+<div class="modal fade in" id="modalEditFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-danger">Edit FA Request</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-danger">The FA Request was failure!</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnED02" class="btn btn-danger btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{Html.RenderPartial("_PartialPageHistoryPriority");}
+@Html.Partial("_PartialPageUpload", Model.Reports)
+@Html.Partial("_PartialPageLoading")
+
+@section Scripts {
+    <script type="text/javascript">
+        window.onbeforeunload = confirmExit;
+        function confirmExit(e) {
+            if (hasData() && !clickSave)
+                return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
+        }
+
+        $(document).ready(function () {
+
+            $('#fileUpload').change(function () {
+                $(this).next().removeAttr('disabled');
+            }).next().attr('disabled', 'disabled');
+
+            var previousPriority;
+            $('#PriorityId').focus(function(){
+                previousPriority = $(this).val();
+            }).change(function(e){
+                var priorityOriginal = @Model.PriorityId;
+                if($(this).val() != priorityOriginal){
+                    $('#reasonChangePriority').modal({ show: true,backdrop: false});
+                }
+            });
+            $('#btnCancelReason').on('click',function(){
+                $('#PriorityId').val(previousPriority);
+            });
+            $('#btnApplyReason').on('click',function(){
+                $('#reasonChangePriority').modal('hide');
+            });
+
+            $('#btnUpload').on('click', function () {
+                if (window.FormData !== undefined) {
+                    var ajaxRequest = $.ajax({
+                        type: "POST",
+                        processData: false,
+                        contentType: false,
+                        url: '@Url.Action("ReUploadFiles", "Upload", new { id= Model.Id})',
+                        data: function () {
+                            var formData = new FormData();
+                            var files = $('#fileUpload').get(0).files;
+                            if (files.length > 0) {
+                                formData.append("File", files[0]);
+                            }
+                            return formData;
+                        }()
+                    });
+                    ajaxRequest.success(function (e, data) {
+                        $('#fileName').html(e);
+                        $('#fileUpload').val('');
+                        $('#btnUpload').attr('disabled', 'disabled');
+                    });
+                    ajaxRequest.error(function () {
+                        $('#fileName').html('Has Error in while upload file').css('color', 'red');
+                    });
+                    ajaxRequest.always(function () {
+                        $('html').css('overflow', '-moz-scrollbars-vertical');
+                        $('html').css('overflow-y', 'scroll');
+                    });
+                }
+                else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            });
+
+            $('#btnLinkReason').on('click', function () {
+                var url= '@Url.Action("GetHistoryPriorities")';
+                $.ajax({
+                    url: url,
+                    data:{id: @Model.Id},
+                    type: "GET",
+                    success: function(res){
+                        $('#divHistotyPriorities').empty();
+                        $('#divHistotyPriorities').html(res);
+                        $('#modalHistoryPriority').modal(options);
+                    },
+                })
+            });
+
+            $('#UserId').on('change', function (e) {
+                var id = $(this).val();
+                if (id > 0) {
+                    $('#StatusId').val(2);
+                    $('#cboStatusId').val(2);
+                }
+                else {
+                    $('#StatusId').val(4);
+                    $('#cboStatusId').val(4);
+                }
+            });
+
+            var optionCalendar =
+             {
+                 showOn: 'both',
+                 autoSize: true,
+                 constrainInput: true,
+                 buttonImageOnly: true,
+                 buttonImage: "@Url.Content("~/Content/images/calendar.png")",
+                 buttonText: "Calendar",
+                 dateFormat: 'mm/dd/yy'
+             };
+            $('.control-datepicker').datepicker(optionCalendar);
+
+
+            //param popup
+            var options = {
+                show: true,
+                //backdrop: false
+            };
+
+            @*Begin Enhancement*@
+            $('#changeInitial').on('click', function () {
+                $('#txtInitialReportTargetDate').val($('#txtInitial').val());
+                $('#popupChangeInitialReportTargetDate').modal(options);
+            });
+            $('#changeFinal').on('click', function () {
+                $('#txtFinalReportTargetDate').val($('#txtFinal').val());
+                $('#popupChangeFinalReportTargetDate').modal(options);
+            });
+
+            $('#btnSaveInitial').on('click', function () {
+                var initial = $('#txtInitialReportTargetDate');
+                var value = initial.val();
+                if (value != "")
+                    $('#txtInitial').val(value);
+            });
+            $('#btnSaveFinal').on('click', function () {
+                var final = $('#txtFinalReportTargetDate');
+                var value = final.val();
+                if (value != "")
+                    $('#txtFinal').val(value);
+            });
+            @*Begin Enhancement*@
+            onBegin = function () {
+                $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+                $('body').css({ 'overflow': 'hidden' });
+                $('#box').css({ 'display': 'block' });
+            };
+            onSuccess = function (data) {
+                var code = data.code;
+                switch (code) {
+                    case "ED01":
+                        clickSave = true;
+                        $('#txtInitial').val(data.initialDate);
+                        $('#txtFinal').val(data.finalDate);
+                        $('#modalEditSuccess').modal(options);
+                        break;
+                    case "ED02":
+                        break;
+                }
+            }
+            onComplete = function () {
+                $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+                $('body').css({ 'overflow': 'show' });
+                $('#box').css({ 'display': 'none' });
+
+                $('html').css('overflow', '-moz-scrollbars-vertical');
+                $('html').css('overflow-y', 'scroll');
+            };
+            onFailure = function (data) {
+                $('#modalEditFailure').modal(options);
+            };
+
+            hasData = function () {
+                var analyst = $('#UserId').val();
+                var priority = $('#PriorityId').val();
+                if (analyst != analystId || priority != priorityId)
+                    return true;
+
+                return false;
+            }
+
+            $('#Product').autocomplete({
+                source: '@Url.Action("GetProduct","Dashboard")',
+                minLength: 1,
+                select: function (event, ui) {
+                    if (ui.item) {
+                        $(this).val(ui.item.value);
+                    }
+                },
+                autofill: true,
+                selectFirst: true,
+                highlight: true,
+                multiple: false
+            });
+
+            $('#SamplesArriveDate').datepicker();
+
+            //show calendar when click image Calendar
+            $('#imgCalendar').on('click', function () {
+                $('#SamplesArriveDate').datepicker('show');
+            });
+
+        });
+
+        var analystId = $('#UserId').val();
+        var priorityId = $('#PriorityId').val();
+        var clickSave = false;
+
+        //BEGIN ADD 05_Feb_2016
+        $('#modalEditSuccess').on('shown.bs.modal',function(){
+            $('#btnED01').focus();
+        });
+        //END
+    </script>
+}

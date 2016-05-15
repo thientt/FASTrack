@@ -1,0 +1,57 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<FASTrack.Model.DTO.MSTProcessResultDto>
+@{
+    Layout = null;
+    AjaxOptions ajaxPaging = new AjaxOptions
+    {
+        UpdateTargetId = "tblMST",
+        HttpMethod = "GET",
+    };
+}
+
+<link href="~/Content/main.css" rel="stylesheet" />
+<div id="tblMST">
+    <table class="table table-bordered">
+        <thead class="header">
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">FA Code</th>
+                <th class="text-center">FA Value</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Last Updated by</th>
+                <th class="text-center">Last Update </th>
+                @if (Model.Count > 0)
+                {
+                    <th class="text-center"></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">@item.Id</td>
+                    <td>@item.ProcessType.Name</td>
+                    <td>@item.Value</td>
+                    <td>@item.Description</td>
+                    <td>@item.LastUpdatedBy</td>
+                    <td>@Html.DisplayFor(x => item.LastUpdate, "DisplayDateTime")</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <div id="contentPager" class="pull-right">
+                        @Html.PagedListPager(Model, page => Url.Action("List", new { page }),
+                        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPaging))
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

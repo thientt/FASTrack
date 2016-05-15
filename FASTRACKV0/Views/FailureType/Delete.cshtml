@@ -1,0 +1,12 @@
+﻿@model FASTrack.Model.DTO.MSTFailureTypeDto
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h2>Delete Failure Type</h2>
+<h5>Are you sure you want to delete this?</h5>
+<hr />
+
+@{
+    Html.RenderPartial("_PartialPageMSTDelete", Model);
+}

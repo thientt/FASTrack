@@ -1,0 +1,240 @@
+﻿<style>
+    .modal-dialog {
+        max-width: 400px;
+    }
+</style>
+@* Modal popup Recall Successfully *@
+<div class="modal fade in" id="modalRecallSuccess">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                <h3 class="modal-title text-success">Recall information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The FA Request was successfully Recall!</span>
+            </div>
+            <div class="modal-footer">
+                @*<a href="#" id="btnRE01" class="btn btn-success" data-dismiss="modal" aria-hidden="true">OK</a>*@
+                @Html.ActionLink("OK", "ReEditFA", null, htmlAttributes: new { @class = "btn btn-success btn-width-md", @id = "btnRE01" })
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Recall Failure *@
+<div class="modal fade in" id="modalRecallFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                <h3 class="modal-title text-danger">Recall information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-danger">The FA Request was failure Recall!</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnRE02" class="btn btn-danger btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Save Successfully *@
+<div class="modal fade in" id="modalSaveSuccess">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                <h3 class="modal-title">Save information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The FA Request was successfully saved!</span>
+            </div>
+            <div class="modal-footer">
+                @*<a href="#" id="btnSV01" class="btn btn-success" data-dismiss="modal" aria-hidden="true">OK</a>*@
+                @Html.ActionLink("OK", "Samples", null, htmlAttributes: new { @class = "btn btn-success btn-width-md", @id = "btnSV01" })
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Save Failure *@
+<div class="modal fade in" id="modalSaveFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                <h3 class="modal-title">Save information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-danger">The FA Request was failure saved!</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnSV02" class="btn btn-success btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Submit Successfully *@
+<div class="modal fade in" id="modalSubmitSuccess">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                <h3 class="modal-title text-success">Submit information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The FA Request was submitted to FA Group!</span>
+            </div>
+            <div class="modal-footer">
+                @*<a href="#" id="btnSB01" class="btn btn-success" data-dismiss="modal" aria-hidden="true">OK</a>*@
+                @Html.ActionLink("OK", "ReEditFA", null, new { @class = "btn btn-success btn-width-md", @id = "btnSB01" })
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Submit Failure *@
+<div class="modal fade in" id="modalSubmitFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                <h3 class="modal-title text-success">Submit information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The FA Request was fail to FA Group!</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnSB02" class="btn btn-success btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Submit but not has Samples and Process *@
+<div class="modal fade in" id="modalSubmitNotSamples">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <span class="modal-title text-info">Submit information</span>
+            </div>
+            <div class="modal-body">
+                <span class="text-info">The FA Request was successfully saved! Please input Samples/Device and Process Flow  </span>
+            </div>
+            <div class="modal-footer">
+                @*<a href="#" id="btn" class="btn btn-info" data-dismiss="modal" aria-hidden="true">OK</a>*@
+                @Html.ActionLink("OK", "Samples", null, htmlAttributes: new { @class = "btn btn-success btn-width-md", @id = "btnSBNotSamples" })
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Modal popup Error while execute*@
+<div class="modal fade in" id="modalError">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                <span class="modal-title text-warning">Error</span>
+            </div>
+            <div class="modal-body">
+                <span class="text-warning">The FA Request was failure!</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btn" class="btn btn-warning btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Cancel Successfully *@
+<div class="modal fade in" id="modalCancelSuccess">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Cancel information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The FA Request was successfully cancelled!</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnCA01" class="btn btn-success btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Cancel Failure *@
+<div class="modal fade in" id="modalCancelFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Cancel information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The FA Request was failure cancel!</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnCA02" class="btn btn-success btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*History Priority*@
+<div class="modal fade in" id="modalHistoryPriority">
+    <div class="modal-dialog" style="min-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title text-info">History Priorities</h3>
+            </div>
+            <div class="modal-body">
+                <div id="divHistotyPriorities"></div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnHis01" class="btn btn-info btn-width-md" data-dismiss="modal" aria-hidden="true">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Close Successfully *@
+<div class="modal fade in" id="modalCloseSuccess">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-success">Close information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The FA Request was successfully Closed!</span>
+            </div>
+            <div class="modal-footer">
+                @Html.ActionLink("OK", "ReEditFA", null, htmlAttributes: new { @class = "btn btn-success btn-width-md", @id = "btnCL01" })
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Close Failure *@
+<div class="modal fade in" id="modalCloseFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-danger">Close information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-danger">The FA Request was failure Close!</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnCL02" class="btn btn-danger btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>

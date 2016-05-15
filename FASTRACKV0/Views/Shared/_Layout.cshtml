@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="description" content="FASTrack" />
+    <title>@ViewBag.Title - FASTrack</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/jqueryui")
+    @Styles.Render("~/Content/fastrack")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <style>
+        @@media(min-width: 1400px) {
+            .container {
+                width: 1370px !important;
+            }
+        }
+
+        .font-header {
+            font-size: 30px;
+        }
+
+        .non-hover {
+            background-color: rgb(250, 249, 248);
+        }
+    </style>
+    @{Html.RenderPartial("_Header");}
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <footer class="footer-content">
+        @{Html.RenderPartial("_Footer");}
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/unobtrusive")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

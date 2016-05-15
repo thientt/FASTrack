@@ -1,0 +1,425 @@
+﻿@model FASTrack.ViewModel.FARReportGeneratorViewModel
+@{
+    ViewBag.Title = "Report Generator";
+    AjaxOptions ajaxOption = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+    };
+}
+
+<style>
+    .editor-multiline-field textarea {
+        height: 80px;
+    }
+
+    .full-width {
+        max-width: 280px;
+        min-width: 240px;
+    }
+
+    .required {
+        color: red;
+        font-size: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .group {
+        position: relative;
+        display: table;
+        border-collapse: separate;
+    }
+
+    .group-addon {
+        width: 1%;
+        white-space: nowrap;
+        vertical-align: middle;
+        display: table-cell;
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: #555;
+        text-align: center;
+    }
+
+    .btn-default {
+        background-image: linear-gradient(to bottom,#000 0,#404040 100%);
+        background-color: #404040 !important;
+        color: #fff !important;
+        text-shadow: 0 0px 0 #fff !important;
+    }
+
+        .btn-default:hover {
+            background-color: #404040 !important;
+        }
+
+    input[type=button] {
+        width: 150px;
+    }
+</style>
+
+<h2>FA Detail </h2>
+
+@using (Ajax.BeginForm(ajaxOption))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">Origins</label>
+            </div>
+            <div class="col-lg-12">
+                @Html.TextBoxFor(x => x.Origin.Name, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <hr />
+        <h4><b> FA REQUEST DETAILS</b></h4>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3 ">
+                        <label class="control-label">FAR Number</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.FARNumber, new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                        @Html.HiddenFor(x => Model.FARNumber)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Reference No.</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                    @Html.HiddenFor(x => x.RefNo)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Failure Type</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(x => x.FailureType.Name, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Failure Origin</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(x => x.FailureOrigin.Name, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Failure Rate</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.FailureRate, new { @class = "form-control", disabled = "disabled" })
+                        @Html.HiddenFor(x => x.FailureRate)
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Request Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DisplayFor(m => m.RequestDate)
+                        @Html.HiddenFor(m => m.RequestDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Requestor</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.Requestor, new { @class = "form-control", @readonly = "readonly", disabled = "disabled" })
+                        @Html.HiddenFor(x => x.Requestor)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Requestor's Site</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.Site, new { @class = "form-control", @readonly = "readonly", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">FA Analyst</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.Analyst, new { @class = "form-control", disabled = "disabled" })
+                        @Html.HiddenFor(x => x.Analyst)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Lab Site</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(x => x.LabSite.Name, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Received Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">@Html.DisplayFor(m => m.SamplesArriveDate)</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Priority<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(x => x.Priority.Name, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Initial Date</label>
+                    </div>
+                    <div class="col-lg-8 col-sm-9">@Html.DisplayFor(m => m.InitialReportTargetDate)</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Status</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @*@Html.DisplayFor(w => w.LastUpdate)
+                            @Html.HiddenFor(w => w.LastUpdate)*@
+                        @Html.DropDownListFor(w => w.StatusId, new SelectList(Model.Status, "Id", "Name"), new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Business Unit</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(x => x.BU.Name, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Product</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(x => x.Product, new { @class = "form-control", disabled = "disabled" })
+                        @Html.HiddenFor(x => x.Product)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Customer</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(x => x.Customer, htmlAttributes: new { @class = "form-control", @id = "txtCustomer", disabled = "disabled" })
+                        @Html.HiddenFor(x => Model.Customer)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Description</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9 editor-multiline-field">
+                        @Html.TextAreaFor(m => m.FailureDesc, new { @class = "form-control", disabled = "disabled" })
+                        @Html.HiddenFor(x => x.FailureDesc)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Final Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">@Html.DisplayFor(m => m.FinalReportTargetDate)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div>
+        <hr />
+        <h4><b> DEVICE/SAMPLES</b></h4>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            @if (Model.DeviceDetails != null && Model.DeviceDetails.Count() > 0)
+            {
+                <div class="panelDevice">
+                    <div class="col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-center">Lot No. </th>
+                                        <th class="text-center">Mfg Part No.</th>
+                                        <th class="text-center">Technology</th>
+                                        <th class="text-center">Package Type</th>
+                                        <th class="text-center">Assembly Site</th>
+                                        <th class="text-center">Fab Site</th>
+                                        <th class="text-center">Date Code</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-center">NPI Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.DeviceDetails.Count(); i++)
+                                    {
+                                        @Html.EditorFor(x => Model.DeviceDetails[i], "Device")
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+            <br />
+        </div>
+
+    </div>
+
+    <div class="col-xs-12">
+        <input type="submit" value="Generate Report" class="pull-right btn btn-default btn-report" style="width:360px; height:50px;" />
+    </div>
+}
+
+@*Modal popup Error while execute*@
+<div class="modal fade in" id="modalError">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <span class="modal-title text-warning">Error</span>
+            </div>
+            <div class="modal-body">
+                <span class="text-warning">The FA Generate Report was failure!</span>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-warning btn-width-md" data-dismiss="modal" aria-hidden="true" value="OK" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal Generate Report Successfully *@
+<div class="modal fade in" id="modalSuccess">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title text-success">Generate Report</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The ACOE Failure Analysis Generate Report was successfully</span>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-success" data-dismiss="modal" aria-hidden="true" value="OK" />
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(window).load(function () {
+            $('#fileUpload').attr('disabled', 'disabled');
+
+            $('#fileUpload').change(function () {
+                $(this).next().removeAttr('disabled');
+            }).next().attr('disabled', 'disabled');
+
+            $('.panelDevice').each(function (index, element) {
+                $(element).on('change', 'input[nameofcheckbox="DeviceDetails_"]', function () {
+                    var id = '#DeviceDetails_' + $(this).attr('idofcheckbox');
+
+                    if ($(this).is(":checked")) {
+                        $(id).fadeIn(1000);
+
+                    }
+                    else {
+                        $(id).fadeOut(500);
+                    }
+                });
+            });
+
+
+            //param popup
+            var options = {
+                show: true,
+                backdrop: false
+            };
+
+            $('body').on('click', '.btn-selectphoto', function () {
+                if ($(this).attr('value') == 'Select Photos') {
+                    $(this).attr('value', 'Remove Photos');
+                    $('#Status_' + $(this).attr('id').split('_')[1]).text('Added Photos');
+                    $(this).next().attr('value', 'Yes')
+                }
+                else {
+                    $(this).attr('value', 'Select Photos');
+                    $(this).next().attr('value', 'No');
+                    $('#Status_' + $(this).attr('id').split('_')[1]).text('No Photo');
+                }
+            });
+
+            onBegin = function () {
+                $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+                $('body').css({ 'overflow': 'hidden' });
+                $('#box').css({ 'display': 'block' });
+            }
+
+            onComplete = function () {
+                $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+                $('body').css({ 'overflow': 'show' });
+                $('#box').css({ 'display': 'none' });
+
+                $('html').css('overflow', '-moz-scrollbars-vertical');
+                $('html').css('overflow-y', 'scroll');
+            }
+
+            onSuccess = function (data) {
+                var result = data.code;
+                switch (result) {
+                    //Save
+                    case "EX01":
+                        window.location = '@Url.Action("Download")' + "?file=" + data.path;
+                        $('#modalSuccess').modal(options);
+                        break;
+                    case "EX02":
+                        $('#modalError').modal(options);
+                        break;
+                        //
+                }
+            };
+
+            onFailure = function (data) {
+                $('#modalError').modal(options);
+            };
+
+        });
+
+    </script>
+}

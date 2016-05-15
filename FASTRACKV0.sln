@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FASTRACKV0", "FASTRACKV0\FASTRACKV0.csproj", "{28F4E0A3-13CF-4690-A162-30B89231E23E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FASTrack.Utilities", "FASTRACKV0.Utilities\FASTrack.Utilities.csproj", "{9331F33C-729B-4605-9AAB-183DC7489F9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FASTrack.Model", "FASTRACKV0.Model\FASTrack.Model.csproj", "{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
+		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28F4E0A3-13CF-4690-A162-30B89231E23E}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{28F4E0A3-13CF-4690-A162-30B89231E23E}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{28F4E0A3-13CF-4690-A162-30B89231E23E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28F4E0A3-13CF-4690-A162-30B89231E23E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28F4E0A3-13CF-4690-A162-30B89231E23E}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{28F4E0A3-13CF-4690-A162-30B89231E23E}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{28F4E0A3-13CF-4690-A162-30B89231E23E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28F4E0A3-13CF-4690-A162-30B89231E23E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28F4E0A3-13CF-4690-A162-30B89231E23E}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{28F4E0A3-13CF-4690-A162-30B89231E23E}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{9331F33C-729B-4605-9AAB-183DC7489F9C}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{9331F33C-729B-4605-9AAB-183DC7489F9C}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{9331F33C-729B-4605-9AAB-183DC7489F9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9331F33C-729B-4605-9AAB-183DC7489F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9331F33C-729B-4605-9AAB-183DC7489F9C}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{9331F33C-729B-4605-9AAB-183DC7489F9C}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{9331F33C-729B-4605-9AAB-183DC7489F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9331F33C-729B-4605-9AAB-183DC7489F9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9331F33C-729B-4605-9AAB-183DC7489F9C}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{9331F33C-729B-4605-9AAB-183DC7489F9C}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

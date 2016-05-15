@@ -1,0 +1,72 @@
+﻿@model IEnumerable<FASTrack.Model.DTO.FARMasterDto>
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    tr:hover {
+        background-color: #f3f0b6;
+    }
+
+    .hdr tr {
+        background-color: #66FF99;
+        color: white;
+    }
+</style>
+
+<h2>Re-Open Closed/Cancelled FA Requests</h2>
+<br />
+
+<p>
+    <table class="table table-bordered">
+        <tr style="background-color:#CC9999; color:white">
+            <th>FA Number</th>
+            <th>Reference</th>
+            <th>Overall In-charge</th>
+            <th>Status</th>
+            <th>BU</th>
+            <th>Product</th>
+            <th>Inserted by</th>
+            <th>Inserted date</th>
+        </tr>
+        @if (Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("ReOpenFA", "Dashboard", new { id=item.Id})">@item.Number</a>
+                    </td>
+                    <td>
+                        @item.RefNo
+                    </td>
+                    <td>
+                        @item.Analyst
+                    </td>
+                    <td>
+                        @item.FARStatus.Name
+                    </td>
+                    <td>
+                        @item.Bu.Name
+                    </td>
+                    <td>
+                        @item.FARProduct.Name
+                    </td>
+                    <td>
+                        @item.InsertedBy
+                    </td>
+                    <td>
+                        @item.InsertedOn.ToString("d")
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="8">No rows found.</td>
+            </tr>
+        }
+
+    </table>
+</p>

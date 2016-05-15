@@ -1,0 +1,47 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model  IPagedList<FASTrack.Model.DTO.DelayReasonDto>
+
+@{
+    AjaxOptions ajaxPaging = new AjaxOptions
+    {
+        UpdateTargetId = "tblReason",
+        HttpMethod = "GET"
+    };
+}
+<link href="~/Content/main.css" rel="stylesheet" />
+<div id="tblReason">
+    <table class="table table-bordered">
+        <thead class="header">
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Last Update by</th>
+                <th class="text-center">Last Update</th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Description</td>
+                <td>@item.LastUpdatedBy</td>
+                <td>@Html.DisplayFor(x => item.LastUpdate, "DisplayDateTime")</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="5">
+                <div id="contentPager" class="pull-right">
+                    @Html.PagedListPager(Model, page => Url.Action("List", new { page }),
+                    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPaging))
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

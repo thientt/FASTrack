@@ -1,0 +1,13 @@
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\bin\Release\Logs\Log.csv
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\bin\Release\FASTrack.Model.dll.config
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\bin\Release\FASTrack.Model.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\bin\Release\FASTrack.Model.pdb
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\bin\Release\EntityFramework.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\bin\Release\EntityFramework.SqlServer.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\bin\Release\FASTrack.Utilities.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\bin\Release\log4net.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\bin\Release\FASTrack.Utilities.pdb
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\bin\Release\log4net.xml
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\obj\Release\FASTrack.Model.csprojResolveAssemblyReference.cache
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\obj\Release\FASTrack.Model.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Model\obj\Release\FASTrack.Model.pdb

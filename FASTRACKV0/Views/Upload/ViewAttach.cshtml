@@ -1,0 +1,84 @@
+﻿@model FASTrack.ViewModel.AttachmentViewModel
+
+@{
+    ViewBag.Title = "Report";
+}
+
+<br />
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-md-2">FA Number</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(x => x.FANumber, htmlAttributes: new { @class = "form-control", @readonly = "true", @style = "font-weight:bold" })
+        </div>
+    </div>
+</div>
+<br />
+<br />
+
+<div class="jumbotron">
+    <div class="form-horizontal col-xs-offset-1">
+        <div class="form-group">
+            <label class="control-label col-sm-3">FA Initial Report</label>
+            <div class="col-sm-9">
+                <input id="fileUpload1" type="file" class="form-control btn btn-info col-md-3 col-sm-5 disabled" />
+                <input type="button" class="btn btn-primary col-md-2 col-sm-3 disabled" id="btnUpload1" value="Upload" style="margin-left:2px;" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <div id="filesName1">
+                    @if (Model.InitialReport != null)
+                    {
+                        foreach (var item in Model.InitialReport)
+                        {
+                            <a href="~/Upload/Download?id=@Model.Id&file=@item&type=INT">@item</a>
+                            <br />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="jumbotron">
+    <div class="form-horizontal col-xs-offset-1">
+        <div class="form-group">
+            <label class="control-label col-sm-3">FA Final Report</label>
+            <div class="col-sm-9">
+                <input id="fileUpload2" type="file" class="form-control btn btn-info col-md-3 col-sm-5 disabled" />
+                <input type="button" class="btn btn-primary col-md-2 col-sm-3 disabled" id="btnUpload2" value="Upload" style="margin-left:2px;" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <div id="filesName2">
+                    @if (Model.FinalReport != null)
+                    {
+                        foreach (var item in Model.FinalReport)
+                        {
+                            <a href="~/Upload/Download?id=@Model.Id&file=@item&type=FIN">@item</a>
+                            <br />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.ActionLink("FA Details", "ViewFA", "Dashboard", routeValues: new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('input[type="file"]').attr('disabled', 'disabled');
+            $('input[type="file"]').not('#fileUpload1').change(function () {
+                $(this).next().removeAttr('disabled');
+            }).next().attr('disabled', 'disabled');
+        });
+    </script>
+}

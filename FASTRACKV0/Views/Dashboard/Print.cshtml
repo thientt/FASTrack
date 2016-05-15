@@ -1,0 +1,392 @@
+﻿@model FASTrack.ViewModel.PrintViewModel
+
+<style>
+    /* suppress link for printing */
+    @@media only print {
+        /*a {
+            display: none;
+        }*/
+    }
+
+    @@media print {
+        .noprint {
+            display: none !important;
+        }
+
+        tr {
+            page-break-inside: avoid;
+        }
+    }
+
+    @@media page {
+    }
+
+    @@page {
+        size: A4 portrait;
+    }
+
+    @@page:left {
+        margin-left: 1cm;
+    }
+
+    @@page:right {
+        margin-right: 1cm;
+    }
+
+    @@page:right {
+        @@bottom-left {
+            margin: 10pt 0 30pt 0;
+            border-top: .25pt solid #666;
+            content: "My book";
+            font-size: 9pt;
+            color: #333;
+        }
+    }
+
+    /*h2 {
+        page-break-before: always;
+    }*/
+
+    h1, h2, h3, h4, h5 {
+        page-break-after: avoid;
+    }
+
+    table, figure {
+        page-break-inside: auto;
+    }
+
+    /*tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }*/
+
+    .row {
+        width: 100%;
+    }
+
+    .form-group {
+        display: inline-flex;
+        min-height: 25px;
+        width: 100%;
+    }
+
+    .table {
+        border-spacing: 0;
+        border-collapse: collapse;
+        width: 100%;
+        height: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding: 35px;
+    }
+
+    tr:last-child td:last-child {
+        -moz-border-radius-bottomright: 0px;
+        -webkit-border-bottom-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    table tr:first-child td:first-child {
+        -moz-border-radius-topleft: 0px;
+        -webkit-border-top-left-radius: 0px;
+        border-top-left-radius: 1px;
+    }
+
+    table tr:first-child td:last-child {
+        -moz-border-radius-topright: 0px;
+        -webkit-border-top-right-radius: 0px;
+        border-top-right-radius: 1px;
+    }
+
+    tr:last-child td:first-child {
+        -moz-border-radius-bottomleft: 0px;
+        -webkit-border-bottom-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    td {
+        vertical-align: middle;
+        border: 1px solid #000000;
+        border-width: 1px;
+        text-align: left;
+        padding: 7px;
+        font-size: 10px;
+        font-family: Arial;
+        font-weight: normal;
+        color: #000000;
+    }
+
+    thead tr:first-child th {
+        background: -o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);
+        background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+        background: -moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");
+        background: -o-linear-gradient(top,#ff7f00,bf5f00);
+        background-color: #ff7f00;
+        border: 0px solid #000000;
+        text-align: center;
+        border-width: 1px;
+        font-size: 14px;
+        font-family: Arial;
+        font-weight: bold;
+        height: 35px;
+        color: #ffffff;
+    }
+
+    tr.nontd td {
+        border: none;
+        border-width: 0px;
+        font-size: 18px;
+    }
+
+    .odd {
+        width: 110px;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    .even {
+        min-width: 100px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .button {
+        display: inline-block;
+        background: #6d84b4;
+        border-color: #3b5998;
+        white-space: nowrap;
+        font-size: 11.5px;
+        font-family: Tahoma;
+        width: 70px;
+        height: 20px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 6px 12px;
+        border-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: bold;
+        display: block;
+        cursor: pointer;
+        margin-bottom: 20px;
+        line-height: 13px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+
+    .editor-multiline-field {
+        height: 80px;
+    }
+</style>
+<a href="#" onclick="window.print(); return false;" class="button noprint">Print</a>
+<br />
+<table>
+    <tr class="nontd">
+        <td width="50px;" style="border:none; border-width:0px;">Origins:</td>
+        <td width="300px;" style="border:none; border-width:0px;"><strong>@Model.Master.FAROrigin.Name</strong></td>
+    </tr>
+</table>
+<br />
+
+<div>
+    <hr />
+    <h3>FA REQUEST DETAILS</h3>
+</div>
+<br />
+<div class="row">
+    <div class="form-group">
+        <label class="odd">FAR Number:</label>
+        <div class="even">@Model.Master.Number</div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Reference No:</label>
+        <div class="even">@Model.Master.RefNo</div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Failure Type:</label>
+        <div class="even">@Model.Master.FARFailureType.Name</div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Failure Origin:</label>
+        <div class="even">@Model.Master.FARFailureOrigin.Name</div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Failure Rate:</label>
+        <div class="even">@Model.Master.FailureRate</div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Request Date:</label>
+        <div class="even">
+            @Html.DisplayFor(x => x.Master.RequestDate, "DisplayDateTime")
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Requestor:</label>
+        <div class="even"><a href="maito:@Model.Master.Requestor"> @Model.Master.Requestor</a></div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Site:</label>
+        <div class="even">@Model.Site</div>
+    </div>
+    <div class="form-group">
+        <label class="odd">FA Analyst:</label>
+        <div class="even"><a href="mailto:@Model.Master.Analyst">@Model.Master.Analyst</a></div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Arrived Date:</label>
+        <div class="even">
+            @Html.DisplayFor(x => x.Master.SamplesArriveDate, "DisplayDateTime")
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Priority:</label>
+        <div class="even">@Model.Master.FARPriority.Name</div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Initial Date:</label>
+        <div class="even">
+            @Html.DisplayFor(x => x.Master.InitialReportTargetDate, "DisplayDateTime")
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Status:</label>
+        <div class="even">@Model.Master.FARStatus.Name</div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Business Unit:</label>
+        <div class="even">@Model.Master.Bu.Name</div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Product Line:</label>
+        <div class="even">@Model.Master.Product</div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Description:</label>
+        <div class="even">@Model.Master.FailureDesc</div>
+    </div>
+    <div class="form-group">
+        <label class="odd">Final Date:</label>
+        <div class="even">
+            @Html.DisplayFor(x => x.Master.FinalReportTargetDate, "DisplayDateTime")
+        </div>
+    </div>
+</div>
+
+<br />
+<hr />
+<h2>DEVICES/SAMPLES</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Lot No. </th>
+            <th>Mfg Part No.</th>
+            <th>Technology</th>
+            <th>Package Type</th>
+            <th>Assembly Site</th>
+            <th>Fab Site</th>
+            <th>Date Code</th>
+            <th>Quantity</th>
+            <th>NPI Stage</th>
+            <th>Failure Mechanism</th>
+            <th>Process Flow</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Samples)
+        {
+            <tr>
+                <td>@item.LotNo</td>
+                <td>@item.MfgPartNo</td>
+                <td>@item.Technogoly.Name</td>
+                <td>@item.PackageType.Name</td>
+                <td>@item.AssemblySites.Name</td>
+                <td>@item.FabSite.Name</td>
+                <td>@item.DateCode</td>
+                <td>@item.Quantity</td>
+                <td>@item.Stage</td>
+                <td>
+                    @if (item.Mechanism != null)
+                    {
+                        @(item.Mechanism.Name)
+                    }
+                </td>
+                <td>@item.FARServices.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+<hr />
+<h2>PROCESS FLOW</h2>
+
+@foreach (var item in Model.Samples)
+{
+    <p>@item.LotNo</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>FA_Code</th>
+                <th>FA_Description</th>
+                <th>Duration</th>
+                <th>Date_In</th>
+                <th>Date_Out</th>
+                <th>Results</th>
+                <th>Comments</th>
+                <th>Analyst</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var process in item.ProcessHis)
+            {
+                decimal cDuration = 0;
+                string d1_str = "";
+                string d2_str = "";
+
+                if (process.DateIn.HasValue && process.DateOut.HasValue)
+                {
+                    DateTime d1 = (DateTime)process.DateIn;
+                    DateTime d2 = (DateTime)process.DateOut;
+                    cDuration = (d2 - d1).Days;
+
+                    d1_str = d1.ToShortDateString();
+                    d2_str = d2.ToShortDateString();
+                }
+                <tr>
+                    <td>
+                        @process.ProcessType.Name
+                    </td>
+                    <td>
+                        @process.ProcessType.Description
+                    </td>
+                    <td>
+                        @if (cDuration > 0)
+                        {
+                            @cDuration.ToString()
+                        }
+                    </td>
+                    <td>
+                        @d1_str
+                    </td>
+                    <td>
+                        @d2_str
+                    </td>
+                    <td>@process.ProcessResult.Value</td>
+                    <td>
+                        @process.Comment
+                    </td>
+                    <td>
+                        @process.Analystor
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+}
+<br />
+<a href="#" onclick="window.print(); return false;" class="button noprint">Print</a>
+

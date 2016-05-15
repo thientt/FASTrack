@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3e40e1cb2bcd4bd28e3a479e3443f3c7" Name="Diagram1" ZoomLevel="88">
+        <EntityTypeShape EntityType="Model.FabSites" Width="1.5" PointX="3" PointY="21.75" />
+        <EntityTypeShape EntityType="Model.FAR_DeviceDetails" Width="1.5" PointX="5.25" PointY="19.5" />
+        <EntityTypeShape EntityType="Model.FAR_Master" Width="1.5" PointX="3" PointY="12.25" />
+        <EntityTypeShape EntityType="Model.FAR_Mechanism" Width="1.5" PointX="3" PointY="24.875" />
+        <EntityTypeShape EntityType="Model.LOG_FARAnalystReassign" Width="1.5" PointX="5.25" PointY="30.25" />
+        <EntityTypeShape EntityType="Model.LOG_FARFinalTarget" Width="1.5" PointX="5.25" PointY="16" />
+        <EntityTypeShape EntityType="Model.LOG_FARHistory" Width="1.5" PointX="8.25" PointY="15.125" />
+        <EntityTypeShape EntityType="Model.LOG_FARInitialTarget" Width="1.5" PointX="5.25" PointY="33.75" />
+        <EntityTypeShape EntityType="Model.LOG_FARPriority" Width="1.5" PointX="5.25" PointY="12" />
+        <EntityTypeShape EntityType="Model.LOG_FARUpload" Width="1.5" PointX="7.75" PointY="10.25" />
+        <EntityTypeShape EntityType="Model.LOG_ProcessHistory" Width="1.5" PointX="9.75" PointY="21.25" />
+        <EntityTypeShape EntityType="Model.MST_AssemblySites" Width="1.5" PointX="3" PointY="34.25" />
+        <EntityTypeShape EntityType="Model.MST_BU" Width="1.5" PointX="0.75" PointY="32" />
+        <EntityTypeShape EntityType="Model.MST_Customer" Width="1.5" PointX="9.75" PointY="10.25" />
+        <EntityTypeShape EntityType="Model.MST_Department" Width="1.5" PointX="5.75" PointY="5" />
+        <EntityTypeShape EntityType="Model.MST_FailureOrigin" Width="1.5" PointX="0.75" PointY="28.875" />
+        <EntityTypeShape EntityType="Model.MST_FailureType" Width="1.5" PointX="0.75" PointY="19.5" />
+        <EntityTypeShape EntityType="Model.MST_FARReport" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.MST_LabSite" Width="1.5" PointX="0.75" PointY="25.75" />
+        <EntityTypeShape EntityType="Model.MST_Origin" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="Model.MST_PackageTypes" Width="1.5" PointX="3" PointY="31.125" />
+        <EntityTypeShape EntityType="Model.MST_Priority" Width="1.5" PointX="0.75" PointY="15.25" />
+        <EntityTypeShape EntityType="Model.MST_ProcessProduct" Width="1.5" PointX="8.25" PointY="38.25" />
+        <EntityTypeShape EntityType="Model.MST_ProcessResult" Width="1.5" PointX="5.25" PointY="38.25" />
+        <EntityTypeShape EntityType="Model.MST_ProcessTypes" Width="1.5" PointX="3" PointY="38.125" />
+        <EntityTypeShape EntityType="Model.MST_Rating" Width="1.5" PointX="0.75" PointY="22.625" />
+        <EntityTypeShape EntityType="Model.MST_Reason" Width="1.5" PointX="3" PointY="8.5" />
+        <EntityTypeShape EntityType="Model.MST_ReasonChangingFINTarget" Width="1.5" PointX="10.75" PointY="3.25" />
+        <EntityTypeShape EntityType="Model.MST_ReasonChangingINITarget" Width="1.5" PointX="10.75" PointY="6.25" />
+        <EntityTypeShape EntityType="Model.MST_ReasonChangingPriority" Width="1.5" PointX="11.75" PointY="9.25" />
+        <EntityTypeShape EntityType="Model.MST_ReasonFARClose" Width="1.5" PointX="11.75" PointY="12.25" />
+        <EntityTypeShape EntityType="Model.MST_ReasonFAROnHold" Width="1.5" PointX="12.75" PointY="3.25" />
+        <EntityTypeShape EntityType="Model.MST_ReasonFINReport" Width="1.5" PointX="12.75" PointY="6.25" />
+        <EntityTypeShape EntityType="Model.MST_ReasonINIReport" Width="1.5" PointX="10.75" PointY="15.25" />
+        <EntityTypeShape EntityType="Model.MST_ReportTypes" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="Model.MST_Services" Width="1.5" PointX="3" PointY="28" />
+        <EntityTypeShape EntityType="Model.MST_Sites" Width="1.5" PointX="5.75" PointY="42.375" />
+        <EntityTypeShape EntityType="Model.MST_Status" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="Model.MST_Technology" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="Model.SYS_Roles" Width="1.5" PointX="5.75" PointY="8.25" />
+        <EntityTypeShape EntityType="Model.SYS_Users" Width="1.5" PointX="8" PointY="3.625" />
+        <AssociationConnector Association="Model.FK_FAR_DeviceDetails_FabSites" />
+        <AssociationConnector Association="Model.FK_FAR_DeviceDetails_FAR_Master" />
+        <AssociationConnector Association="Model.FK_FAR_DeviceDetails_MST_AssemblySites" />
+        <AssociationConnector Association="Model.FK_FAR_DeviceDetails_MST_PackageTypes" />
+        <AssociationConnector Association="Model.FK_FAR_DeviceDetails_MST_Services" />
+        <AssociationConnector Association="Model.FK_Mechanism" />
+        <AssociationConnector Association="Model.fk_Technogoly" />
+        <AssociationConnector Association="Model.FK_FAR_AnalystReassignLog_FAR_Master" />
+        <AssociationConnector Association="Model.FK_FAR_Master_MST_BU" />
+        <AssociationConnector Association="Model.FK_FAR_Master_MST_FailureOrigin" />
+        <AssociationConnector Association="Model.FK_FAR_Master_MST_FailureType" />
+        <AssociationConnector Association="Model.FK_FAR_Master_MST_LabSite" />
+        <AssociationConnector Association="Model.FK_FAR_Master_MST_Origin" />
+        <AssociationConnector Association="Model.FK_FAR_Master_MST_Priority" />
+        <AssociationConnector Association="Model.FK_FAR_Master_MST_Status" />
+        <AssociationConnector Association="Model.FK_LOG_FARFinalTarget_FAR_Master" />
+        <AssociationConnector Association="Model.FK_LOG_FARHistory_FAR_Master" />
+        <AssociationConnector Association="Model.FK_LOG_FARInitialTarget_FAR_Master" />
+        <AssociationConnector Association="Model.FK_LOG_FARPriority_FAR_Master" />
+        <AssociationConnector Association="Model.fk_Rating" />
+        <AssociationConnector Association="Model.FK_LOG_FARHoldRelease_MST_Reason" />
+        <AssociationConnector Association="Model.FK_LOG_FARHoldRelease_MST_Status" />
+        <AssociationConnector Association="Model.FK_LOG_FARPriority_MST_PriorityNew" />
+        <AssociationConnector Association="Model.FK_LOG_FARPriority_MST_PriorityOld" />
+        <AssociationConnector Association="Model.FK_LOG_FARPriority_MST_Reason" />
+        <AssociationConnector Association="Model.FK_SYS_Users_MST_Department" />
+        <AssociationConnector Association="Model.FK_MST_FARReport_MST_Origin" />
+        <AssociationConnector Association="Model.FK_MST_FARReport_MST_ReportTypes" />
+        <AssociationConnector Association="Model.FK_MST_ProcessProduct_MST_ProcessTypes" />
+        <AssociationConnector Association="Model.FK_MST_ProcessResult_MST_ProcessTypes" />
+        <AssociationConnector Association="Model.FK_SYS_Users_MST_Sites" />
+        <AssociationConnector Association="Model.FK_SYS_Users_SYS_Roles" />
+        <EntityTypeShape EntityType="Model.FAR_ProcessHistory" Width="1.5" PointX="7.5" PointY="27.875" />
+        <AssociationConnector Association="Model.FK_FAR_ProcessHistory_FAR_DeviceDetails" />
+        <AssociationConnector Association="Model.FK_FAR_ProcessHistory_MST_ProcessResult1" />
+        <AssociationConnector Association="Model.FK_FAR_ProcessHistory_MST_ProcessTypes" />
+        <AssociationConnector Association="Model.Pk_ProcessHisId_ProcessHistoryId" />
+        <EntityTypeShape EntityType="Model.MST_Product" Width="1.5" PointX="3" PointY="42.375" />
+        <AssociationConnector Association="Model.fk_LabSite" />
+        <AssociationConnector Association="Model.FK_MST_ProcessProduct_MST_Product" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

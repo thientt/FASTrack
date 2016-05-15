@@ -1,0 +1,61 @@
+﻿@model FASTrack.Model.DTO.SYSUsersDto
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>My Account</h2>
+<hr />
+<div class="row">
+    <div class="col-xs-offset-1 col-xs-10">
+        @Html.ActionLink("Edit", "EditProfile", new { @id = Model.Id }) |
+        @Html.ActionLink("Change Password", "ChangePassword", new { @id = Model.Id })
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="form-horizontal col-xs-offset-1 col-xs-10">
+        <div class="form-group">
+            <label class="control-label col-md-2">First Name </label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Firstname, htmlAttributes: new { @readonly = "true", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Last Name </label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Lastname, htmlAttributes: new { @readonly = "true", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Email </label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @readonly = "true", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2"> RegistedDate </label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.RegistedDate, htmlAttributes: new { @Value = @Model.RegistedDate.ToString("d"), @readonly = "true", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Role</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Role.Name, htmlAttributes: new { @readonly = "true", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Site</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Sites.Name, htmlAttributes: new { @readonly = "true", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Phone</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Phone, htmlAttributes: new { @readonly = "true", @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>

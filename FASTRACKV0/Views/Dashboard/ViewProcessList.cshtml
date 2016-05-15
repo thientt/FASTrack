@@ -1,0 +1,181 @@
+﻿@model FASTrack.ViewModel.ProcessHistoryViewModel
+
+@{
+    ViewBag.Title = "ProcessList";
+}
+
+<style>
+    table > tbody > tr:hover {
+        background-color: #f3f0b6;
+    }
+
+    #modalSaveFailure .modal-dialog {
+        max-width: 400px;
+        background-color: silver;
+    }
+
+    table > thead > tr {
+        background-color: #bcd6ee;
+    }
+
+        table > thead > tr > th {
+            vertical-align: middle !important;
+        }
+</style>
+
+<div class="row">
+    <h2>FA Process Flow for FA#@Model.Number</h2>
+    <br />
+    <p>
+        @Html.ActionLink("FADetail", "ViewFA", new { id = Model.MasterId }) &nbsp;&nbsp;|&nbsp;&nbsp;
+        @Html.ActionLink("Device/Samples List", "ViewSamples", new { id = Model.MasterId })
+
+    </p>
+    <div class="table-responsive">
+        <table class="table table-bordered ">
+            <thead>
+                <tr>
+                    <th class="text-center">FA Code</th>
+                    <th class="text-center">FA Description</th>
+                    <th class="text-center">Duration</th>
+                    <th class="text-center">Planned In</th>
+                    <th class="text-center">Planned Out</th>
+                    <th class="text-center">Date In</th>
+                    <th class="text-center">Date Out</th>
+                    <th class="text-center">Results</th>
+                    <th class="text-center">Comments</th>
+                    <th class="text-center">Analyst</th>
+                    @if (Model.Process.Exists(x => x.IsHasPhotos))
+                    {
+                        <th class="text-center"></th>
+                    }
+
+                </tr>
+            </thead>
+            @if (Model.Process.Count() > 0)
+            {
+                for (int i = 0; i < Model.Process.Count(); i++)
+                {
+                    decimal cDuration = 0;
+                    var item = Model.Process[i];
+
+                    if (item.DateIn.HasValue && item.DateOut.HasValue)
+                    {
+                        DateTime d1 = (DateTime)item.DateIn;
+                        DateTime d2 = (DateTime)item.DateOut;
+                        cDuration = ((d2 - d1).Days * 24);
+                    }
+                    <tr>
+                        <td>
+                            @item.ProcessType.Name
+                        </td>
+                        <td>
+                            @item.ProcessType.Description
+                        </td>
+                        <td>
+                            @if (cDuration > 0)
+                            {
+                                @cDuration.ToString()
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.PlannedIn, "DisplayDateTime")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.PlannedOut, "DisplayDateTime")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateIn, "DisplayDateTime")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateOut, "DisplayDateTime")
+                        </td>
+                        <td>
+                            @item.ProcessResult.Value
+                        </td>
+                        <td>
+                            @item.Comment
+                        </td>
+                        <td>
+                            @item.Analystor
+                        </td>
+                        @if (Model.Device.FARServices.Id != 1)
+                        {
+                            <td>@item.Analyst.Sites.Name</td>
+                        }
+
+                        @if (Model.Process.Exists(x => x.IsHasPhotos))
+                        {
+                            if (item.IsHasPhotos)
+                            {
+                                <td class="text-center">
+                                    <a name="btnViewPhoto" onclick="viewPhotos(@item.Id)">Photos</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="text-center"></td>
+                            }
+                        }
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="12">No rows found.</td></tr>
+            }
+        </table>
+    </div>
+</div>
+
+<div id="containerPopupProcess"></div>
+<div id="containerViewPhoto"></div>
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('[name=btnViewPhoto]').mouseover(function(){
+                $(this).css('cursor','pointer');
+            });
+        })
+        viewPhotos = function (processId) {
+            var url = '@Url.Action("ViewPhotos","Upload")' ;
+            var ajaxShowImage = $.ajax({
+                type: 'GET',
+                url: url,
+                data:{
+                    masterId: @Model.MasterId,
+                    deviceId: @Model.DeviceId,
+                    processId: processId
+                },
+                cache: false,
+            });
+            ajaxShowImage.success(function (res, data) {
+                var obj = $('#containerViewPhoto');
+                obj.empty();
+                //$('#containerViewPhoto').html(res);
+                obj.html(res);
+                $('[data-popup="popupViewPhoto"]').hide().fadeIn(1000);
+            });
+            ajaxShowImage.error(function (){});
+            ajaxShowImage.always(function () { });
+        };
+
+        $('#containerViewPhoto').on('click', 'a', function (e) {
+            var self = $(this);
+            if(self.hasClass('popup-close'))
+            {
+                $('[data-popup="popupViewPhoto"]').fadeOut(100);
+                $('#popupProcess').modal(options);
+            }
+            else{
+                var href = '@Url.Content("~/")' + self.attr('href');
+                $('#imgCurrentView').attr('src', href);
+            }
+            e.preventDefault();
+        });
+    </script>
+}

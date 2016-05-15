@@ -1,0 +1,14 @@
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_07_Oct\FASTRACKV0.Utilities\bin\Release\Logs\Log.csv
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_07_Oct\FASTRACKV0.Utilities\bin\Release\FASTrack.Utilities.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_07_Oct\FASTRACKV0.Utilities\bin\Release\FASTrack.Utilities.pdb
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_07_Oct\FASTRACKV0.Utilities\bin\Release\log4net.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_07_Oct\FASTRACKV0.Utilities\bin\Release\log4net.xml
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_07_Oct\FASTRACKV0.Utilities\obj\Release\FASTrack.Utilities.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_07_Oct\FASTRACKV0.Utilities\obj\Release\FASTrack.Utilities.pdb
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Utilities\bin\Release\Logs\Log.csv
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Utilities\bin\Release\FASTrack.Utilities.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Utilities\bin\Release\FASTrack.Utilities.pdb
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Utilities\bin\Release\log4net.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Utilities\bin\Release\log4net.xml
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Utilities\obj\Release\FASTrack.Utilities.dll
+E:\Projects\FailureAnalysisDatabase\TurnOverFiles\FASTrack_3_Nov\FASTRACKV0.Utilities\obj\Release\FASTrack.Utilities.pdb

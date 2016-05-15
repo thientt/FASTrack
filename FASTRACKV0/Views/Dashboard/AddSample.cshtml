@@ -1,0 +1,241 @@
+﻿@model FASTrack.ViewModel.DeviceDetailsViewModel
+
+@{
+    ViewBag.Title = "AddSample";
+    AjaxOptions ajaxOption = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+    };
+}
+
+<h2>Device / Samples</h2>
+<h3>Add Samples</h3>
+<hr />
+
+@using (Ajax.BeginForm(ajaxOption))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">FARNumber</label>
+            <div class="col-sm-9 col-md-10">
+                @Html.TextBoxFor(model => model.FARNumber, new { @class = "form-control", @Readonly = "readonly" })
+                @Html.HiddenFor(x => x.MasterId)
+            </div>
+        </div>
+        @*Begin Enhancement 20160315*@
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">Serial No</label>
+            <div class="col-sm-9 col-md-10">
+                @Html.TextBoxFor(model => model.SerialNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SerialNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">Sample/Wafer No.</label>
+            <div class="col-sm-9 col-md-10">
+                @Html.TextBoxFor(model => model.WaferNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.WaferNo)
+            </div>
+        </div>
+        @*End Enhancement 20160315*@
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">Lot No<span class="required">*</span></label>
+            <div class="col-sm-9 col-md-10">
+                @Html.TextBoxFor(model => model.LotNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LotNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">Mfg Part No</label>
+            <div class="col-sm-9 col-md-10">
+                @Html.TextBoxFor(model => model.MfgPartNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MfgPartNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">Technology<span class="required">*</span></label>
+            <div class="col-sm-9 col-md-10">
+                @Html.DropDownListFor(model => model.TechnologyId, new SelectList(Model.Technogolies, "Id", "Name"), "---Select---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TechnologyId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">PackgeType<span class="required">*</span></label>
+            <div class="col-sm-9 col-md-10">
+                @Html.DropDownListFor(w => w.PackageTypeId, new SelectList(Model.PackageTypes, "Id", "Name"), "---Select---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(w => w.PackageTypeId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">Assembly Site<span class="required">*</span></label>
+            <div class="col-sm-9 col-md-10">
+                @Html.DropDownListFor(w => w.AssembliesTypeId, new SelectList(Model.AssembliesTypes, "Id", "Name"), "---Select---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(w => w.AssembliesTypeId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">FabSites<span class="required">*</span></label>
+            <div class="col-sm-9 col-md-10">
+                @Html.DropDownListFor(w => w.FabSiteId, new SelectList(Model.FabSites, "Id", "Name"), "---Select---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(w => w.FabSiteId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">DateCode</label>
+            <div class="col-sm-9 col-md-10">
+                @Html.TextBoxFor(model => model.DateCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DateCode)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">Quantity</label>
+            <div class="col-sm-9 col-md-10">
+                @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Quantity)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">NPI Stage </label>
+            <div class="col-sm-9 col-md-10">
+                @Html.DropDownListFor(model => model.StageId, new SelectList(new SelectListItem[] {
+                           new SelectListItem{Value="0",Text="No"},
+                           new SelectListItem{Value="1",Text="Yes"}}, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                @Html.HiddenFor(x => x.StageId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">FA Services<span class="required">*</span></label>
+            <div class="col-sm-9 col-md-10">
+                @Html.DropDownListFor(w => w.ServiceId, new SelectList(Model.Services, "Id", "Name"), "---Select---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(w => w.ServiceId)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-md-offset-2 col-sm-9 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary btn-width-md" id="btnSubmit" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-md-offset-2 col-sm-9 col-md-10">
+                @Html.ActionLink("Back to Device/Samples List", "Samples", new { id = Model.MasterId })
+            </div>
+        </div>
+    </div>
+}
+
+@* Modal popup Save Successfully *@
+<div class="modal fade in" id="modalSaveSuccess">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-success">Save information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The Samples was successfully add.</span>
+            </div>
+            <div class="modal-footer">
+                @Html.ActionLink("OK", "Samples", routeValues: new { id = Model.MasterId }, htmlAttributes: new { @class = "btn btn-success btn-width-md" })
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Save Failure *@
+<div class="modal fade in" id="modalSaveFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-danger">Save information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-danger">The Samples was failure add.</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnSV02" class="btn btn-danger btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modal-dialog {
+        max-width: 400px;
+    }
+
+    .required {
+        color: red;
+        font-size: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+
+@Html.Partial("_PartialPageLoading")
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#SerialNo').focus();
+
+            //param popup
+            var options = {
+                show: true,
+                //backdrop: false
+            };
+            onBegin = function () {
+                debugger;
+                    
+                $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+                $('body').css({ 'overflow': 'hidden' });
+                $('#box').css({ 'display': 'block' });
+
+                $('#btnSubmit').attr('disabled', 'disabled');
+            }
+
+            onComplete = function () {
+                $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+                $('body').css({ 'overflow': 'show' });
+                $('#box').css({ 'display': 'none' });
+
+                $('html').css('overflow', '-moz-scrollbars-vertical');
+                $('html').css('overflow-y', 'scroll');
+
+                $('#btnSubmit').removeAttr('disabled');
+            }
+            onSuccess = function (data) {
+                var result = data.code;
+                switch (result) {
+                    case "SV01":
+                        $('#modalSaveSuccess').modal(options);
+                        break;
+                    case "SV02":
+                        $('#modalSaveFailure').modal(options);
+                        break;
+                }
+            };
+            onFailure = function (data) {
+                console.log(data);
+                debugger;
+
+                $('#modalSaveFailure').modal(options);
+            };
+        });
+
+        //BEGIN ADD 05_Feb_2016
+        $('#modalSaveSuccess').on('shown.bs.modal', function () {
+            $(this).find('a').focus();
+        });
+
+        $('#modalSaveFailure').on('shown.bs.modal', function () {
+            $('#btnSV02').focus();
+        });
+        //END
+    </script>
+
+}

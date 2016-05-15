@@ -1,0 +1,14 @@
+﻿@{  ViewBag.Title = "Users";}
+
+<div class="row">
+    <h2>List of Users</h2>
+    <br />
+    <div>
+        @Html.ActionLink("Show All", "Index") &nbsp;&nbsp;|&nbsp;&nbsp;
+        @Html.ActionLink("Current Users", "CurrentUsers") &nbsp;&nbsp;|&nbsp;&nbsp;
+        @Html.ActionLink("For Review and Approval", "ForApproval")
+    </div>
+    <br />
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    @Html.Action("List")
+</div>

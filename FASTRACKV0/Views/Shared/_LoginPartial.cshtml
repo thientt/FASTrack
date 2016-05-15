@@ -1,0 +1,48 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <ul class="nav navbar-nav">
+        @*<li class=" hidden-sm"><a href="@Url.Action("Index", "Home")">Home</a></li>*@
+        @*@if (User.IsInRole("Manager"))
+        {
+            <li><a href="@Url.Action("AsManager", "Dashboard")">Dashboard</a></li>
+        }
+        @if (User.IsInRole("Analyst"))
+        {
+            <li><a href="@Url.Action("AsAnalyst", "Dashboard")">Dashboard</a></li>
+        }*@
+
+        @if (User.IsInRole("Requestor"))
+        {
+            <li>@*<a href="@Url.Action("AsRequestor", "Dashboard")">Dashboard</a>*@</li>
+            <li><a href="@Url.Action("NewRequest", "Dashboard")">New FA Request</a></li>
+        }
+        <li><a href="@Url.Action("ClosedRequest", "Dashboard")">FA Closed</a></li>
+        <li><a href="@Url.Action("Support", "Home")">Support</a></li>
+    </ul>
+    using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="@Url.Action("Index", "Account")">@Html.Encode(User.Identity.Name)</a></li>
+            @if (User.IsInRole("Admin"))
+            {
+                <li><a href="@Url.Action("Index", "Admin")"><span class="glyphicon glyphicon-lock"></span>Admin</a></li>
+            }
+            <li>
+                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav">
+        <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+        <li><a href="@Url.Action("Support", "Home")">Support</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="@Url.Action("LogIn", "Account")">Login</a></li>
+        <li><a href="@Url.Action("Registration", "Account")">Register</a></li>
+        <li><a href="@Url.Action("RecoverPassword", "Account")">Recover Password</a></li>
+    </ul>
+}
+@*Admin: M*@

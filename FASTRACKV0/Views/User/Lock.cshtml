@@ -1,0 +1,55 @@
+﻿@model FASTrack.Model.DTO.SYSUsersDto
+
+@{
+    ViewBag.Title = "DisAllowUser";
+}
+<h2>Lock User</h2>
+<h5>Are you sure you want to remove access from this User?</h5>
+<hr />
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-lg-2">  Email</label>
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Full Name</label>
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(x => x.FullName, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Phone</label>
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(x => x.Phone, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+                </div>
+            </div>
+            <div class=" form-group">
+                <label class="control-label col-lg-2">Register Date</label>
+                <div class="col-lg-10">
+                    @Html.DisplayFor(model => model.RegistedDate)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Lock" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.Salt)
+        </div>
+    }
+</div>
+@Html.Partial("_PartialPageLoading")

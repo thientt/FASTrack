@@ -1,0 +1,30 @@
+﻿@model IEnumerable<FASTrack.Model.DTO.FARPriorityLogDto>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center">User changed</th>
+                <th class="text-center">Reason</th>
+                <th class="text-center">P-From</th>
+                <th class="text-center">P-To</th>
+                <th class="text-center">Date changed</th>
+            </tr>
+        </thead>
+        @if (Model.Count() > 0)
+        {
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.LastUpdatedBy.Replace("@atmel.com", "")</td>
+                        <td>@item.Reason.Description</td>
+                        <td>@item.PriorityOld.Name</td>
+                        <td>@item.PriorityNew.Name</td>
+                        <td>@Html.DisplayFor(x => item.LastUpdate, "DisplayDateTime")</td>
+                    </tr>
+                }
+            </tbody>
+        }
+    </table>
+</div>

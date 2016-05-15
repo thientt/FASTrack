@@ -1,0 +1,34 @@
+﻿@model IEnumerable<FASTrack.ViewModel.UploadFile>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Upload New", "Index")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.File)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.File)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.File.FileName)
+            </td>
+            <td>
+                @Html.ActionLink("Download", "Filedownload", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<FASTrack.Model.DTO.SYSUsersDto>
+
+@{
+    ViewBag.Title = "ForApproval";
+}
+<link href="~/Content/main.css" rel="stylesheet" />
+<h2>Users for Approval</h2>
+<br />
+
+<div>
+    @Html.ActionLink("Show All", "Index") |
+    @Html.ActionLink("Current Users", "CurrentUsers") |
+    @Html.ActionLink("For Review and Approval", "ForApproval")
+</div>
+
+<br />
+<table class="table table-bordered">
+    <thead class="header">
+        <tr>
+            <th>Email</th>
+            <th>Full Name</th>
+            <th>Phone</th>
+            <th>Role</th>
+            <th>Locked</th>
+            <th>Register Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    @if (Model.Count() > 0)
+    {
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Email</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Role.Name</td>
+                    <td class="text-center">@Html.CheckBoxFor(x => item.IsLocked, htmlAttributes: new { @disabled = "disabled" })</td>
+                    <td> @item.RegistedDate.ToString("MM/dd/yyyy")</td>
+                    <td>
+                        <a href="@Url.Action("SetRole", "User", new { id = item.Id })">Set Role</a>  |
+                        <a href="@Url.Action("Delete", "User", new { id = item.Id })">Delete</a> |
+                        @if (item.IsLocked)
+                        {
+                            <a href="@Url.Action("Unlocked", "User", new { id = item.Id })">Unlocked User</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Lock", "User", new { id = item.Id })">Lock User</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+    else
+    {
+        <tfoot>
+            <tr><td colspan="7">No rows found.</td></tr>
+        </tfoot>
+    }
+</table>

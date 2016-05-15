@@ -1,0 +1,11 @@
+﻿@model FASTrack.Model.DTO.FabSiteDto
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h2>Delete a FAB Site</h2>
+<h5>Are you sure you want to DELETE this?</h5>
+<hr />
+@{
+    Html.RenderPartial("_PartialPageMSTDelete", Model);
+}

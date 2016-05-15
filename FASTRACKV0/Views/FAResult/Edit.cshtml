@@ -1,0 +1,50 @@
+﻿@model FASTrack.ViewModel.ProcessResultViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit FA Result - @Html.DisplayFor(model => model.Value)</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            <label class="control-label col-md-2">FA Code</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ProcessTypeId, new SelectList(Model.ProcessType, "Id", "Name"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProcessTypeId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">FA Value</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Value, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Value)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Description</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-danger" name="btnSubmit" id="btnSubmit" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@Html.Partial("_PartialPageLoading")

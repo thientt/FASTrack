@@ -1,0 +1,42 @@
+﻿@model FASTrack.ViewModel.ProcessViewModel
+@{
+    ViewBag.Title = "AddProcess";
+}
+<h2>Process Flow - FA#@Model.FANumber</h2>
+<h5>Add Process</h5>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.HiddenFor(x => x.MasterId)
+            @Html.HiddenFor(x => x.FANumber)
+            <label class="control-label col-lg-2">Process</label>
+            <div class="col-lg-10">
+                @Html.DropDownListFor(x => x.ProcessTypeId, new SelectList(Model.ProcessTypes, "Id", "Name"), "---Select---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.ProcessTypeId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Sequence</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(m => m.Sequence, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <input type="submit" value="Add Process" class="btn btn-primary" name="btnSubmit" id="btnSubmit" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                @Html.ActionLink("Back to FA Process Flow", "ProcessList", new { id = Model.MasterId })
+            </div>
+        </div>
+    </div>
+}
+@Html.Partial("_PartialPageLoading")
+@section Scripts {
+}

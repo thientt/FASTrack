@@ -1,0 +1,529 @@
+﻿@model FASTrack.ViewModel.ProcessHistoryViewModel
+
+@{
+    ViewBag.Title = "ProcessList";
+    AjaxOptions ajaxOption = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+    };
+}
+
+<style>
+    table > tbody > tr:hover {
+        background-color: #f3f0b6;
+    }
+
+    #modalSaveFailure .modal-dialog {
+        max-width: 400px;
+        background-color: silver;
+    }
+
+    table > thead > tr {
+        background-color: #bcd6ee;
+    }
+
+        table > thead > tr > th {
+            vertical-align: middle !important;
+        }
+</style>
+
+<div class="row">
+    <h2>FA Process Flow for FA#@Model.Number</h2>
+    <br />
+    <p>
+        @Html.ActionLink("FADetail", "ReEditFA", new { id = Model.MasterId }) &nbsp;&nbsp;|&nbsp;&nbsp;
+        @Html.ActionLink("Device/Samples List", "Samples", new { id = Model.MasterId })
+
+    </p>
+    @using (Ajax.BeginForm(ajaxOption))
+    {
+        @Html.HiddenFor(x => x.DeviceId)
+        @Html.HiddenFor(x => x.MasterId)
+        @Html.HiddenFor(x => x.Number)
+
+        <div class="table-responsive">
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                        </th>
+                        <th class="text-center">FA Code</th>
+                        <th class="text-center">FA Description</th>
+                        <th class="text-center">Duration</th>
+                        <th class="text-center">Planned In</th>
+                        <th class="text-center">Planned Out</th>
+                        <th class="text-center">Date In</th>
+                        <th class="text-center">Date Out</th>
+                        <th class="text-center">Results</th>
+                        <th class="text-center">Comments</th>
+                        <th class="text-center">Analyst</th>
+                        @if (Model.Device.FARServices.Id != 1)
+                        {
+                            <th class="text-center">Analyst's Site</th>
+                            <th class="text-center">Data</th>
+                        }
+                        @if (Model.Device.FARServices.Id == 1)
+                        {
+                            @*<th class="text-center">Include?</th>*@
+                            <th></th>
+                        }
+                        @if (Model.Process.Exists(x => x.IsHasPhotos))
+                        {
+                            <th class="text-center"></th>
+                        }
+
+                    </tr>
+                </thead>
+                @if (Model.Process.Count() > 0)
+                {
+                    for (int i = 0; i < Model.Process.Count(); i++)
+                    {
+                        decimal cDuration = 0;
+                        var item = Model.Process[i];
+
+                        if (item.DateIn.HasValue && item.DateOut.HasValue)
+                        {
+                            DateTime d1 = (DateTime)item.DateIn;
+                            DateTime d2 = (DateTime)item.DateOut;
+                            cDuration = ((d2 - d1).Days * 24);
+                        }
+                        <tr>
+                            <td class="text-center">
+                                <input checked="@item.IsRemove" class="text-center" id="[@i].IsRemove" name="[@i].IsRemove" type="checkbox" value="true"
+                                       data-toggle="tooltip" data-placement="right" title="Click to remove" />
+                                <input name="[@i].IsRemove" value="false" type="hidden" />
+                            </td>
+                            <td>
+                                <input name="[@i].Id" value="@item.Id" type="hidden" />
+                                <input name="[@i].ProcessType.Name" value="@item.ProcessType.Name" type="hidden" />
+                                @item.ProcessType.Name
+                            </td>
+                            <td>
+                                @item.ProcessType.Description
+                                <input name="[@i].ProcessType.Description" value="@item.ProcessType.Description" type="hidden" />
+                            </td>
+                            <td>
+                                @if (cDuration > 0)
+                                {
+                                    @cDuration.ToString()
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.PlannedIn, "DisplayDateTime")
+                                <input name="[@i].PlannedIn" value="@item.PlannedIn" type="hidden" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.PlannedOut, "DisplayDateTime")
+                                <input name="[@i].PlannedOut" value="@item.PlannedOut" type="hidden" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateIn, "DisplayDateTime")
+                                <input name="[@i].DateIn" value="@item.Comment" type="hidden" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateOut, "DisplayDateTime")
+                                <input name="[@i].DateOut" value="@item.Comment" type="hidden" />
+                            </td>
+                            <td>
+                                @item.ProcessResult.Value
+                            </td>
+                            <td>
+                                @item.Comment
+                                <input name="[@i].Comment" value="@item.Comment" type="hidden" />
+                            </td>
+                            <td>
+                                @item.Analystor
+                                <input name="[@i].Analystor" value="@item.Analystor" type="hidden" />
+                            </td>
+                            @if (Model.Device.FARServices.Id != 1)
+                            {
+                                <td>@item.Analyst.Sites.Name</td>
+                            }
+                            @*@if (Model.Device.FARServices.Id == 1)
+                                {
+                                    <td class="text-center">
+                                        <input checked="@item.IsIncluded" class="text-center" id="[@i].IsIncluded" name="[@i].IsIncluded" type="checkbox" value="true" />
+                                        <input name="[@i].IsIncluded" value="false" type="hidden" />
+                                    </td>
+                                }*@
+                            <td class="text-center">
+                                @if (Model.Device.FARServices.Id != 1)
+                                {   <a href="#" id="btnEdit" onclick="editProcess(@item.Id)">Edit </a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                                }
+                                <a href="#" id="btnRemove" onclick="removeProcess(@item.Id)">Remove</a>
+                            </td>
+                            @if (Model.Process.Exists(x => x.IsHasPhotos))
+                            {
+                                if (item.IsHasPhotos)
+                                {
+                                    <td class="text-center">
+                                        <a name="btnViewPhoto" onclick="viewPhotos(@item.Id)">Photos</a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="text-center"></td>
+                                }
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="13">No rows found.</td></tr>
+                }
+            </table>
+        </div>
+
+        <input class="btn btn-primary btn-width-md" type="submit" value="Remove All" name="btnSubmit" id="btnSubmit" />
+        <input class="btn btn-primary pull-right btn-width-md" type="button" value="Add Process" name="btnAddProcess" id="btnAddProcess" />
+        @*<div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <div class="text-right">*@
+                        @*@if (User.IsInRole(FASTrack.Infrastructure.AuthRole.Requestor) && Model.Device.FARServices.Id == 1)//FARService = FullFA
+                            {
+                                <input class="btn btn-primary btn-width-md" type="submit" value="Save" name="btnSubmit" id="btnSubmit" />
+                            }*@
+                        @*<input class="btn btn-primary btn-width-md" type="submit" value="Remove All" name="btnSubmit" id="btnSubmit" />*@
+                        @*<input class="btn btn-primary btn-width-md" type="button" value="Add Process" name="btnAddProcess" id="btnAddProcess" />*@
+                    @*</div>
+                </div>
+            </div>
+        </div>*@
+    }
+
+</div>
+
+@* Modal popup Save Successfully *@
+<div class="modal fade in" id="modalSaveSuccess">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-success">Save information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The FA Process Flow was successfully saved!</span>
+            </div>
+            <div class="modal-footer">
+                @*@Html.ActionLink("OK", "ReEditFA", routeValues: new { id = Model.MasterId }, htmlAttributes: new { @class = "btn btn-success btn-width-md" })*@
+                @Html.ActionLink("OK", "ProcessList", routeValues: new { id = Model.DeviceId }, htmlAttributes: new { @class = "btn btn-success btn-width-md" })
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Save Failure *@
+<div class="modal fade in" id="modalSaveFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Save information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-danger">The Samples was failure add.</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnSV02" class="btn btn-success btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup add process Successfully *@
+<div class="modal fade in" id="modalProcessSuccess">
+    <div class="modal-dialog" style="width:450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-success">Save information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The FA Process Flow was successfully saved!</span>
+            </div>
+            <div class="modal-footer">
+                @Html.ActionLink("OK", "ProcessList", routeValues: new { id = Model.DeviceId }, htmlAttributes: new { @class = "btn btn-success btn-width-md" })
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Save Failure *@
+<div class="modal fade in" id="modalAddProcessFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Save information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-danger">The add process was failure save.</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-width-md" data-dismiss="modal" aria-hidden="true" id="btnAddProcessFailure">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="containerPopupProcess"></div>
+<div id="containerViewPhoto"></div>
+
+@Html.Partial("_PartialPageLoading")
+
+@section Scripts{
+
+    <script type="text/javascript">
+        var options = {
+            show: true,
+            backdrop: false
+        };
+        $(document).ready(function () {
+            $('input:checkbox').change(function () {
+                cb = $(this);
+                cb.val(cb.prop('checked'));
+            });
+
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $('[name=btnViewPhoto]').mouseover(function(){
+                $(this).css('cursor','pointer');
+            });
+            //param popup
+
+            onBegin = function () {
+                $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+                $('body').css({ 'overflow': 'hidden' });
+                $('#box').css({ 'display': 'block' });
+            }
+            onComplete = function () {
+                $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+                $('body').css({ 'overflow': 'show' });
+                $('#box').css({ 'display': 'none' });
+
+                $('html').css('overflow', '-moz-scrollbars-vertical');
+                $('html').css('overflow-y', 'scroll');
+            }
+            onSuccess = function (data) {
+                var result = data.code;
+                switch (result) {
+                    case "SV01":
+                        $('#modalSaveSuccess').modal(options);
+                        break;
+                    case "SV02":
+                        $('#modalSaveFailure').modal(options);
+                        break;
+                }
+            };
+            onFailure = function (data) {
+                $('#modalSaveFailure').modal(options);
+            };
+
+            viewPhotos = function (processId) {
+                var url = '@Url.Action("ViewPhotos","Upload")' ;
+                var ajaxShowImage = $.ajax({
+                    type: 'GET',
+                    url: url,
+                    data:{
+                        masterId: @Model.MasterId,
+                        deviceId: @Model.DeviceId,
+                        processId: processId
+                    },
+                    cache: false,
+                });
+                ajaxShowImage.success(function (res, data) {
+                    var obj = $('#containerViewPhoto');
+                    obj.empty();
+                    //$('#containerViewPhoto').html(res);
+                    obj.html(res);
+                    $('[data-popup="popupViewPhoto"]').hide().fadeIn(1000);
+                });
+                ajaxShowImage.error(function (){});
+                ajaxShowImage.always(function () { });
+            };
+
+            $('#containerViewPhoto').on('click', 'a', function (e) {
+                var self = $(this);
+                if(self.hasClass('popup-close'))
+                {
+                    $('[data-popup="popupViewPhoto"]').fadeOut(100);
+                    $('#popupProcess').modal(options);
+                }
+                else{
+                    var href = '@Url.Content("~/")' + self.attr('href');
+                    $('#imgCurrentView').attr('src', href);
+                }
+                e.preventDefault();
+            });
+
+            $('#btnAddProcess').on('click',function(event){
+                var url = '@Url.Action("AddProcess", "ProcessHis")';
+                var ajaxAddProcess = $.ajax({
+                    type: 'GET',
+                    url: url,
+                    data:{
+                        deviceId: @Model.DeviceId,
+                    },
+                    //cache: false,
+                });
+
+                ajaxAddProcess.success(function (res, data) {
+                    var obj = $('#containerPopupProcess');
+                    obj.empty();
+                    obj.html(res);
+                    $('#modalAddProcess').modal(options);
+                });
+                ajaxAddProcess.error(function (){});
+                ajaxAddProcess.always(function () { });
+            });
+
+            $('#btnAddProcessFailure').on('click',function(){
+                $('#modalAddProcess').modal(options);
+            });
+        });
+
+        editProcess = function (id) {
+            var url = '@Url.Action("EditProcess", "ProcessHis")';
+            var ajaxEditProcess = $.ajax({
+                type: 'GET',
+                url: url,
+                data:{
+                    id: id,
+                },
+                //cache: false,
+            });
+
+            ajaxEditProcess.success(function (res, data) {
+                var obj = $('#containerPopupProcess');
+                obj.empty();
+                obj.html(res);
+                $('#modalEditProcess').modal(options);
+            });
+            ajaxEditProcess.error(function () { });
+            ajaxEditProcess.always(function () { });
+        };
+
+        removeProcess = function (id) {
+            var url = '@Url.Action("DeleteProcess", "ProcessHis")';
+            var ajaxEditProcess = $.ajax({
+                type: 'GET',
+                url: url,
+                data:{
+                    id: id,
+                },
+                //cache: false,
+            });
+
+            ajaxEditProcess.success(function (res, data) {
+                var obj = $('#containerPopupProcess');
+                obj.empty();
+                obj.html(res);
+                $('#modalDelProcess').modal(options);
+            });
+            ajaxEditProcess.error(function () { });
+            ajaxEditProcess.always(function () { });
+        };
+        //BEGIN ADD FA PROCESS FLOW
+        onAddProcessBegin = function () {
+            $('#modalAddProcess').hide();
+            $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+            $('body').css({ 'overflow': 'hidden' });
+            $('#box').css({ 'display': 'block' });
+        }
+        onAddProcessComplete = function () {
+            $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+            $('body').css({ 'overflow': 'show' });
+            $('#box').css({ 'display': 'none' });
+
+            $('html').css('overflow', '-moz-scrollbars-vertical');
+            $('html').css('overflow-y', 'scroll');
+        }
+        onAddProcessSuccess = function (data) {
+            var result = data.code;
+            switch (result) {
+                case "SB01":
+                    $('#modalProcessSuccess').modal(options);
+                    break;
+                case "SB02":
+                    $('#modalSaveFailure').modal(options);
+                    break;
+            }
+        };
+        onAddProcessFailure = function (data) {
+            $('#modalSaveFailure').modal(options);
+        };
+        //END ADD FA PROCESS FLOW
+
+        //BEGIN EDIT FA PROCESS FLOW
+        onEditProcessBegin = function () {
+            $('#modalEditProcess').hide();
+            $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+            $('body').css({ 'overflow': 'hidden' });
+            $('#box').css({ 'display': 'block' });
+        }
+        onEditProcessComplete = function () {
+            $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+            $('body').css({ 'overflow': 'show' });
+            $('#box').css({ 'display': 'none' });
+
+            $('html').css('overflow', '-moz-scrollbars-vertical');
+            $('html').css('overflow-y', 'scroll');
+        }
+        onEditProcessSuccess = function (data) {
+            var result = data.code;
+            switch (result) {
+                case "SB01":
+                    $('#modalProcessSuccess').modal(options);
+                    break;
+                case "SB02":
+                    $('#modalSaveFailure').modal(options);
+                    break;
+            }
+        };
+        onEditProcessFailure = function (data) {
+            $('#modalSaveFailure').modal(options);
+        };
+        //END EDIT FA PROCESS FLOW
+
+        //BEGIN DEL FA PROCESS FLOW
+        onDelProcessBegin = function () {
+            $('#modalDelProcess').hide();
+            $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+            $('body').css({ 'overflow': 'hidden' });
+            $('#box').css({ 'display': 'block' });
+        }
+        onDelProcessComplete = function () {
+            $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+            $('body').css({ 'overflow': 'show' });
+            $('#box').css({ 'display': 'none' });
+
+            $('html').css('overflow', '-moz-scrollbars-vertical');
+            $('html').css('overflow-y', 'scroll');
+        }
+        onDelProcessSuccess = function (data) {
+            var result = data.code;
+            switch (result) {
+                case "SB01":
+                    $('#modalProcessSuccess').modal(options);
+                    break;
+                case "SB02":
+                    $('#modalSaveFailure').modal(options);
+                    break;
+            }
+        };
+        onDelProcessFailure = function (data) {
+            $('#modalSaveFailure').modal(options);
+        };
+        //END DEL FA PROCESS FLOW
+
+        //BEGIN FOCUS BUTTON WHEN SHOW MODAL POPUP 14-Feb-2016
+        $('#modalProcessSuccess').on('shown.bs.modal', function(){
+            $(this).find('a').focus();
+        });
+        //END
+    </script>
+}

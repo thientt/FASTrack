@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "UserList";
+}
+
+<h2>Current Users</h2>
+<br />
+
+<div>
+    @Html.ActionLink("Show All", "Index") |
+    @Html.ActionLink("Current Users", "CurrentUsers") |
+    @Html.ActionLink("For Review and Approval", "ForApproval")
+</div>
+
+<br />
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@Html.Action("List")
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("click", "#contentPager a[href]", function () {
+                $.ajax({
+                    url: $(this).attr("href"),
+                    type: 'GET',
+                    cache: false,
+                    success: function (result) {
+                        $('#content').html(result);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+}
+

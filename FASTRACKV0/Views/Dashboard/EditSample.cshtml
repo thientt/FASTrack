@@ -1,0 +1,218 @@
+﻿@model FASTrack.ViewModel.DeviceDetailsViewModel
+
+@{
+    ViewBag.Title = "Edit Lot Details";
+    AjaxOptions ajaxOption = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+    };
+}
+<h2>Device / Samples</h2>
+<h4>Edit Samples</h4>
+<hr />
+
+@using (Ajax.BeginForm(ajaxOption))
+{
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.MasterId)
+        <div class="form-group">
+            <label class="control-label col-md-2">FAR Number</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.FARNumber, new { @class = "form-control", @Readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.FARNumber)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Serial No</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.SerialNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SerialNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Sample/Wafer No.</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.WaferNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.WaferNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">LotNo</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.LotNo, new { @class = "form-control", @Readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.LotNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">MfgPartNo</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.MfgPartNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MfgPartNo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Technology</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TechnologyId, new SelectList(Model.Technogolies, "Id", "Name"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TechnologyId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">PackgeTypes</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(w => w.PackageTypeId, new SelectList(Model.PackageTypes, "Id", "Name"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(w => w.PackageTypeId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">AssembliesTypes</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(w => w.AssembliesTypeId, new SelectList(Model.AssembliesTypes, "Id", "Name"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(w => w.AssembliesTypeId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">FabSites</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(w => w.FabSiteId, new SelectList(Model.FabSites, "Id", "Name"), "---Select---", new { @class = "form-control" })
+                @Html.ValidationMessageFor(w => w.FabSiteId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">DateCode</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.DateCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DateCode)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Quantity</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Quantity)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Stage</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.StageId, new SelectList(new SelectListItem[] {
+                           new SelectListItem{Value="0",Text="No"},
+                           new SelectListItem{Value="1",Text="Yes"}}, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                @Html.HiddenFor(x => x.StageId)
+                @Html.ValidationMessageFor(model => model.StageId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">FA Services</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(w => w.ServiceId, new SelectList(Model.Services, "Id", "Name"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(w => w.ServiceId)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-danger btn-width-md" name="btnSubmit" id="btnSubmit" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Back to Device/Samples List", "Samples", new { id = Model.MasterId })
+            </div>
+        </div>
+    </div>
+}
+
+@* Modal popup Edit Successfully *@
+<div class="modal fade in" id="modalEditSuccess">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title text-success">Edit Device/Sample</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The Device/Sample was successfully saved.</span>
+            </div>
+            <div class="modal-footer">
+                @Html.ActionLink("OK", "Samples", routeValues: new { id = Model.MasterId }, htmlAttributes: new { @class = "btn btn-success btn-width-md", @id = "btnED01" })
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Edit Failure *@
+<div class="modal fade in" id="modalEditFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title text-danger">Edit Device/Sample</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-danger">The Device/Sample was failure save.</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnED02" class="btn btn-danger btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_PartialPageLoading")
+
+<style>
+    .modal-dialog {
+        max-width: 400px;
+    }
+</style>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            //param popup
+            var options = {
+                show: true,
+                //backdrop: false
+            };
+            onBegin = function () {
+                $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+                $('body').css({ 'overflow': 'hidden' });
+                $('#box').css({ 'display': 'block' });
+            };
+
+            onSuccess = function (data) {
+                var code = data.code;
+                var url = '@Url.Action("Samples")' + '/' + code;
+                $('#btnED01').attr('href', url);
+                $('#modalEditSuccess').modal(options);
+            }
+
+            onComplete = function () {
+                $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+                $('body').css({ 'overflow': 'show' });
+                $('#box').css({ 'display': 'none' });
+
+                $('html').css('overflow', '-moz-scrollbars-vertical');
+                $('html').css('overflow-y', 'scroll');
+            };
+            onFailure = function (data) {
+                var code = data.code;
+                $('#modalEditFailure').modal(options);
+            }
+        });
+
+        $('#modalEditSuccess').on('shown.bs.modal', function () {
+            $(this).find('a').focus();
+        });
+
+        $('#modalEditFailure').on('shown.bs.modal', function () {
+            $('#btnED02').focus();
+        });
+    </script>
+}

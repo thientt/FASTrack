@@ -1,0 +1,18 @@
+﻿@model  FASTrack.Model.DTO.FARProcessHistoryDto
+
+<tr>
+    <td style="width:30px;">
+        @Html.CheckBoxFor(x => x.IsSelected, htmlAttributes: new { @data_name = "process" })
+        @Html.HiddenFor(x => x.Id)
+    </td>
+    <td style="min-width:100px;">
+        @Html.LabelFor(x => Model.ProcessType.Name, Model.ProcessType.Name, htmlAttributes: new { @style = "margin-bottom:1px !important;" })
+    </td>
+    <td style="width:70px; padding:5px 10px; text-align:center">
+        <label style="white-space:nowrap;background-color:#5B9BD5;font-weight:normal;color:white;padding:3px 25px;margin-top:5px;width:140px;" id="Status_@Model.Id">No Photo</label>
+    </td>
+    <td style="width:70px; padding:5px 10px;">
+        <input type="button" value="Select Photos" id="btnSelect_@Model.Id" name="@Model.SelectPhoto" class="btn btn-sm btn-default btn-selectphoto" />
+        @Html.HiddenFor(x => Model.SelectPhoto)
+    </td>
+</tr>

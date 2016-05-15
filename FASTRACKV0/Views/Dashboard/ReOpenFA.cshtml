@@ -1,0 +1,55 @@
+﻿@model FASTrack.ViewModel.LogViewModel
+@{
+    ViewBag.Title = "ReOpen FA#" + Model.Number;
+}
+
+<h2>
+    ReOpen Justification
+</h2>
+<br />
+
+@if (ViewBag.RedMessage != null)
+{
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Error!</strong>@ViewBag.RedMessage
+    </div>
+}
+
+@using (@Html.BeginForm())
+{
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-lg-2 control-label">FAR Number</label>
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(m => m.Number, new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })
+                    @Html.HiddenFor(x => x.Number)
+                    @Html.HiddenFor(x => x.MasterId)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Justification for ReOpening</label>
+                <div class="col-lg-10">
+                    @Html.DropDownListFor(m => m.ReasonId, new SelectList(Model.Reason, "Id", "Description"), "---Select---", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ReasonId)
+                    @Html.HiddenFor(x => x.ReasonId)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button class="btn btn-primary" type="submit" value="Save" name="btnSubmit" id="btnSubmit">ReOpen</button>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    @Html.ActionLink("View FA Detail", "EditFA", new { id = Model.MasterId })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@Html.Partial("_PartialPageLoading")
+@section Scripts{
+}

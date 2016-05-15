@@ -1,0 +1,466 @@
+﻿@model FASTrack.ViewModel.FARRequestViewModel
+@{
+    ViewBag.Title = "NewRequest";
+    ViewBag.ID = "0";
+    AjaxOptions ajaxOption = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "onSuccess",
+        OnFailure = "OnFailure",
+    };
+}
+<style>
+    .editor-multiline-field textarea {
+        height: 80px;
+    }
+
+    .modal-dialog {
+        max-width: 400px;
+    }
+
+    .required {
+        color: red;
+        font-size: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+    }
+
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+        /* support: IE7 */
+        *height: 1.7em;
+        *top: 0.1em;
+    }
+
+    .custom-combobox-input {
+        margin: 0;
+        padding: 0.3em;
+    }
+</style>
+
+<h2>New FA Request</h2>
+
+@using (Ajax.BeginForm(ajaxOption))
+{
+    @Html.HiddenFor(x => x.Gu)
+    @Html.ValidationSummary(true, "")
+    <div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <label class="control-label">Origins<span class="required">*</span></label>
+                </div>
+                <div class="col-xs-12">
+                    @Html.DropDownListFor(x => x.OriginId, new SelectList(Model.Origins, "Id", "Name"), "---Select---", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.OriginId)
+                </div>
+                @*@Html.HiddenFor(x => x.OriginId)*@
+            </div>
+        </div>
+        <br />
+
+        <div>
+            <hr />
+            <h4>FA REQUEST DETAILS</h4>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">FAR Number</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(m => m.FARNumber, new { @class = "form-control", @Value = ViewBag.ID, @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Reference No.<span class="required">*</span></label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.RefNo)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Failure Type<span class="required">*</span></label>
+                        <div class="col-lg-8">
+                            @Html.DropDownListFor(x => x.FailureTypeId, new SelectList(Model.FailureTypes, "Id", "Name"), "---Select---", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.FailureTypeId)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Failure Origin<span class="required">*</span></label>
+                        <div class="col-lg-8">
+                            @Html.DropDownListFor(x => x.FailureOriginId, new SelectList(Model.FailureOrigins, "Id", "Name"), "---Select---", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.FailureOriginId)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Failure Rate<span class="required">*</span></label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(m => m.FailureRate, new { @class = "form-control", @id = "txtFailureRate" })
+                            @Html.ValidationMessageFor(x => x.FailureRate)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Request Date</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(m => m.RequestDate,
+                               htmlAttributes: new
+                               {
+                                   @class = "form-control",
+                                   @Value = Model.Now.ToString("MM/dd/yyyy"),
+                                   @disabled = "disabled"
+                               })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Requestor</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(m => m.Requestor, new { @class = "form-control", @disabled = "disabled" })
+                            @Html.HiddenFor(x => x.Requestor)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Requestor's Site</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(m => m.Site, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">FA Analyst</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(x => x.Analyst, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Lab Site<span class="required">*</span></label>
+                        <div class="col-lg-8">
+                            @Html.DropDownListFor(x => x.LabSiteId, new SelectList(Model.LabSites, "Id", "Name"), "---Select---", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.LabSiteId)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Received Date</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(m => m.SamplesArriveDate,
+                            htmlAttributes: new
+                            {
+                                @class = "form-control",
+                                @Value = @Model.SamplesArriveDate.HasValue ? @Model.SamplesArriveDate.Value.ToString("MM/dd/yyyy") : "",
+                                @disabled = "disabled"
+                            })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Priority<span class="required">*</span></label>
+                        <div class="col-lg-8">
+                            @Html.DropDownListFor(x => x.PriorityId, new SelectList(Model.Priorities, "Id", "Name"), "---Select---", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.PriorityId)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Initial Date</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(m => m.InitialReportTargetDate,
+                            htmlAttributes: new
+                                 {
+                                     @class = "form-control",
+                                     @Value = @Model.InitialReportTargetDate.HasValue ? @Model.InitialReportTargetDate.Value.ToString("MM/dd/yyyy") : "",
+                                     @disabled = "disabled"
+                                 })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Status</label>
+                        <div class="col-lg-8">
+                            @Html.DropDownListFor(x => x.StatusId, new SelectList(Model.Status, "Id", "Name"), new { @class = "form-control", @disabled = "disabled" })
+                            @Html.HiddenFor(x => x.StatusId)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Business Unit<span class="required">*</span></label>
+                        <div class="col-lg-8">
+                            @Html.DropDownListFor(x => x.BUId, new SelectList(Model.BUs, "Id", "Name"), "---Select---", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.BUId)
+                        </div>
+                    </div>
+                  
+                      <div class="form-group">
+                        <label class="col-lg-4 control-label">Product Line<span class="required">*</span></label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => Model.Product, htmlAttributes: new { @type = "text", @class = "form-control", @id = "txtProduct" })
+                            @Html.ValidationMessageFor(x => x.Product)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Customer</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(model => Model.Customer, htmlAttributes: new { @type = "text", @class = "form-control", @id = "txtCustomer" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Description<span class="required">*</span></label>
+                        <div class="col-lg-8 editor-multiline-field">
+                            @Html.TextAreaFor(m => m.FailureDesc, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.FailureDesc)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Final Date</label>
+                        <div class="col-lg-8">
+                            @Html.TextBoxFor(m => m.FinalReportTargetDate,
+                            htmlAttributes: new
+                                 {
+                                     @class = "form-control",
+                                     @Value = @Model.InitialReportTargetDate.HasValue ? @Model.InitialReportTargetDate.Value.ToString("MM/dd/yyyy") : "",
+                                     @disabled = "disabled"
+                                 })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-lg-offset-4 col-lg-8">
+                            <input class="btn btn-primary btn-width-md" type="submit" name="btnSubmit" id="btnSubmit" value="Save" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+
+<div id="modalSave" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title text-success">Information</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <span class="text-success">The FA Request was successfully saved!</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-9">
+                            @Html.ActionLink("OK", "Samples", routeValues: new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-success btn-width-md", @id = "btnSuccessOK" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalSubmit" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title text-success">Information</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <span class="text-success">The FA Request was submitted to FA Group!</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-9">
+                            @Html.ActionLink("OK", "AsRequestor", "Dashboard", null, htmlAttributes: new { @class = "btn btn-success" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_PartialPageUpload", "")
+@Html.Partial("_PartialPageLoading")
+
+@section Scripts{
+    <script type="text/javascript">
+        window.onbeforeunload = confirmExit;
+        function confirmExit(e) {
+            if (hasData() && !clickSave)
+                return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
+        }
+
+        $(document).ready(function () {
+            $('#fileUpload').change(function () {
+                $(this).next().removeAttr('disabled');
+            }).next().attr('disabled', 'disabled');
+
+            $('#btnUpload').on('click', function () {
+                var ajaxRequest = $.ajax({
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    url: '@Url.Action("ReUploadFiles", "Upload", new { id=Model.Id})' + '?guid=@Model.Gu',
+                    data: function () {
+                        var formData = new FormData();
+                        var files = $('#fileUpload').get(0).files;
+                        if (files.length > 0) {
+                            formData.append("File", files[0]);
+                        }
+                        return formData;
+                    }()
+                });
+                ajaxRequest.success(function (e, data) {
+                    $('#fileName').html(e);
+                    $('#fileUpload').val('');
+                    $('#btnUpload').attr('disabled', 'disabled');
+                });
+                ajaxRequest.error(function () {
+                    $('#fileName').html('Has Error in while upload file').css('color', 'red');
+                });
+                ajaxRequest.always(function () {
+                    $('html').css('overflow', '-moz-scrollbars-vertical');
+                    $('html').css('overflow-y', 'scroll');
+                });
+            });
+            $('#txtFailureRate').keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+                if ($('#txtFailureRate').val().length > 2)
+                    return false;
+            });
+
+            hasData = function () {
+                var origin = $('#OriginId').val();
+                var refNo = $('#RefNo').val();
+                var failureType = $('#FailureTypeId').val();
+                var failureOrigin = $('#FailureOriginId').val();
+                var failureRate = $('#txtFailureRate').val();
+                var priority = $('#PriorityId').val();
+                var bu = $('#BUId').val();
+                var product = $('#ProductId').val();
+                var failureDesc = $('#FailureDesc').val();
+
+                if (origin != originOriginal ||
+                    refNo != refNoOriginal ||
+                    failureType != failureTypeOriginal ||
+                    failureOrigin != failureOriginOriginal ||
+                    failureRate != failureRateOriginal ||
+                    priority != priorityOriginal ||
+                    bu != buOriginal ||
+                    product != productOriginal ||
+                    failureDesc != failureDescOriginal)
+                    return true;
+
+                return false;
+            }
+
+            //param popup
+            var options = {
+                show: true,
+                //backdrop: false
+            };
+
+            onBegin = function () {
+                $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+                $('body').css({ 'overflow': 'hidden' });
+                $('#box').css({ 'display': 'block' });
+            }
+
+            onComplete = function () {
+                //$('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+                //$('body').css({ 'overflow': 'show' });
+                //$('#box').css({ 'display': 'none' });
+                hideLoading();
+            }
+
+            onSuccess = function (data) {
+                var url = '@Url.Action("Samples")' + '/' + data.code;
+                $('#btnSuccessOK').attr('href', url);
+                clickSave = true;
+                $('#modalSave').modal(options);
+            };
+
+            OnFailure = function (data) {
+                debugger;
+                hideLoading();
+                alert(data.result);
+            };
+        });
+
+        var originOriginal = $('#OriginId').val();
+        var refNoOriginal = $('#RefNo').val();
+        var failureTypeOriginal = $('#FailureTypeId').val();
+        var failureOriginOriginal = $('#FailureOriginId').val();
+        var failureRateOriginal = $('#txtFailureRate').val();
+        var priorityOriginal = $('#PriorityId').val();
+        var buOriginal = $('#BUId').val();
+        var productOriginal = $('#ProductId').val();
+        var failureDescOriginal = $('#FailureDesc').val();
+        var clickSave = false;
+
+        $('#txtCustomer').autocomplete({
+            source: '@Url.Action("GetCustomer","Dashboard")',
+            minLength: 1,
+            select: function (event, ui) {
+                if (ui.item) {
+                    $("#txtCustomer").val(ui.item.value);
+                }
+            },
+            autofill: true,
+            selectFirst: true,
+            highlight: true,
+            multiple: false
+        });
+
+        $('#txtProduct').autocomplete({
+            source: '@Url.Action("GetProduct","Dashboard")',
+            minLength: 1,
+            select: function (event, ui) {
+                if (ui.item) {
+                    $(this).val(ui.item.value);
+                }
+            },
+            autofill: true,
+            selectFirst: true,
+            highlight: true,
+            multiple: false
+        });
+
+        $('#modalSave').on('shown.bs.modal', function () {
+            $('#btnSuccessOK').focus();
+        });
+
+        hideLoading = function () {
+            $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+            $('body').css({ 'overflow': 'show' });
+            $('#box').css({ 'display': 'none' });
+        }
+    </script>
+}

@@ -1,0 +1,16 @@
+2016-05-14 16:19:58,030 ERROR - Sequence contains no elements
+System.InvalidOperationException: Sequence contains no elements
+   at System.Data.Entity.Infrastructure.IDbAsyncEnumerableExtensions.<SingleAsync>d__2d`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at FASTrack.Model.Concretes.FARMasterRepository.<SingleAsync>d__4.MoveNext() in e:\Projects\FASTrack\TurnOverFiles\FASTrack\FASTRACKV0.Model\Concretes\FARMasterRepository.cs:line 108
+2016-05-14 16:20:02,706 ERROR - Sequence contains no elements
+System.InvalidOperationException: Sequence contains no elements
+   at System.Data.Entity.Infrastructure.IDbAsyncEnumerableExtensions.<SingleAsync>d__2d`1.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at FASTrack.Model.Concretes.FARMasterRepository.<SingleAsync>d__4.MoveNext() in e:\Projects\FASTrack\TurnOverFiles\FASTrack\FASTRACKV0.Model\Concretes\FARMasterRepository.cs:line 108

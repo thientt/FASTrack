@@ -1,0 +1,124 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using FASTrack.Infrastructure;
+
+@model IPagedList<FASTrack.Model.DTO.FARMasterDto>
+@{
+    AjaxOptions ajaxPaging = new AjaxOptions()
+    {
+        UpdateTargetId = "tblAdmin",
+        HttpMethod = "GET",
+    };
+
+    AjaxOptions ajaxOption = new AjaxOptions
+   {
+       UpdateTargetId = "tblAdmin",
+       HttpMethod = "GET",
+   };
+
+    string currentSort = ViewBag.CurrentSort;
+    if (string.IsNullOrEmpty(currentSort))
+    {
+        currentSort = "FaNumberSortOrder_Desc";
+    }
+}
+
+<link href="~/Content/main.css" rel="stylesheet" />
+<link href="~/Content/app/table-head.css" rel="stylesheet" />
+
+<div id="tblAdmin" class="table-responsive">
+    <table class="table table-bordered" style="font-size:9px;">
+        <thead>
+            <tr>
+                <th class="text-center">
+                    @Ajax.ActionLink("FA Number", "AsAdministrators", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.FaNumberSortOrder), ajaxOption)
+                    @Html.SortIdentifier(currentSort, "FaNumberSortOrder")
+                </th>
+                <th class="text-center">Reference</th>
+                <th class="text-center">Requested by</th>
+                <th class="text-center">
+                    @Ajax.ActionLink("Priority", "AsAdministrators", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.PrioritySortOrder), ajaxOption)
+                    @Html.SortIdentifier(currentSort, "PrioritySortOrder")
+                </th>
+                <th class="text-center">
+                    @Ajax.ActionLink("Overall FA In-charge", "AsAdministrators", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.OverallFASortOrder), ajaxOption)
+                    @Html.SortIdentifier(currentSort, "OverallFASortOrder")
+                </th>
+                <th class="text-center">
+                    @Ajax.ActionLink("Status", "AsAdministrators", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.StatusSortOrder), ajaxOption)
+                    @Html.SortIdentifier(currentSort, "StatusSortOrder")
+                </th>
+                <th class="text-center">
+                    @Ajax.ActionLink("Lab Site", "AsAdministrators", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.LabSiteSortOrder), ajaxOption)
+                    @Html.SortIdentifier(currentSort, "LabSiteSortOrder")
+                </th>
+                <th class="text-center">BU</th>
+                <th class="text-center">Product</th>
+                <th class="text-center">Last Update</th>
+                <th class="text-center">Last <br /> Updatd by</th>
+                <th class="text-center">Current Process</th>
+                <th class="text-center">Comments</th>
+                <th class="text-center">Overall CT</th>
+                <th class="text-center">Current <br /> Process CT</th>
+                <th class="text-center">Submission <br /> Status</th>
+            </tr>
+        </thead>
+
+        @if (Model.Count() > 0)
+        {
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Number</td>
+                        <td>@item.RefNo</td>
+                        <td>@item.Requestor.Replace("@atmel.com", "")</td>
+                        <td>@item.FARPriority.Name</td>
+                        <td>
+                            @if (!String.IsNullOrEmpty(item.Analyst))
+                            {
+                                @item.Analyst.Replace("@atmel.com", "");
+                            }
+                        </td>
+                        <td>@item.FARStatus.Name </td>
+                        <td>@item.LabSite.Name </td>
+                        <td>@item.Bu.Name </td>
+                        <td>@item.Product</td>
+                        <td>@Html.DisplayFor(x => item.LastUpdate, "DisplayDateTime")</td>
+                        <td>@item.LastUpdatedBy.Replace("@atmel.com", "")</td>
+                        <td>@item.CurrentProcess</td>
+                        <td>@item.FailureDesc</td>
+                        <td>@item.OverallCT</td>
+                        <td>@item.CurrentProcessCT</td>
+                        <td>
+                            @if (item.Submitted)
+                            {
+                                @("Submitted");
+                            }
+                            else
+                            {
+                                @("Saved");
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="16">
+                        <div id="cotentPager" class="pull-right">
+                            @Html.PagedListPager(Model, page => Url.Action("AsAdministrators",
+                new { sortOrder = ViewBag.CurrentSort, page, SearchAll = ViewBag.Search }),
+                           PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxPaging))
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+        else
+        {
+            <tr><td colspan="16">No rows found.</td></tr>
+        }
+    </table>
+</div>

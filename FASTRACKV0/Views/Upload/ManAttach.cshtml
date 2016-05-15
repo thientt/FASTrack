@@ -1,0 +1,279 @@
+﻿@model FASTrack.ViewModel.AttachmentViewModel
+
+@{
+    ViewBag.Title = "Report";
+    bool isOverInital = false;
+    bool isOverFinal = false;
+
+    if (Model.InitialDate.HasValue)
+    {
+        int day = (Model.InitialDate.Value.Date - DateTime.Now.Date).Days;
+        if (day < 0)
+        {
+            isOverInital = true;
+        }
+    }
+
+    if (Model.FinalDate.HasValue)
+    {
+        int day = (DateTime.Now.Date - Model.FinalDate.Value.Date).Days;
+        if (day > 0)
+        {
+            isOverFinal = true;
+        }
+    }
+}
+
+<br />
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-lg-2">FA Number</label>
+        <div class="col-lg-10">
+            @Html.TextBoxFor(x => x.FANumber, htmlAttributes: new { @class = "form-control", @readonly = "true", @style = "font-weight:bold" })
+        </div>
+    </div>
+</div>
+<br />
+<br />
+
+<div class="jumbotron">
+    <div class="form-horizontal col-xs-offset-1">
+        <div class="form-group">
+            <label class="control-label col-sm-3">FA Initial Report</label>
+            <div class="col-sm-9">
+                @if (ViewBag.EnableInitial == true)
+                {
+                    <input id="fileUpload1" type="file" class="form-control btn btn-info col-md-3 col-sm-5" />
+                }
+                else
+                {
+                    <input id="fileUpload1" type="file" class="form-control btn btn-info col-md-3 col-sm-5" disabled="disabled" />
+                }
+                <button class="btn btn-primary col-md-2 col-sm-3" id="btnUpload1" value="Upload" style="margin-left:2px;">Upload</button>
+                @*<table>
+                        <tr>
+                            <td>
+                                <input id="fileUpload1" type="file" class="form-control btn btn-info pull-left" />
+                                <button class="btn btn-primary pull-right" id="btnUpload1" value="Upload" style="margin-left:2px;">Upload</button>
+                            </td>
+                        </tr>
+                    </table>*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <div id="filesName1">
+                    @if (Model.InitialReport != null)
+                    {
+                        foreach (var item in Model.InitialReport)
+                        {
+                            <a href="~/Upload/Download?id=@Model.Id&file=@item&type=INT">@item</a>
+                            <br />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="jumbotron">
+    <div class="form-horizontal col-xs-offset-1">
+        <div class="form-group">
+            <label class="control-label col-sm-3">FA Final Report</label>
+            <div class="col-sm-9">
+                @if (ViewBag.EnableFinal == true)
+                {
+                    <input id="fileUpload2" type="file" class="form-control btn btn-info col-md-3 col-sm-5" />
+                }
+                else
+                {
+                    <input id="fileUpload2" type="file" class="form-control btn btn-info col-md-3 col-sm-5" disabled="disabled" />
+                }
+                <button class="btn btn-primary col-md-2 col-sm-3" id="btnUpload2" value="Upload" style="margin-left:2px;">Upload</button>
+                @*<table>
+                        <tr>
+                            <td>
+                                <input id="fileUpload2" type="file" class="form-control btn btn-info pull-left" />
+                            </td>
+                            <td>
+                                <button class="btn btn-primary pull-right" id="btnUpload2" value="Upload" style="margin-left:2px;">Upload</button>
+                            </td>
+                        </tr>
+                    </table>*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <div id="filesName2">
+                    @if (Model.FinalReport != null)
+                    {
+                        foreach (var item in Model.FinalReport)
+                        {
+                            <a href="~/Upload/Download?id=@Model.Id&file=@item&type=FIN">@item</a>
+                            <br />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.ActionLink("FA Details", "ManReportUpload", "Dashboard", routeValues: new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+
+@*<br />
+    <div class="row">
+        @Html.ActionLink("FA Details", "ManReportUpload", "Dashboard", routeValues: new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+    </div>*@
+@*Popup Initial Reason*@
+<div class="modal fade in" id="popupInitalReason">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Reason Delayed</h3>
+            </div>
+            <div class="modal-body">
+                <label class="control-label">Report is already delayed</label>
+                @Html.DropDownListFor(x => x.InitalReasonId, new SelectList(Model.InitalReasons, "Id", "Description"), htmlAttributes: new { @class = "form-control" })
+                @Html.HiddenFor(x => x.InitalReasonId)
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+                <input type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true" value="Save" id="btnSaveInital" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Popup Final Reason*@
+<div class="modal fade in" id="popupFinalReason">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Reason Delayed</h3>
+            </div>
+            <div class="modal-body">
+                <label class="control-label">Report is already delayed</label>
+                @Html.DropDownListFor(x => x.FinalReasonId, new SelectList(Model.FinalReasons, "Id", "Description"), htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+                <input type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true" value="Save" id="btnSaveFinal" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('input[type="file"]').change(function () {
+                $(this).next().removeAttr('disabled');
+            }).next().attr('disabled', 'disabled');
+
+            uploadFile1 = function (reasonId) {
+                var ajaxRequest = $.ajax({
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    url: '@Url.Action("ManAttach", new { id= Model.Id})' + '?type=INT' + "&ReasonId=" + reasonId,
+                    data: function () {
+                        var formData = new FormData();
+                        var files = $('#fileUpload1').get(0).files;
+                        if (files.length > 0) {
+                            formData.append("File", files[0]);
+                        }
+                        return formData;
+                    }()
+                });
+                ajaxRequest.success(function (e, data) {
+                    $('#filesName1').html(e);
+                    $('#fileUpload1').val('');
+                    $('#btnUpload1').attr('disabled', 'disabled');
+                });
+                ajaxRequest.error(function () {
+                    $('#filesName1').html('Has Error in while upload file').css('color', 'red');
+                });
+                ajaxRequest.always(function () {
+                    $('html').css('overflow', '-moz-scrollbars-vertical');
+                    $('html').css('overflow-y', 'scroll');
+                });
+            };
+
+            uploadFile2 = function (reasonId) {
+                var ajaxRequest = $.ajax({
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    url: '@Url.Action("ManAttach", new { id= Model.Id})' + '?type=FIN' + "&ReasonId=" + reasonId,
+                    data: function () {
+                        var formData = new FormData();
+                        var files = $('#fileUpload2').get(0).files;
+                        if (files.length > 0) {
+                            formData.append("File", files[0]);
+                        }
+                        return formData;
+                    }()
+                });
+
+                ajaxRequest.success(function (e, data) {
+                    $('#filesName2').html(e);
+                    $('#fileUpload2').val('');
+                    $('#btnUpload2').attr('disabled', 'disabled');
+                });
+
+                ajaxRequest.error(function () {
+                    $('#filesName2').html('Has Error in while upload file').css('color', 'red');
+                });
+                ajaxRequest.always(function () {
+                    $('html').css('overflow', '-moz-scrollbars-vertical');
+                    $('html').css('overflow-y', 'scroll');
+                });
+            };
+
+            $('#btnSaveInital').on('click', function () {
+                var valInitial = $('#InitalReasonId').val();
+                uploadFile1(valInitial);
+            });
+            $('#btnSaveFinal').on('click', function () {
+                var valInitial = $('#FinalReasonId').val();
+                uploadFile2(valInitial);
+            });
+
+            $('#btnUpload1').on('click', function (e) {
+                var isOverInitial = '@isOverInital';
+                if (window.FormData !== undefined) {
+                    if (isOverInitial == 'True') {
+                        $('#popupInitalReason').modal(options);
+                    }
+                    else {
+                        uploadFile1(0);
+                    }
+                }
+                else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            });
+
+            $('#btnUpload2').on('click', function () {
+                var isOverFinal = '@isOverFinal';
+                if (window.FormData !== undefined) {
+                    if (isOverFinal == 'True') {
+                        $('#popupFinalReason').modal(options);
+                    }
+                    else {
+                        uploadFile2(0);
+                    }
+                }
+                else {
+                    alert("This browser doesn't support HTML5 file uploads!");
+                }
+            });
+        });
+    </script>
+}

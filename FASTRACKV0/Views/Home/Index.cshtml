@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Welcome @ViewBag.UserName to FASTrack!</h2>
+        @if (Request.IsAuthenticated)
+        {
+            if (User.IsInRole("Analyst"))
+            {
+                <p><a class="btn btn-default" href="@Url.Action("AsAnalyst", "Dashboard")">View the DashBoard&raquo;</a></p>
+            }
+
+            if (User.IsInRole("Requestor"))
+            {
+                <p><a class="btn btn-default" href="@Url.Action("AsRequestor", "Dashboard")">View the DashBoard&raquo;</a></p>
+            }
+        }
+    </div>
+</div>

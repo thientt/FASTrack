@@ -1,0 +1,12 @@
+﻿table thead tr th {
+    background-color: #0070c0 !important;
+    color: white !important;
+    font-size: 9px !important;
+}
+
+    table thead tr th > a {
+        background-color: #0070c0 !important;
+        color: white !important;
+        font-size: 9px !important;
+        text-decoration: underline;
+    }

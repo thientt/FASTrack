@@ -1,0 +1,58 @@
+﻿@model FASTrack.Model.DTO.MSTFarReportDto
+
+    @{
+        ViewBag.Title = "Details";
+    }
+
+    <h2>Report Details</h2>
+    <hr />
+
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-2">Report </label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.ReportType.Name, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">FAR Origin</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.Origin.Name, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Required</label>
+                <div class="col-sm-10  text-left">
+                    @Html.CheckBoxFor(model => model.Required, htmlAttributes: new { @class = "checkbox", @readonly = "true" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Description</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="control-label col-sm-2">Last Updated By</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.LastUpdatedBy, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Last Update</label>
+                <div class="col-sm-10">
+                    @Html.DisplayFor(model => model.LastUpdate)
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-sm-10">
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+

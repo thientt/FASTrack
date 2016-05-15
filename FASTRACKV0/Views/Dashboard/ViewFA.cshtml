@@ -1,0 +1,251 @@
+﻿@model FASTrack.ViewModel.FAREditRequestViewModel
+@{
+    ViewBag.Title = "EditFA";
+    AjaxOptions ajaxOption = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+    };
+
+}
+
+<style>
+    .editor-multiline-field textarea {
+        height: 80px;
+    }
+
+    .full-width {
+        max-width: 280px;
+        min-width: 240px;
+    }
+
+    .required {
+        color: red;
+        font-size: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+
+<h2>FA Detail </h2>
+<div class="row">
+    <p>
+        @Html.ActionLink("Device/Samples List", "ViewSamples", routeValues: new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-link" })
+        <span> | </span>
+        @Html.ActionLink("Uploaded Report", "ViewAttach", "Upload", routeValues: new { id = Model.Id, Number = Model.FARNumber }, htmlAttributes: new { @class = "btn btn-link" })
+    </p>
+</div>
+
+<div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">Origins</label>
+            </div>
+            <div class="col-lg-12">
+                @Html.DropDownListFor(x => x.OriginId, new SelectList(Model.Origins, "Id", "Name"), new { @class = "form-control", @readonly = "readonly", disabled = "disabled" })
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div>
+        <hr />
+        <h4>FA REQUEST DETAILS</h4>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3 ">
+                        <label class="control-label">FAR Number</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">@Html.TextBoxFor(m => m.FARNumber, new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Reference No.</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @if (Model.Submitted)
+                        {@Html.TextBoxFor(m => m.RefNo, new { @class = "form-control", disabled = "disabled" })}
+                        else
+                        { @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })}
+                    </div>
+                    @Html.HiddenFor(x => x.RefNo)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Failure Type</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DropDownListFor(x => x.FailureTypeId, new SelectList(Model.FailureTypes, "Id", "Name"), new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Failure Origin</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DropDownListFor(x => x.FailureOriginId, new SelectList(Model.FailureOrigins, "Id", "Name"), new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Failure Rate</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.FailureRate, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                    @Html.HiddenFor(x => x.FailureRate)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Request Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DisplayFor(m => m.RequestDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Requestor</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.Requestor, new { @class = "form-control", @readonly = "readonly", disabled = "disabled" })
+                    </div>
+                    @Html.HiddenFor(x => x.Requestor)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Requestor's Site</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.Site, new { @class = "form-control", @readonly = "readonly", disabled = "disabled" })
+                    </div>
+                    @Html.HiddenFor(x => x.Site)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">FA Analyst</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.Analyst, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Lab Site</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DropDownListFor(x => x.LabSiteId, new SelectList(Model.LabSites, "Id", "Name"), "---Select---", htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Received Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">@Html.DisplayFor(m => m.SamplesArriveDate)</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Priority<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @*<table style="max-width:280px;">
+                            <tr>
+                                <td width="100%;">
+                                    @Html.DropDownListFor(x => x.PriorityId, new SelectList(Model.Priorities, "Id", "Name"), new { @class = "form-control", disabled = "disabled" })
+                                </td>
+                                <td class="non-hover">
+                                    <a style="padding-right:0px;" href="#" id="btnLinkReason" class="btn btn-link">Reasons</a>
+                                </td>
+                            </tr>
+                        </table>*@
+                        @Html.DropDownListFor(x => x.PriorityId, new SelectList(Model.Priorities, "Id", "Name"), new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Initial Date</label>
+                    </div>
+                    <div class="col-lg-8 col-sm-9">@Html.DisplayFor(m => m.InitialReportTargetDate)</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Closed date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DisplayFor(w => w.LastUpdate)
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Business Unit</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DropDownListFor(x => x.BUId, new SelectList(Model.BUs, "Id", "Name"), new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Product</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(x => x.Product, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Customer</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(x => x.Customer, htmlAttributes: new { @class = "form-control", @id = "txtCustomer", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Description</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9 editor-multiline-field">
+                        @Html.TextAreaFor(m => m.FailureDesc, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Final Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">@Html.DisplayFor(m => m.FinalReportTargetDate)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</div>
+
+@Html.Partial("_PartialPageUpload", Model.Reports)
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#fileUpload').attr('disabled', 'disabled');
+
+            $('#fileUpload').change(function () {
+                $(this).next().removeAttr('disabled');
+            }).next().attr('disabled', 'disabled');
+        });
+    </script>
+}

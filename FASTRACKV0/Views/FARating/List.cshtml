@@ -1,0 +1,7 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<FASTrack.Model.DTO.MSTRatingDto>
+@{
+    Layout = null;
+}
+
+@{Html.RenderPartial("_PartialPageMSTList", Model);}

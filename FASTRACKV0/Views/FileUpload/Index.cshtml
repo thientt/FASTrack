@@ -1,0 +1,72 @@
+﻿@model FASTrack.ViewModel.UploadFile
+@{
+    ViewBag.Title = "Home Page";
+}
+<h2>Drop files here or click to upload</h2>
+@*<div>
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div>
+                @Html.LabelFor(x => x.File)
+                @Html.TextBoxFor(x => x.File, new { type = "file" })
+                @Html.ValidationMessageFor(x => x.File)
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Upload File</button>
+        }
+    </div>*@
+<br />
+<script src="~/Scripts/dropzone.js"></script>
+<link href="~/Content/dropzone.css" rel="stylesheet" />
+<script>
+    $(document).bind('dragover', function (e) {
+        var dropZone = $('#dropzone'),
+            timeout = window.dropZoneTimeout;
+        if (!timeout) {
+            dropZone.addClass('in');
+        } else {
+            clearTimeout(timeout);
+        }
+        var found = false,
+            node = e.target;
+        do {
+            if (node === dropZone[0]) {
+                found = true;
+                break;
+            }
+            node = node.parentNode;
+        } while (node != null);
+        if (found) {
+            dropZone.addClass('hover');
+        } else {
+            dropZone.removeClass('hover');
+        }
+        window.dropZoneTimeout = setTimeout(function () {
+            window.dropZoneTimeout = null;
+            dropZone.removeClass('in hover');
+        }, 100);
+    });
+</script>
+
+<div class="row">
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-10">
+        <div id="dropzone">
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", @class = "dropzone" }))
+            {
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
+                </div>
+
+            }
+        </div>
+    </div>
+    <div class="col-lg-1">
+    </div>
+</div>
+<br />
+<p class="col-lg-offset-1 col-lg-10">
+    @Html.ActionLink("Download File", "Download", new { id = Model.Id })
+</p>
+<hr />

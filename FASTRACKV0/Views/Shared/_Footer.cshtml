@@ -1,0 +1,97 @@
+﻿<style>
+    #footer-container {
+        margin-left: 0;
+        margin-right: 0;
+        float: left;
+        width: 100%;
+        /*height: 280px;*/
+        /*background: url(/Content/images/lt-divider.png) 0 0 repeat-x;*/
+        background: #1d1d1d;
+        margin: 60px 0 0 0;
+    }
+
+    #footer-inner {
+        width: 100%;
+        height: 180px;
+        margin: 0 auto;
+        /*border-bottom: 4px solid #554d47;*/
+    }
+
+    /*#copyright {
+        float: left;
+        padding-top: 140px;
+    }*/
+
+    #social {
+        float: right;
+        padding-top: 118px;
+    }
+
+        #social ul {
+            float: right;
+            list-style: none;
+            margin: 0;
+        }
+
+            #social ul li {
+                float: left;
+                margin-left: 15px;
+                width: 40px;
+                height: 80px;
+            }
+
+    .mail {
+        color: #fff;
+        border: 0 none;
+    }
+
+    .form-horizontal .form-group {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .font-color {
+        color: #b5a0ca;
+    }
+
+    @@media (min-width:992px) {
+        .app-description {
+            margin-top: 45px;
+        }
+    }
+</style>
+<div id="footer-container">
+    <div id="footer-inner">
+        <br />
+        <div class="col-xs-12 col-md-5">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <p class="font-color col-xs-12">Email us</p>
+                </div>
+                <div class="form-group">
+                    <a class="mail col-xs-12" href="mailto:john lemuel.sevilleno@atmel.com?subject=FASTrack">john lemuel.sevilleno@atmel.com</a>
+                    <br />
+                    <a class="mail col-xs-12" href="mailto:mark.Ledesma@atmel.com?subject=FASTrack">mark.Ledesma@atmel.com</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-5">
+            <div class="form-horizontal">
+                <div class="form-group"><p class="font-color col-xs-12">Find us</p></div>
+            </div>
+        </div>
+        <br />
+        <div class="col-xs-12">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <a href="/" class="col-lg-2 col-md-3">
+                        <img src="~/Content/images/logo.png" />
+                    </a>
+                    <p class="col-lg-10 col-md-9 app-description" style=" color:#fff; bottom:0;">
+                        &copy; @DateTime.Now.Year - FASTrack Failure Analysis Status Tracking Database. Atmel Semiconductor.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

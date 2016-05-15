@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3B4D2035-1AF7-4147-8061-4EDC7711EDE2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FASTrack.Model</RootNamespace>
+    <AssemblyName>FASTrack.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstracts\ILOGProcessHistoryRepository.cs" />
+    <Compile Include="Abstracts\IFARMechanismRepository.cs" />
+    <Compile Include="Abstracts\IMSTTechnogolyRepository.cs" />
+    <Compile Include="Abstracts\IMSTLabSiteRepository.cs" />
+    <Compile Include="Abstracts\IFARUploadRepository.cs" />
+    <Compile Include="Abstracts\IFARPriorityLogRepository.cs" />
+    <Compile Include="Abstracts\IMSTFarReportRepository.cs" />
+    <Compile Include="Abstracts\IMSTProcessResultRepository.cs" />
+    <Compile Include="Abstracts\IMSTCustomerRepository.cs" />
+    <Compile Include="Abstracts\IMSTProcessProductRepository.cs" />
+    <Compile Include="Abstracts\IMSTReasonChangingINITargetRepository.cs" />
+    <Compile Include="Abstracts\IMSTReasonChangingFINTargetRepository.cs" />
+    <Compile Include="Abstracts\IMSTReasonFARCloseRepository.cs" />
+    <Compile Include="Abstracts\IMSTReasonFINRepository.cs" />
+    <Compile Include="Abstracts\IMSTReasonFAROnHoldRepository.cs" />
+    <Compile Include="Abstracts\IMSTReasonChangingPriorityRepository.cs" />
+    <Compile Include="Abstracts\IMSTReasonINIRepository .cs" />
+    <Compile Include="Abstracts\IMSTAssembliesSiteRepository.cs" />
+    <Compile Include="Abstracts\IMSTBuRepository.cs" />
+    <Compile Include="Abstracts\IHSTReasonRepository.cs" />
+    <Compile Include="Abstracts\IMSTDepartmentRepository.cs" />
+    <Compile Include="Abstracts\IFabSiteRepository.cs" />
+    <Compile Include="Abstracts\IFARAnalystReassignLogRepository.cs" />
+    <Compile Include="Abstracts\IFARDeviceDetailsRepository.cs" />
+    <Compile Include="Abstracts\IMSTFailureTypeRepository.cs" />
+    <Compile Include="Abstracts\IMSTFailureOriginRepository.cs" />
+    <Compile Include="Abstracts\IFARFinalTargetLogRepository.cs" />
+    <Compile Include="Abstracts\IFARHistoryRepository.cs" />
+    <Compile Include="Abstracts\IFARInitialTargetLogRepository.cs" />
+    <Compile Include="Abstracts\IFARMasterRepository.cs" />
+    <Compile Include="Abstracts\IMSTOriginRepository.cs" />
+    <Compile Include="Abstracts\IMSTPriorityRepository.cs" />
+    <Compile Include="Abstracts\IFARProcessHistoryRepository.cs" />
+    <Compile Include="Abstracts\IMSTProductRepository.cs" />
+    <Compile Include="Abstracts\IMSTServiceRepository.cs" />
+    <Compile Include="Abstracts\IMSTRatingRepository.cs" />
+    <Compile Include="Abstracts\IMSTStatusRepository.cs" />
+    <Compile Include="Abstracts\IMSTPackageTypesRespository.cs" />
+    <Compile Include="Abstracts\IMSTProcessTypesRespository.cs" />
+    <Compile Include="Abstracts\IMSTReportTypesRespository.cs" />
+    <Compile Include="Abstracts\IMSTSitesRepository.cs" />
+    <Compile Include="Abstracts\ISYSRolesRepository.cs" />
+    <Compile Include="Abstracts\ISYSUsersRepository.cs" />
+    <Compile Include="Concretes\LOGProcessHistoryRepository.cs" />
+    <Compile Include="Concretes\FARMechanismRepository.cs" />
+    <Compile Include="Concretes\MSTTechnogolyRepository.cs" />
+    <Compile Include="Concretes\MSTLabSiteRepository.cs" />
+    <Compile Include="Concretes\FARUploadRepository.cs" />
+    <Compile Include="Concretes\FARPriorityLogRepository.cs" />
+    <Compile Include="Concretes\MSTFarReportRepository.cs" />
+    <Compile Include="Concretes\MSTProcessResultRepository.cs" />
+    <Compile Include="Concretes\MSTCustomerRepository.cs" />
+    <Compile Include="Concretes\MSTProcessProductRepository.cs" />
+    <Compile Include="Concretes\MSTReasonFARCloseRepository.cs" />
+    <Compile Include="Concretes\MSTReasonINIRepository.cs" />
+    <Compile Include="Concretes\MSTReasonFINRepository.cs" />
+    <Compile Include="Concretes\MSTReasonFAROnHoldRepository.cs" />
+    <Compile Include="Concretes\MSTReasonChangingPriorityRepository.cs" />
+    <Compile Include="Concretes\MSTReasonChangingINITargetRepository.cs" />
+    <Compile Include="Concretes\MSTReasonChangingFINTargetRepository.cs" />
+    <Compile Include="Concretes\MSTAssembliesSiteRepository.cs" />
+    <Compile Include="Concretes\MSTBuRepository.cs" />
+    <Compile Include="Concretes\HSTReasonRepository.cs" />
+    <Compile Include="Concretes\MSTDepartmentRepository.cs" />
+    <Compile Include="Concretes\FabSiteRepository.cs" />
+    <Compile Include="Concretes\FARAnalystReassignLogRepository.cs" />
+    <Compile Include="Concretes\FARDeviceDetailsRepository.cs" />
+    <Compile Include="Concretes\MSTFailureTypeRepository.cs" />
+    <Compile Include="Concretes\MSTFailureOriginRepository.cs" />
+    <Compile Include="Concretes\FARFinalTargetLogRepository.cs" />
+    <Compile Include="Concretes\FARHistoryRepository.cs" />
+    <Compile Include="Concretes\FARInitialTargetLogRepository.cs" />
+    <Compile Include="Concretes\FARMasterRepository.cs" />
+    <Compile Include="Concretes\MSTOriginRepository.cs" />
+    <Compile Include="Concretes\MSTPriorityRepository.cs" />
+    <Compile Include="Concretes\FARProcessHistoryRepository.cs" />
+    <Compile Include="Concretes\MSTProductRepository.cs" />
+    <Compile Include="Concretes\MSTServiceRepository.cs" />
+    <Compile Include="Concretes\MSTRatingRepository.cs" />
+    <Compile Include="Concretes\MSTStatusRespository.cs" />
+    <Compile Include="Concretes\MSTPackageTypesRespository.cs" />
+    <Compile Include="Concretes\MSTProcessTypesRespository.cs" />
+    <Compile Include="Concretes\MSTReportTypesRespository.cs" />
+    <Compile Include="Concretes\MSTSitesRespository.cs" />
+    <Compile Include="Concretes\SYSRolesRepository.cs" />
+    <Compile Include="Concretes\SYSUsersRepository.cs" />
+    <Compile Include="DTO\LOGProcessHistoryDto.cs" />
+    <Compile Include="DTO\MSTTechnogolyDto.cs" />
+    <Compile Include="DTO\MSTLabSiteDto.cs" />
+    <Compile Include="DTO\FARMechanismDto.cs" />
+    <Compile Include="DTO\MSTCustomerDto.cs" />
+    <Compile Include="DTO\FARUploadDto.cs" />
+    <Compile Include="DTO\FARPriorityLogDto.cs" />
+    <Compile Include="DTO\MSTAssemblySiteDto.cs" />
+    <Compile Include="DTO\BaseDto.cs" />
+    <Compile Include="DTO\MSTBuDto.cs" />
+    <Compile Include="DTO\DelayReasonDto.cs" />
+    <Compile Include="DTO\MSTDepartmentDto.cs" />
+    <Compile Include="DTO\FARAnalystReassignLogDto.cs" />
+    <Compile Include="DTO\FabSiteDto.cs" />
+    <Compile Include="DTO\FARDeviceDetailsDto.cs" />
+    <Compile Include="DTO\MSTFailureOriginDto.cs" />
+    <Compile Include="DTO\MSTFailureTypeDto.cs" />
+    <Compile Include="DTO\FARFinalTargetLogDto.cs" />
+    <Compile Include="DTO\FARHistoryDto.cs" />
+    <Compile Include="DTO\FARInitialTargetLogDto.cs" />
+    <Compile Include="DTO\FARMasterDto.cs" />
+    <Compile Include="DTO\MSTFarReportDto.cs" />
+    <Compile Include="DTO\MSTOriginDto.cs" />
+    <Compile Include="DTO\MSTPriorityDto.cs" />
+    <Compile Include="DTO\FARProcessHistoryDto.cs" />
+    <Compile Include="DTO\MSTProcessProductDto.cs" />
+    <Compile Include="DTO\MSTProductDto.cs" />
+    <Compile Include="DTO\MSTDto.cs" />
+    <Compile Include="DTO\MSTProcessResultDto.cs" />
+    <Compile Include="DTO\MSTServiceDto.cs" />
+    <Compile Include="DTO\MSTRatingDto.cs" />
+    <Compile Include="DTO\MSTStatusDto.cs" />
+    <Compile Include="DTO\MSTPackageTypesDto.cs" />
+    <Compile Include="DTO\FARProcessTypesDto.cs" />
+    <Compile Include="DTO\RecordLockDto.cs" />
+    <Compile Include="DTO\ReportTypesDto.cs" />
+    <Compile Include="DTO\SitesDto.cs" />
+    <Compile Include="DTO\SYSRolesDto.cs" />
+    <Compile Include="DTO\SYSUsersDto.cs" />
+    <Compile Include="Entities\FabSites.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FailureAnalysisModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FailureAnalysisModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FailureAnalysisModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FailureAnalysisModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FailureAnalysisModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FAR_DeviceDetails.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FAR_Master.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FAR_Mechanism.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\FAR_ProcessHistory.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\LOG_FARAnalystReassign.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\LOG_FARFinalTarget.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\LOG_FARHistory.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\LOG_FARInitialTarget.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\LOG_FARPriority.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\LOG_FARUpload.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\LOG_ProcessHistory.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_AssemblySites.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_BU.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_Customer.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_Department.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_FailureOrigin.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_FailureType.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_FARReport.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_LabSite.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_Origin.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_PackageTypes.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_Priority.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_ProcessProduct.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_ProcessResult.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_ProcessTypes.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_Product.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_Rating.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_Reason.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_ReasonChangingFINTarget.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_ReasonChangingINITarget.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_ReasonChangingPriority.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_ReasonFARClose.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_ReasonFAROnHold.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_ReasonFINReport.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_ReasonINIReport.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_ReportTypes.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_Services.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_Sites.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_Status.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MST_Technology.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SYS_Roles.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SYS_Users.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaveResult.cs" />
+    <Compile Include="Types\PlanType.cs" />
+    <Compile Include="Types\ReportType.cs" />
+    <Compile Include="Types\RoleType.cs" />
+    <Compile Include="Types\ServiceType.cs" />
+    <Compile Include="Types\StatusType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FASTRACKV0.Utilities\FASTrack.Utilities.csproj">
+      <Project>{9331f33c-729b-4605-9aab-183dc7489f9c}</Project>
+      <Name>FASTrack.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Entities\FailureAnalysisModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FailureAnalysisModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Entities\FailureAnalysisModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FailureAnalysisModel.edmx</DependentUpon>
+      <LastGenOutput>FailureAnalysisModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Entities\FailureAnalysisModel.edmx.diagram">
+      <DependentUpon>FailureAnalysisModel.edmx</DependentUpon>
+    </None>
+    <None Include="Entities\FailureAnalysisModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FailureAnalysisModel.edmx</DependentUpon>
+      <LastGenOutput>FailureAnalysisModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

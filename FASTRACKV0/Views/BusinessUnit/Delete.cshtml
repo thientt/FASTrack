@@ -1,0 +1,12 @@
+﻿@model FASTrack.Model.DTO.MSTBuDto
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h2>Delete Business Unit</h2>
+<h5>Are you sure you want to delete this?</h5>
+<hr />
+
+@{
+    Html.RenderPartial("_PartialPageMSTDelete", Model);
+}

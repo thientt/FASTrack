@@ -1,0 +1,39 @@
+﻿@model FASTrack.Model.DTO.DelayReasonDto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Reason for FAR On-Hold Details</h2>
+<hr />
+
+<div class="row">
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.HiddenFor(x => x.Id)
+            <label class="col-lg-2 control-label">Description</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Last Updated By</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.LastUpdatedBy, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Last Update</label>
+            <div class="col-lg-10">
+                @Html.DisplayFor(model => model.LastUpdate)
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+</div>

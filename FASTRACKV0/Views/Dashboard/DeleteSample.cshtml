@@ -1,0 +1,194 @@
+﻿@model FASTrack.Model.DTO.FARDeviceDetailsDto
+
+@{
+    ViewBag.Title = "DeleteSample";
+    AjaxOptions ajaxOption = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+    };
+}
+
+<style>
+    .modal-dialog {
+        max-width: 400px;
+    }
+</style>
+
+<h2>Delete Lot Info</h2>
+<h5>Are you sure you want to REMOVE this lot?</h5>
+<hr />
+
+@using (Ajax.BeginForm(ajaxOption))
+{
+    <div class="form-horizontal">
+        @Html.HiddenFor(x => x.MasterId)
+        <div class="form-group">
+            <label class="control-label col-lg-2">FAR Number </label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.Master.Number, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Serial No</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.SerialNo, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Sample/Wafer No.</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.WaferNo, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">LotNo</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.LotNo, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">MfgPartNo</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.MfgPartNo, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Technology</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.Technogoly.Name, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Package Type</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.PackageType.Name, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Assembly Sites</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.AssemblySites.Name, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Fab Site</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.FabSite.Name, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Date Code</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.DateCode, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Quantity</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.Quantity, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Stage</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.Stage, htmlAttributes: new { @class = "form-control", @Value = Model.Stage ? "Yes" : "No", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">FA Services</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(w => w.FARServices.Name, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <input type="submit" value="Delete" class="btn btn-danger btn-width-md" name="btnsubmit" id="btnSubmit" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                @Html.ActionLink("Back to Device/Samples List", "Samples", new { id = Model.MasterId })
+            </div>
+        </div>
+    </div>
+}
+
+@* Modal popup Delete Successfully *@
+<div class="modal fade in" id="modalDelSuccess">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title text-success">Edit Device/Sample</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The Device/Sample was successfully saved.</span>
+            </div>
+            <div class="modal-footer">
+                @Html.ActionLink("OK", "Samples", routeValues: new { id = Model.MasterId }, htmlAttributes: new { @class = "btn btn-success btn-width-md", @id = "btnDE01" })
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Delete Failure *@
+<div class="modal fade in" id="modalDelFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title text-danger">Edit Device/Sample</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-danger">The Device/Sample was failure save.</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="btnDE02" class="btn btn-danger btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_PartialPageLoading")
+
+@section Scripts{
+
+    <script  type="text/javascript">
+        $(document).ready(function () {
+            //param popup
+            var options = {
+                show: true,
+                backdrop: false
+            };
+            onBegin = function () {
+                $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+                $('body').css({ 'overflow': 'hidden' });
+                $('#box').css({ 'display': 'block' });
+            };
+
+            onSuccess = function (data) {
+                var code = data.code;
+                var url = '@Url.Action("Samples")' + '/' + code;
+                $('#btnDE01').attr('href', url);
+                $('#modalDelSuccess').modal(options);
+            }
+
+            onComplete = function () {
+                $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+                $('body').css({ 'overflow': 'show' });
+                $('#box').css({ 'display': 'none' });
+
+                $('html').css('overflow', '-moz-scrollbars-vertical');
+                $('html').css('overflow-y', 'scroll');
+            };
+            onFailure = function (data) {
+                $('#modalDelFailure').modal(options);
+            }
+        });
+    </script>
+}

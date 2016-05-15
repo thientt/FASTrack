@@ -1,0 +1,685 @@
+﻿@model FASTrack.ViewModel.ProcessHistoryViewModel
+@{
+    ViewBag.Title = "ProcessList";
+    AjaxOptions ajaxOptionRemoveProcess = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnBegin = "onDelProcessBegin",
+        OnComplete = "onDelProcessComplete",
+        OnSuccess = "onDelProcessSuccess",
+        OnFailure = "onDelProcessFailure",
+    };
+}
+
+<style>
+    tr:hover {
+        background-color: #f3f0b6;
+    }
+
+    .modal-dialog {
+        /*max-width: 400px;*/
+        background-color: silver;
+    }
+
+    table > thead > tr {
+        background-color: #bcd6ee;
+    }
+
+        table > thead > tr > th {
+            vertical-align: middle !important;
+        }
+
+    .max-width-calendar {
+        max-width: 247px !important;
+    }
+
+    .ui-datepicker-buttonpane {
+        display: inline;
+        float: left;
+    }
+</style>
+
+<div class="row">
+
+    <h2>FA Process Flow for FA#@Model.Number</h2>
+    <br />
+    <p>
+        @Html.ActionLink("FADetail", "ManEditFA", new { id = Model.MasterId }) &nbsp;&nbsp;|&nbsp;&nbsp;
+        @Html.ActionLink("Device/Samples List", "ManSamples", new { id = Model.MasterId })
+
+    </p>
+    @using (Ajax.BeginForm(ajaxOptionRemoveProcess))
+    {
+        @Html.HiddenFor(x => x.DeviceId)
+        @Html.HiddenFor(x => x.MasterId)
+        @Html.HiddenFor(x => x.Number)
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-center">FA Code</th>
+                        <th class="text-center">FA Description</th>
+                        <th class="text-center">Duration</th>
+                        <th class="text-center">Planned In</th>
+                        <th class="text-center">Planned Out</th>
+                        <th class="text-center">Date In</th>
+                        <th class="text-center">Date Out</th>
+                        <th class="text-center">Results</th>
+                        <th class="text-center">Comments</th>
+                        <th class="text-center">Analyst</th>
+                        <th class="text-center">Action</th>
+                        @if (Model.Process.Exists(x => x.IsHasPhotos))
+                        {
+                            <th class="text-center"></th>
+                        }
+                    </tr>
+                </thead>
+                @if (Model.Process.Count() > 0)
+                {
+                    for (int i = 0; i < Model.Process.Count(); i++)
+                    {
+                        decimal cDuration = 0;
+                        var item = Model.Process[i];
+
+                        if (item.DateIn.HasValue && item.DateOut.HasValue)
+                        {
+                            DateTime d1 = (DateTime)item.DateIn;
+                            DateTime d2 = (DateTime)item.DateOut;
+                            cDuration = ((d2 - d1).Days) * 24;
+                        }
+                        <tr>
+                            <td class="text-center">
+                                <input checked="@item.IsRemove" class="text-center" id="[@i].IsRemove" name="[@i].IsRemove" type="checkbox" value="true"
+                                       data-toggle="tooltip" data-placement="right" title="Click to remove" />
+                                <input name="[@i].IsRemove" value="false" type="hidden" />
+                            </td>
+                            <td>
+                                <input name="[@i].Id" value="@item.Id" type="hidden" />
+                                <input name="[@i].ProcessType.Name" value="@item.ProcessType.Name" type="hidden" />
+                                @item.ProcessType.Name
+                            </td>
+                            <td>
+                                <input name="[@i].ProcessType.Description" value="@item.ProcessType.Description" type="hidden" />
+                                @item.ProcessType.Description
+                            </td>
+                            <td>
+                                @if (cDuration > 0)
+                                {
+                                    @cDuration.ToString()
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.PlannedIn, "DisplayDateTime")
+                                <input name="[@i].PlannedIn" value="@item.PlannedIn" type="hidden" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.PlannedOut, "DisplayDateTime")
+                                <input name="[@i].PlannedOut" value="@item.PlannedIn" type="hidden" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateIn, "DisplayDateTime")
+                                <input name="[@i].DateIn" value="@item.PlannedIn" type="hidden" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateOut, "DisplayDateTime")
+                                <input name="[@i].DateOut" value="@item.PlannedIn" type="hidden" />
+                            </td>
+                            <td>@item.ProcessResult.Value</td>
+                            <td>
+                                @item.Comment
+                                <input name="[@i].Comment" value="@item.Comment" type="hidden" />
+                            </td>
+                            <td class="text-center">
+                                @*@item.Analystor*@
+                                @if (!String.IsNullOrEmpty(item.Analystor))
+                                {
+                                    <a name="btnAssignAnalyst" onclick="showPopupAnalyst(@item.Id,@Model.DeviceId);" style="cursor:pointer;"> @item.Analystor</a>
+                                }
+                                else
+                                {
+                                    <a name="btnAssignAnalyst" onclick="showPopupAnalyst(@item.Id,@Model.DeviceId);" style="cursor:pointer;">Assign </a>
+                                }
+                            </td>
+                            <td class="text-center text-nowrap">
+                                @if (item.IsIncluded)
+                                {
+                                    @*if (item.Analystor == this.User.Identity.Name)
+                                        {
+                                            <a href="#@item.Id" onclick="showPopupProcess(@item.Id,@Model.DeviceId);">Edit </a>
+                                        }*@
+                                    <a href="#@item.Id" onclick="showPopupProcess(@item.Id,@Model.DeviceId);">Edit </a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                                    <a href="#" onclick="removeProcess(@item.Id)">Remove</a>
+                                }
+                                else
+                                {
+                                    <a href="#" hidden="hidden">Edit</a>
+                                }
+                            </td>
+
+                            @if (Model.Process.Exists(x => x.IsHasPhotos))
+                            {
+                                if (item.IsHasPhotos)
+                                {
+                                    <td class="text-center">
+                                        <a name="btnViewPhoto" onclick="viewPhotos(@item.Id)">Photos</a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="text-center"></td>
+                                }
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="10">No rows found.</td></tr>
+                }
+            </table>
+        </div>
+        <input class="btn btn-primary btn-width-md" type="submit" value="Remove All" name="btnSubmit" id="btnSubmit" />
+        <input class="btn btn-primary pull-right btn-width-md" type="button" value="Insert Process" name="btnInsertProcess" id="btnInsertProcess" />
+    }
+</div>
+
+@using (Html.BeginForm("AssignAnalyst", "Dashboard", FormMethod.Post, htmlAttributes: new { @id = "frmAssignAnalyst" }))
+{
+    <input type="hidden" name="ProcessId" id="processId" />
+    <input type="hidden" name="DeviceId" id="deviceId" />
+
+    <div id="popupAnalyst" class="modal fade in">
+        <div class="modal-dialog" style="width:415px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title">Select Analyst</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Analyst</label>
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(x => x.Email, new SelectList(Model.Users, "Email", "Email"), htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-9">
+                                <input type="button" class="btn btn-default btn-width-md" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+                                <input type="submit" class="btn btn-primary btn-width-md" onclick="hidePopupAnalyst();" value="Save" id="btnSubmitAnalyst" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm("ManEditProcess", "Dashboard", FormMethod.Post, htmlAttributes: new { @id = "frmEditProcess" }))
+{
+    <input type="hidden" name="id" id="editProcessId" />
+    <input type="hidden" name="DeviceId" id="editProcessDeviceId">
+
+    <div class="modal fade in" id="popupProcess">
+        <div class="modal-dialog" style="width:445px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title">Edit Process</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Duration</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" readonly="true" id="txtDuration" name="Duration" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Planned IN</label>
+                            <div class="col-md-9 ui-datepicker-group">
+                                <input type="text" class="form-control control-datepicker ui-datepicker-buttonpane max-width-calendar" id="txtPlannedIn" name="PlannedIn" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Planned OUT</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control control-datepicker ui-datepicker-buttonpane max-width-calendar" id="txtPlannedOut" name="PlannedOut" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Date IN</label>
+                            <div class="col-md-9 ui-datepicker-group">
+                                <input type="text" class="form-control control-datepicker ui-datepicker-buttonpane max-width-calendar" id="txtDateIn" name="DateIn" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Date OUT</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control control-datepicker ui-datepicker-buttonpane max-width-calendar" id="txtDateOut" name="DateOut" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Results</label>
+                            <div class="col-md-9">
+                                <select id="ProcessResultId" name="ProcessResultId" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Comments</label>
+                            <div class="col-md-9 ">
+                                <textarea class="form-control" rows="4" id="txtComments" name="Comment"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Analyst</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" readonly="true" id="txtAnalyst" name="Analyst" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Photos</label>
+                            <div class="col-md-9">
+                                <input id="photoUpload" type="file" class="form-control btn btn-info pull-left" style="max-width:200px;" />
+                                <input type="button" class="btn btn-primary pull-right" id="btnUpload" value="Upload" disabled="disabled" />
+                            </div>
+                            <span class="col-lg-offset-3 col-lg-9" id="spanUpload"></span>
+                            <span class="col-lg-offset-3 col-lg-9">@*<input type="button" id="btnViewPhoto" class="btn btn-link" style="font-size:16px;" value="Photos" />*@</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-9">
+                                <input type="button" class="btn btn-default btn-width-md" data-dismiss="modal" aria-hidden="true" value="Cancel" />
+                                <input type="submit" class="btn btn-primary btn-width-md" onclick="hidePopupProcess();" value="Save" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@* Modal popup add process Successfully *@
+<div class="modal fade in" id="modalProcessSuccess">
+    <div class="modal-dialog" style="width:450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-success">Save information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-success">The FA Process Flow was successfully saved!</span>
+            </div>
+            <div class="modal-footer">
+                @Html.ActionLink("OK", "ManProcess", routeValues: new { id = Model.DeviceId }, htmlAttributes: new { @class = "btn btn-success btn-width-md" })
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Save Failure *@
+<div class="modal fade in" id="modalInsertProcessFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Save information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-danger">The FA Process Flow was failure save.</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-width-md" data-dismiss="modal" aria-hidden="true" id="btnInsertProcessFailure">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal popup Save Failure *@
+<div class="modal fade in" id="modalSaveFailure">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Save information</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-danger">The FA Process Flow was failure saved</span>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary btn-width-md" data-dismiss="modal" aria-hidden="true">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="containerViewPhoto">
+</div>
+<div id="containerPopupProcess"></div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('[name=btnViewPhoto]').mouseover(function () {
+                $(this).css('cursor', 'pointer');
+            });
+
+            var optionCalendar =
+            {
+                showOn: 'both',
+                autoSize: true,
+                constrainInput: true,
+                buttonImageOnly: true,
+                buttonImage: "@Url.Content("~/Content/images/calendar.png")",
+                buttonText: "Calendar",
+                dateFormat: 'mm/dd/yy'
+            };
+            $('.control-datepicker').datepicker(optionCalendar);
+
+            $('#btnViewPhoto').click(function (e) {
+                e.preventDefault();
+                var processId = $('#editProcessId').val();
+                var url = '@Url.Action("ViewPhotos","Upload")' ;
+                var ajaxShowImage = $.ajax({
+                    type: 'GET',
+                    url: url,
+                    data:{
+                        masterId: @Model.MasterId,
+                        deviceId: @Model.DeviceId,
+                        processId: processId
+                    },
+                    cache: false,
+                });
+                ajaxShowImage.success(function (res, data) {
+                    var obj = $('#containerViewPhoto');
+                    obj.empty();
+                    hidePopupProcess();
+                    $('#containerViewPhoto').html(res);
+                    $('[data-popup="popupViewPhoto"]').fadeIn(1000);
+                });
+                ajaxShowImage.error(function () { });
+                ajaxShowImage.always(function () { });
+
+            });
+
+            $('#containerViewPhoto').on('click', 'a', function (e) {
+                var self = $(this);
+                if(self.hasClass('popup-close'))
+                {
+                    $('[data-popup="popupViewPhoto"]').fadeOut(100);
+                    //$('#popupProcess').modal(options);
+                }
+                else{
+                    var href = '@Url.Content("~/")' + self.attr('href');
+                    $('#imgCurrentView').attr('src', href);
+                }
+                e.preventDefault();
+            });
+
+            viewPhotos = function (processId) {
+                var url = '@Url.Action("ViewPhotos","Upload")' ;
+                var ajaxShowImage = $.ajax({
+                    type: 'GET',
+                    url: url,
+                    data:{
+                        masterId: @Model.MasterId,
+                        deviceId: @Model.DeviceId,
+                        processId: processId
+                    },
+                    cache: false,
+                });
+                ajaxShowImage.success(function (res, data) {
+                    var obj = $('#containerViewPhoto');
+                    obj.empty().html(res);
+                    obj.find('div[data-popup="popupViewPhoto"]').css('display','block');//.fadeIn(1000);
+                });
+                ajaxShowImage.error(function () { });
+                ajaxShowImage.always(function () { });
+            };
+
+            //BEGIN INSERT PROCESS
+            $('#btnInsertProcess').on('click',function(event){
+                var url = '@Url.Action("InsertProcess", "ProcessHis")';
+                var ajaxAddProcess = $.ajax({
+                    type: 'GET',
+                    url: url,
+                    data:{
+                        deviceId: @Model.DeviceId,
+                    },
+                });
+
+                ajaxAddProcess.success(function (res, data) {
+                    var obj = $('#containerPopupProcess');
+                    obj.empty();
+                    obj.html(res);
+                    $('#modalInsertProcess').modal(options);
+                });
+                ajaxAddProcess.error(function (){});
+                ajaxAddProcess.always(function () { });
+            });
+
+            $('#btnInsertProcessFailure').on('click',function(){
+                $('#modalInsertProcess').modal(options);
+            });
+            //END INSERT PROCESS
+
+        });
+        //param popup
+        var options = {
+            show: true,
+            backdrop: false
+        };
+
+        /*begin upload*/
+        $('input[type="file"]').change(function (e) {
+            $('#spanUpload').text('');
+            var files = e.originalEvent.target.files;
+            var types = $(this).attr('accept').split('|')[0].split(',');
+            if (files.length > 0) {
+                var file = files[0];
+                var type = file.type.split('/')[1];
+                var format = false;
+                $.each(types, function (e, data) {
+                    if (data == type) {
+                        format = true;
+                    }
+                });
+
+                if (!format) {
+                    alert("Invalid file type");
+                    $(this).next().attr('disabled', 'disabled');
+                }
+                else {
+                    $(this).next().removeAttr('disabled');
+                }
+            }
+        });
+
+        $('#btnUpload').on('click', function (e) {
+            var processId = $('#editProcessId').val();
+            if (window.FormData !== undefined) {
+                var ajaxRequest = $.ajax({
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    url: '@Url.Action("PhotoAttach","Upload")' + '?masterid=' + @Model.MasterId +'&deviceid=' +@Model.DeviceId + '&processid=' + processId,
+                    data: function () {
+                        var formData = new FormData();
+                        var files = $('#photoUpload').get(0).files;
+                        if (files.length > 0) {
+                            formData.append("File", files[0]);
+                        }
+                        return formData;
+                    }()
+                });
+
+                ajaxRequest.success(function (e, data) {
+                    //$('#filesName2').html(e);
+                    $('#fileUpload').val('');
+                    $('#btnUpload').attr('disabled', 'disabled');
+                    $('#spanUpload').text('Upload file successfully');
+                });
+                ajaxRequest.error(function () {
+                    alert('Has Error in while upload file');
+                });
+                ajaxRequest.always(function () {
+                    //$('html').css('overflow', '-moz-scrollbars-vertical');
+                    //$('html').css('overflow-y', 'scroll');
+                });
+            }
+            else {
+                alert("This browser doesn't support HTML5 file uploads!");
+            }
+        });
+        /*end upload*/
+
+        function showPopupAnalyst(processId, deviceId) {
+            $('#processId').val(processId);
+            $('#deviceId').val(deviceId);
+            $('#popupAnalyst').modal(options);
+        }
+
+        function showPopupProcess(processId, deviceId) {
+            $.ajax({
+                url: '@Url.Action("GetProcess")',
+                data: { id: processId },
+                type: "GET",
+                async: false,
+            }).done(function (responseText) {
+                $('#editProcessId').val(processId);
+                $('#ProcessResultId').val(responseText.ProcessResultId)
+                $('#editProcessDeviceId').val(deviceId);
+                $('#txtDuration').val(responseText.Duration);
+                $('#txtPlannedIn').val(responseText.PlannedIn);
+                $('#txtPlannedOut').val(responseText.PlannedOut);
+                $('#txtDateIn').val(responseText.DateIn);
+                $('#txtDateOut').val(responseText.DateOut);
+                $('#txtComments').val(responseText.Comment);
+                $('#txtAnalyst').val(responseText.Analystor);
+                $('#ProcessResultId').find('option').remove();
+                $.each(responseText.ProcessResults, function(key, value) {
+                    if(value.Id == responseText.ProcessResultId){
+                        $('#ProcessResultId')
+                            .append($("<option selected=\"selected\"></option>")
+                            .attr("value",value.Id)
+                            .text(value.Value));
+                    }
+                    else{
+                        $('#ProcessResultId')
+                           .append($("<option></option>")
+                           .attr("value",value.Id)
+                           .text(value.Value));
+                    }
+                });
+                $('#photoUpload').attr('accept', responseText.Accept);
+            });
+
+            $('#popupProcess').modal(options);
+        }
+
+
+        function hidePopupProcess() {
+            $('#popupProcess').modal('hide');
+        }
+
+        //BEGIN INSERT PROCESS
+
+        onInsertProcessBegin = function () {
+            $('#modalInsertProcess').hide();
+            $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+            $('body').css({ 'overflow': 'hidden' });
+            $('#box').css({ 'display': 'block' });
+        }
+        onInsertProcessComplete = function () {
+            $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+            $('body').css({ 'overflow': 'show' });
+            $('#box').css({ 'display': 'none' });
+
+            $('html').css('overflow', '-moz-scrollbars-vertical');
+            $('html').css('overflow-y', 'scroll');
+        }
+        onInsertProcessSuccess = function (data) {
+            var result = data.code;
+            switch (result) {
+                case "SB01":
+                    $('#modalProcessSuccess').modal(options);
+                    break;
+                case "SB02":
+                    $('#modalInsertProcessFailure').modal(options);
+                    break;
+            }
+        };
+        onInsertProcessFailure = function (data) {
+            $('#modalInsertProcessFailure').modal(options);
+        };
+        //END INSERT PROCESS
+
+        //BEGIN DEL FA PROCESS FLOW
+        onDelProcessBegin = function () {
+            $('#modalDelProcess').hide();
+            $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+            $('body').css({ 'overflow': 'hidden' });
+            $('#box').css({ 'display': 'block' });
+        }
+        onDelProcessComplete = function () {
+            $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+            $('body').css({ 'overflow': 'show' });
+            $('#box').css({ 'display': 'none' });
+
+            $('html').css('overflow', '-moz-scrollbars-vertical');
+            $('html').css('overflow-y', 'scroll');
+        }
+        onDelProcessSuccess = function (data) {
+            var result = data.code;
+            switch (result) {
+                case "SB01":
+                    $('#modalProcessSuccess').modal(options);
+                    break;
+                case "SB02":
+                    $('#modalSaveFailure').modal(options);
+                    break;
+            }
+        };
+        onDelProcessFailure = function (data) {
+            $('#modalSaveFailure').modal(options);
+        };
+        //END DEL FA PROCESS FLOW
+
+
+        //BEGIN REMOVE PROCESS
+        removeProcess = function (id) {
+            var url = '@Url.Action("DeleteProcess", "ProcessHis")';
+            var ajaxEditProcess = $.ajax({
+                type: 'GET',
+                url: url,
+                data:{
+                    id: id,
+                },
+                //cache: false,
+            });
+
+            ajaxEditProcess.success(function (res, data) {
+                var obj = $('#containerPopupProcess');
+                obj.empty();
+                obj.html(res);
+                $('#modalDelProcess').modal(options);
+            });
+            ajaxEditProcess.error(function () { });
+            ajaxEditProcess.always(function () { });
+        };
+
+        //END REMOVE PROCESS
+    </script>
+}

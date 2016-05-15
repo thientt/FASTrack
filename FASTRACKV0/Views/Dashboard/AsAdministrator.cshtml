@@ -1,0 +1,76 @@
+﻿@model FASTrack.Infrastructure.FilterPage
+
+@{
+    ViewBag.Title = "FA Dashboard";
+    AjaxOptions ajaxOption = new AjaxOptions
+        {
+            UpdateTargetId = "tableAdmin",
+            Url = Url.Action("AsAdministrators"),
+            HttpMethod = "GET",
+        };
+}
+<h2>FA Dashboard</h2>
+
+<link href="~/Content/theme.default.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<br />
+
+<div class="row">
+    <div class="pull-right">
+        <table>
+            <tr>
+                <td>
+                    <div class="has-feedback">
+                        @using (Ajax.BeginForm(ajaxOption))
+                        {
+                            <input type="text" name="SearchAll" class="form-control" placeholder="enter keyword to search..." id="txtSearchAll" />
+                            <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                        }
+                    </div>
+                </td>
+                <td width="10px;" class="non-hover"></td>
+                <td>
+                    <input type="submit" value="Export Excel" id="btnExport" class="btn btn-primary" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<br />
+@Html.Partial("_PartialPageLoading")
+<div class="row">
+    <div id="tableAdmin">
+        @Html.Action("AsAdministrators", routeValues: new { sortOrder = Model.SortOrder, page = Model.Page, SearchAll = Model.SearchAll })
+    </div>
+</div>
+
+@section scripts
+{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+
+            $('#btnExport').on('click', function (e) {
+                e.preventDefault();
+                var url = '@Url.Action("ExportExcel", new { type = "AD" })';
+                var ajaxRequest = $.ajax({
+                    url: url,
+                    type: 'GET',
+                    cache: true
+                });
+                ajaxRequest.success(function (e, d) {
+                    window.location = '@Url.Action("Download")' + "?file=" + e;
+
+                });
+                ajaxRequest.always(function (e, d) {
+                    $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+                    $('body').css({ 'overflow': 'show' });
+                    $('#box').css({ 'display': 'none' });
+                });
+                ajaxRequest.error(function () {
+                    alert('Error occured while export excel')
+                });
+            });
+        });
+    </script>
+}

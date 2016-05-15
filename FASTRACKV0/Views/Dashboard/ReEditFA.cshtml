@@ -1,0 +1,678 @@
+﻿@model FASTrack.ViewModel.FAREditRequestViewModel
+@{
+    ViewBag.Title = "EditFA";
+    AjaxOptions ajaxOption = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+    };
+
+}
+
+<style>
+    .editor-multiline-field textarea {
+        height: 80px;
+    }
+
+    .full-width {
+        max-width: 280px;
+        min-width: 240px;
+    }
+
+    .required {
+        color: red;
+        font-size: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+
+<h2>FA Detail </h2>
+<div class="row">
+    <p>
+        @Html.ActionLink("Device/Samples List", "Samples", routeValues: new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-link" })
+        <span> | </span>
+        @Html.ActionLink("Uploaded Report", "ReAttach", "Upload", routeValues: new { id = Model.Id, Number = Model.FARNumber }, htmlAttributes: new { @class = "btn btn-link" })
+    </p>
+</div>
+
+@using (Ajax.BeginForm(ajaxOption))
+{
+    @Html.ValidationSummary(true, "Form Save failed. Please check your inputs!")
+<div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">Origins<span class="required">*</span></label>
+            </div>
+            <div class="col-lg-12">
+                @Html.DropDownListFor(x => x.OriginId, new SelectList(Model.Origins, "Id", "Name"), new { @class = "form-control", @readonly = "readonly", disabled = "disabled" })
+            </div>
+            @Html.HiddenFor(x => x.OriginId)
+        </div>
+    </div>
+    <br />
+
+    <div>
+        <hr />
+        <h4>FA REQUEST DETAILS</h4>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3 ">
+                        <label class="control-label">FAR Number</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">@Html.TextBoxFor(m => m.FARNumber, new { @class = "form-control", @Readonly = "readonly", disabled = "disabled" })</div>
+                    @Html.HiddenFor(x => x.FARNumber)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Reference No.<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @if (Model.Submitted)
+                        {@Html.TextBoxFor(m => m.RefNo, new { @class = "form-control", disabled = "disabled" })}
+                        else
+                        { @Html.TextBoxFor(m => m.RefNo, new { @class = "form-control" })}
+                    </div>
+                    @Html.HiddenFor(x => x.RefNo)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Failure Type<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @if (Model.Submitted)
+                        {
+                        @Html.DropDownListFor(x => x.FailureTypeId, new SelectList(Model.FailureTypes, "Id", "Name"), new { @class = "form-control", disabled = "disabled" })
+                        }
+                        else
+                        {
+                        @Html.DropDownListFor(x => x.FailureTypeId, new SelectList(Model.FailureTypes, "Id", "Name"), new { @class = "form-control" })
+                        }
+                    </div>
+                    @Html.HiddenFor(x => x.FailureTypeId)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Failure Origin<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @if (Model.Submitted)
+                        {
+                        @Html.DropDownListFor(x => x.FailureOriginId, new SelectList(Model.FailureOrigins, "Id", "Name"), new { @class = "form-control", disabled = "disabled" })
+                        }
+                        else
+                        {
+                        @Html.DropDownListFor(x => x.FailureOriginId, new SelectList(Model.FailureOrigins, "Id", "Name"), new { @class = "form-control" })
+                        }
+                    </div>
+                    @Html.HiddenFor(x => x.FailureOriginId)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Failure Rate<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @if (Model.Submitted)
+                        { @Html.TextBoxFor(m => m.FailureRate, new { @class = "form-control", disabled = "disabled" })
+                        }
+                        else
+                        {@Html.TextBoxFor(m => m.FailureRate, new { @class = "form-control", })}
+                    </div>
+                    @Html.HiddenFor(x => x.FailureRate)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Request Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DisplayFor(m => m.RequestDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Requestor</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.Requestor, new { @class = "form-control", @readonly = "readonly", disabled = "disabled" })
+                    </div>
+                    @Html.HiddenFor(x => x.Requestor)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Requestor's Site</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.Site, new { @class = "form-control", @readonly = "readonly", disabled = "disabled" })
+                    </div>
+                    @Html.HiddenFor(x => x.Site)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">FA Analyst</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.TextBoxFor(m => m.Analyst, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Lab Site<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DropDownListFor(x => x.LabSiteId, new SelectList(Model.LabSites, "Id", "Name"), "---Select---", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.LabSiteId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Received Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">@Html.DisplayFor(m => m.SamplesArriveDate)</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Priority<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        <table style="max-width:280px;">
+                            <tr>
+                                <td width="100%;">
+                                    @if (Model.Submitted)
+                                    {
+                                    @Html.DropDownListFor(x => x.PriorityId, new SelectList(Model.Priorities, "Id", "Name"), new { @class = "form-control", disabled = "disabled" })
+                                    }
+                                    else
+                                    {
+                                    @Html.DropDownListFor(x => x.PriorityId, new SelectList(Model.Priorities, "Id", "Name"), new { @class = "form-control" })
+                                    }
+                                </td>
+                                <td class="non-hover">
+                                    <a style="padding-right:0px;" href="#" id="btnLinkReason" class="btn btn-link">Reasons</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    @Html.HiddenFor(x => x.PriorityId)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Initial Date</label>
+                    </div>
+                    <div class="col-lg-8 col-sm-9">@Html.DisplayFor(m => m.InitialReportTargetDate)</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @if (Model.StatusId == (int)FASTrack.Model.Types.StatusType.CLOSED)
+                    {
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Closed date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DisplayFor(w => w.LastUpdate)
+                    </div>
+                    }
+                    else
+                    {
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Status</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @Html.DropDownListFor(x => x.StatusId, new SelectList(Model.Status, "Id", "Name"), new { @class = "form-control", @readonly = "readonly", disabled = "disabled" })
+                    </div>
+                    @Html.HiddenFor(x => x.StatusId)
+                    }
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Business Unit<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @if (Model.Submitted)
+                        {
+                        @Html.DropDownListFor(x => x.BUId, new SelectList(Model.BUs, "Id", "Name"), new { @class = "form-control", disabled = "disabled" })}
+                        else
+                        {
+                        @Html.DropDownListFor(x => x.BUId, new SelectList(Model.BUs, "Id", "Name"), new { @class = "form-control" })}
+                    </div>
+                    @Html.HiddenFor(x => x.BUId)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Product<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @if (Model.Submitted)
+                        {
+                        @Html.TextBoxFor(x => x.Product, new { @class = "form-control", disabled = "disabled" })}
+                        else
+                        { @Html.TextBoxFor(x => x.Product, new { @class = "form-control" })}
+                    </div>
+                    @Html.HiddenFor(x => x.Product)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Customer</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">
+                        @if (Model.Submitted)
+                        {
+                        @Html.TextBoxFor(x => x.Customer, htmlAttributes: new { @class = "form-control", @id = "txtCustomer", disabled = "disabled" })
+                        }
+                        else
+                        {
+                        @Html.TextBoxFor(x => x.Customer, htmlAttributes: new { @class = "form-control", @id = "txtCustomer" })
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Description<span class="required">*</span></label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9 editor-multiline-field">
+                        @if (Model.Submitted)
+                        {@Html.TextAreaFor(m => m.FailureDesc, new { @class = "form-control", disabled = "disabled" })}
+                        else
+                        {@Html.TextAreaFor(m => m.FailureDesc, new { @class = "form-control" })}
+                    </div>
+                    @Html.HiddenFor(x => x.FailureDesc)
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-12 col-sm-3">
+                        <label class="control-label">Final Date</label>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-9">@Html.DisplayFor(m => m.FinalReportTargetDate)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-md-offset-0 col-lg-offset-2 col-lg-10">
+                        @if (!Model.Submitted)
+                        {
+                        <input class="btn btn-primary btn-width-md" type="submit" value="Save" name="btnSubmit" id="btnSave" />
+                        <input class="btn btn-primary btn-width-md" type="submit" value="Submit" name="btnSubmit" id="btnSubmit" />
+                        }
+                        else if (Model.StatusId == (int)FASTrack.Model.Types.StatusType.OPEN)
+                        {
+                        <input class="btn btn-primary btn-width-md" type="submit" value="Recall" name="btnSubmit" id="btnRecall" />
+                        }
+
+                        @if (Model.Id > 0 && !Model.Submitted && Model.StatusId != (int)FASTrack.Model.Types.StatusType.CANCEL)
+                        {
+                        <button type="button" class="btn btn-primary btn-width-md" id="btnCancel" value="Cancel" data-toggle="modal" data-target="#modalCancel">Cancel</button>
+                        }
+                        @if (Model.StatusId == (int)FASTrack.Model.Types.StatusType.REPORTUPLOADED || Model.StatusId == (int)FASTrack.Model.Types.StatusType.FINAL_REPORT_UPLOADED)
+                        {
+                        <button class="btn btn-primary btn-width-md" type="button" id="btnClose" data-toggle="modal" data-target="#modalClose">Close</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@{
+    AjaxOptions ajaxCancel = new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        Url = Url.Action("CancelFA", routeValues: new { id = Model.Id }),
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+    };
+
+    AjaxOptions ajaxClose = new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        Url = Url.Action("CloseFA", routeValues: new { id = Model.Id }),
+        OnBegin = "onBegin",
+        OnComplete = "onComplete",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+    };
+}
+@*Model Cancel Popup*@
+<div class="modal fade in" id="modalCancel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Confirm Cancel</h3>
+            </div>
+            <div class="modal-body">
+                <span class="text-info">Are you sure you want to cancel??</span>
+            </div>
+            <div class="modal-footer">
+                @using (Ajax.BeginForm(ajaxCancel))
+                {
+                <input id="btnYesCancel" type="submit" class="btn btn-danger btn-width-md" value="Yes" />
+                <a href="#" id="btnNoCancel" class="btn btn-default btn-width-md" data-dismiss="modal" aria-hidden="true">No</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Model Close Popup *@
+<div class="modal fade in" id="modalClose">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm(ajaxClose))
+            {
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Confirm Close</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3">Rating</label>
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(model => Model.RatingId, new SelectList(Model.Rates, "Id", "Name"), "---Select---", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3">Comments</label>
+                        <div class="col-md-9">
+                            @Html.TextAreaFor(model => Model.Comments, htmlAttributes: new { @class = "form-control", @rows = "10" })
+                        </div>
+                    </div>
+                </div>
+                @*<span class="text-info">Are you sure you want to close??</span>*@
+                @*<label>Reason Close</label>
+                @Html.DropDownListFor(w => w.ReasonId, new SelectList(Model.ReasonClose, "Id", "Description"), htmlAttributes: new { @class = "form-control" })*@
+
+            </div>
+            <div class="modal-footer">
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input id="btnYesClose" type="submit" class="btn btn-primary btn-width-md" value="Yes" />
+                            <a href="#" id="btnNoClose" class="btn btn-default  btn-width-md" data-dismiss="modal" aria-hidden="true">No</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_PartialPageEditFA")
+@Html.Partial("_PartialPageUpload", Model.Reports)
+@Html.Partial("_PartialPageLoading")
+
+@section Scripts{
+<script>
+    $(document).ready(function () {
+        $('#btnYesClose').attr('disabled','disabled');
+
+        $('#btnPrint').click(function (e) {
+            e.preventDefault();
+            print();
+        });
+
+        $('#fileUpload').change(function () {
+            $(this).next().removeAttr('disabled');
+        }).next().attr('disabled', 'disabled');
+
+        $('#btnUpload').on('click', function () {
+            if (window.FormData !== undefined) {
+                var formData = new FormData();
+                var ajaxRequest = $.ajax({
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    url: '@Url.Action("ReUploadFiles", "Upload", new { id = Model.Id, guid = Model.Gu })',
+                    data: function () {
+                        var files = $('#fileUpload').get(0).files;
+                        if (files.length > 0) {
+                            formData.append("File", files[0]);
+                        }
+                        return formData;
+                    }()
+                });
+                ajaxRequest.success(function (e, data) {
+                    $('#fileName').html(e);
+                    $('#fileUpload').val('');
+                    $('#btnUpload').attr('disabled', 'disabled');
+                });
+                ajaxRequest.error(function () {
+                    $('#fileName').html('Has Error in while upload file').css('color', 'red');
+                });
+                ajaxRequest.always(function () {
+                    $('html').css('overflow', '-moz-scrollbars-vertical');
+                    $('html').css('overflow-y', 'scroll');
+                });
+            }
+            else {
+                alert("This browser doesn't support HTML5 file uploads!");
+            }
+        });
+
+        $('#btnLinkReason').on('click', function () {
+            var url= '@Url.Action("GetHistoryPriorities")';
+            $.ajax({
+                url: url,
+                data:{id: @Model.Id},
+                type: "GET",
+                success: function(res){
+                    $('#divHistotyPriorities').empty();
+                    $('#divHistotyPriorities').html(res);
+                    $('#modalHistoryPriority').modal(options);
+                },
+            })
+        });
+
+        //param popup
+        var options = {
+            show: true,
+            //backdrop: false
+        };
+
+        onBegin = function () {
+            $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+            $('body').css({ 'overflow': 'hidden' });
+            $('#box').css({ 'display': 'block' });
+        }
+
+        onComplete = function () {
+            $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+            $('body').css({ 'overflow': 'show' });
+            $('#box').css({ 'display': 'none' });
+
+            $('html').css('overflow', '-moz-scrollbars-vertical');
+            $('html').css('overflow-y', 'scroll');
+        }
+
+        onSuccess = function (data) {
+            var result = data.code;
+            switch (result) {
+                //Save
+                case "SV01":
+                    var url = '@Url.Action("Samples", routeValues: new { id = Model.Id })';
+                    $('#btnSV01').attr('href', url);
+                    $('#modalSaveSuccess').modal(options);
+                    break;
+                case "SV02":
+                    $('#modalSaveFailure').modal(options);
+                    break;
+                    //
+                    //Submit
+                case "SB01":
+                    //$('#btnSave').remove();
+                    //$('#btnSubmit').remove();
+                    var url = '@Url.Action("ReEditFA", new { id = Model.Id })';
+                    $('#btnSB01').attr('href', url);
+                    $('#modalSubmitSuccess').modal(options);
+                    break;
+                case "SB02":
+                    var url = '@Url.Action("Samples", routeValues: new { id = Model.Id })';
+                    $('#btnSBNotSamples').attr('href', url);
+                    $('#modalSubmitNotSamples').modal(options);
+                    break;
+                    //
+                    // Recall
+                case "RE01":
+                    var url = '@Url.Action("ReEditFA", new { id = Model.Id })';
+                    $('#btnRE01').attr('href', url);
+                    $('#modalRecallSuccess').modal(options);
+                    break;
+                case "RE02":
+                    $('#modalRecallFailure').modal(options);
+                    break;
+                    //
+                    //Cancel
+                case "CA01":
+                    $('#btnCancel').remove();
+                    $('#modalCancelSuccess').modal(options);
+                    $('#StatusId').val(5);
+                    $('#cboStatusId').val(5);
+                    break;
+                case "CA02":
+                    $('#modalCancelFailure').modal(options);
+                    break;
+                    //Close
+                case "CL01":
+                    var url = '@Url.Action("ReEditFA", new { id = Model.Id })';
+                    $('#btnCL01').attr('href', url);
+                    $('#modalCloseSuccess').modal(options);
+                    break;
+            }
+        };
+
+        onFailure = function (data) {
+            $('#modalError').modal(options);
+        };
+
+        $('#btnYesCancel').on('click', function () {
+            $('#modalCancel').modal('hide');
+        });
+        $('#btnYesClose').on('click', function () {
+            $('#modalClose').modal('hide');
+        });
+
+        $('#txtCustomer').autocomplete({
+            source: '@Url.Action("GetCustomer","Dashboard")',
+            minLength: 2,
+            select: function (event, ui) {
+                if (ui.item) {
+                    $("#txtCustomer").val(ui.item.value);
+                }
+            },
+            autofill: true,
+            selectFirst: true,
+            highlight: true,
+            multiple: false
+        });
+
+        $('#Product').autocomplete({
+            source: '@Url.Action("GetProduct","Dashboard")',
+            minLength: 1,
+            select: function (event, ui) {
+                if (ui.item) {
+                    $(this).val(ui.item.value);
+                }
+            },
+            autofill: true,
+            selectFirst: true,
+            highlight: true,
+            multiple: false
+        });
+
+        $('#RatingId').on('change',function(e){
+            enabledButtonClose();
+        });
+        $('#Comments').on('input propertychange paste',function(e){
+            enabledButtonClose();
+        });
+    });
+
+
+    print = function () {
+        var path = '@Url.Action("Print", new { id = Model.Id })';
+        $.ajax({
+            url: path,
+            type: 'get',
+            success: function (data) {
+                if (arePopupsBlocked()) {
+                    alert('Please allow popups.');
+                }
+                var printWindow = window.open();
+                if (printWindow) {
+                    $(printWindow.document.body).html(data);
+
+                } else {
+                    alert('Please allow popups.');
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                if (xhr.status != 0) {
+                }
+            }
+        });
+
+        arePopupsBlocked = function () {
+            var aWindow = window.open(null, "", "width=1,height=1");
+            try {
+                aWindow.close();
+                return false;
+            } catch (e) {
+                return true;
+            }
+        };
+
+    }
+
+
+    //BEGIN ADD 05_Feb_2016 event show popup
+    $('#modalRecallSuccess').on('shown.bs.modal',function(){
+        $('#btnRE01').focus();
+    });
+
+    $('#modalSubmitSuccess').on('shown.bs.modal', function(){
+        $('#btnSB01').focus();
+    });
+
+    $('#modalSaveSuccess').on('shown.bs.modal',function(){
+        $('#btnSV01').focus();
+    });
+
+    $('#modalSubmitNotSamples').on('shown.bs.modal',function(){
+        $('#btnSBNotSamples').focus();
+    });
+    //END ADD
+    function enabledButtonClose(){
+        var rating = $('#RatingId').val();
+        var comments = $('#Comments').val();
+        if(rating > 0  && $.trim(comments) != '')
+            $('#btnYesClose').removeAttr('disabled');
+        else
+            $('#btnYesClose').attr('disabled','disabled');
+    }
+</script>
+}

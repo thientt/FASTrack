@@ -1,0 +1,54 @@
+﻿@model FASTrack.ViewModel.ProcessProductViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<h2>Create New Process Product</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">FA Process<span class="required">*</span></label>
+            <div class="col-sm-9 col-md-10">
+                @Html.DropDownListFor(model => model.ProcessId, new SelectList(Model.ProcessTypes, "Id", "Name"), "---Select---", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProcessId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-sm-3 col-md-2">Product<span class="required">*</span></label>
+            <div class="col-sm-9 col-md-10">
+                @Html.DropDownListFor(model => model.ProductId, new SelectList(Model.Products, "Id", "Name"), "---Select---", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductId)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">In-Charge Person<span class="required">*</span></label>
+            <div class="col-sm-9 col-md-10">
+                @Html.DropDownListFor(model => model.InChargePerson, new SelectList(Model.Users, "Email", "Email"), "---Select---", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.InChargePerson)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3 col-md-2">Description</label>
+            <div class="col-sm-9 col-md-10">
+                @Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-md-offset-2 col-sm-9 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary btn-width-md" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-md-offset-2 col-sm-9 col-md-10">
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+}
+
+@Html.Partial("_PartialPageLoading")

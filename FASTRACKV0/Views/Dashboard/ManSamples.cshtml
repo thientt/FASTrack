@@ -1,0 +1,170 @@
+﻿@model FASTrack.Infrastructure.FilterSample
+
+@{
+    ViewBag.Title = "Add Samples List";
+}
+
+
+<link href="~/Content/theme.default.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<div class="row">
+    <h2>Device/Samples List for FA#@Model.FANumber</h2>
+    <br />
+    <p>
+        @Html.ActionLink("FA Detail", "ManEditFA", new { id = Model.Id })
+    </p>
+    @Html.Action("ManSampleList", routeValues: new { id = Model.Id, page = Model.Page })
+</div>
+
+@section scripts{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            //BEGIN EVENT CHANGE VALUE OF COMBOBOX
+            $('#popupContainer').on('change', 'select[id="MechanismId"]', function (e) {
+                var optionSelected = $("option:selected", this);
+                var valueSelected = this.value;
+                if (valueSelected)
+                    $('#btnSubmitFailureMechanism').attr('disabled', false);
+                else
+                    $('#btnSubmitFailureMechanism').attr('disabled', true);
+            });
+            //END EVENT CHANGE VALUE OF COMBOBOX
+        });
+
+        failureMechanism = function (id) {
+            var url = '@Url.Action("GetAll","FARMechanism")';
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: { id: id },
+                success: function (returnHtml) {
+                    $('#popupContainer').empty();
+                    $('#popupContainer').html(returnHtml);
+                    $('#popupFinding').modal({ show: true, backdrop: false });
+                },
+                error: function (xhr) { },
+                alway: function () { }
+            });
+        }
+
+        //BEGIN EVENT CHANGE VALUE OF COMBOBOX
+        $('#popupContainer').on('shown.bs.modal', '#popupFinding', function () {
+            var comboxFailure = $('select[id="MechanismId"]');
+            var optionSelected = $("option:selected", comboxFailure);
+            if ($.trim(optionSelected.val()) != '') {
+                $('#btnSubmitFailureMechanism').attr('disabled', false);
+            }
+            else
+                $('#btnSubmitFailureMechanism').attr('disabled', true);
+        });
+
+        //BEGIN FUNCTION
+        showPopupFailureMechanismSuccess = function () {
+            var html =
+                '<div class="modal-body">' +
+                '<div class="form-horizontal">' +
+                '<div class="form-group">' +
+                '<div class="col-sm-12">' +
+                '<h4 class="text-info">Failure mechansim was successfulfy saved.</h4>' +
+                '</div>' +
+                '</div>' +
+                '</br>' +
+                '<div class="form-group">' +
+                '<div class="col-sm-12">' +
+               '<button type="button" class="btn btn-default btn-width-md" data-dismiss="modal" aria-hidden="true">Close</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+
+            $('#popupFinding .modal-body').empty();
+            $('#popupFinding .modal-body').html(html);
+        }
+        showPopupFailureMechanismFailure = function () {
+            var html =
+               '<div class="modal-body">' +
+               '<div class="form-horizontal">' +
+               '<div class="form-group">' +
+               '<div class="col-sm-12">' +
+               '<h4 class="text-danger">Failure mechansim was failure save.</h4>' +
+               '</div>' +
+               '</div>' +
+               '</br>' +
+               '<div class="form-group">' +
+               '<div class="col-sm-12">' +
+              '<button type="button" class="btn btn-default btn-width-md" data-dismiss="modal" aria-hidden="true">Close</button>' +
+               '</div>' +
+               '</div>' +
+               '</div>' +
+               '</div>';
+
+            $('#popupFinding .modal-body').empty();
+            $('#popupFinding .modal-body').html(html);
+        }
+        //END FUNCTION
+
+        //BEGIN EVENT AJAX FORM
+        onBegin = function () {
+            $('#screen').css({ opacity: 0.2, 'width': $(document).width(), 'height': $(document).height() });
+            $('body').css({ 'overflow': 'hidden' });
+            $('#box').css({ 'display': 'block' });
+        };
+        onSuccess = function (data) {
+            var code = data.code;
+            switch (code) {
+                case "ED01":
+                    clickSave = true;
+                    $('#txtInitial').val(data.initialDate);
+                    $('#txtFinal').val(data.finalDate);
+                    $('#modalEditSuccess').modal(options);
+                    break;
+                case "RL01":
+                    $('#btnRelease').remove();
+                    $('#btnOnHold').show();//.css('display', 'block');
+                    $('#modalRecallSuccess').modal(options);
+                    $('#cboStatusId').val(2);
+                    $('#StatusId').val(2);
+                    break;
+                case "OH01":
+                    $('#btnOnHold').hide();
+                    $('#btnRelease').show();
+                    $('#StatusId').val(3);
+                    $('#modalOnhold').modal('hide');
+                    $('#modalOnholdSuccess').modal(options);
+                    break;
+                case "SB01":
+                    showPopupFailureMechanismSuccess();
+                    break;
+            }
+        }
+        onComplete = function () {
+            $('#screen').css({ opacity: 0.2, 'width': 0, 'height': 0 });
+            $('body').css({ 'overflow': 'show' });
+            $('#box').css({ 'display': 'none' });
+
+            $('html').css('overflow', '-moz-scrollbars-vertical');
+            $('html').css('overflow-y', 'scroll');
+        };
+        onFailure = function (data) {
+            var code = data.code;
+            switch (code) {
+                case "ED02":
+                    $('#modalEditFailure').modal(options);
+                    break;
+                case "RL02":
+                    $('#modalRecallFailure').modal(options);
+                    break;
+                case "OH02":
+                    //show popup failure
+                    $('#modalOnholdFailure').modal(options);
+                    break;
+                case "SB02":
+                    showPopupFailureMechanismFailure();
+                    break;
+
+            }
+        };
+        //END EVENT AJAX FORM
+</script>
+}

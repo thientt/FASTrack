@@ -1,0 +1,47 @@
+﻿@model FASTrack.Model.DTO.MSTProcessResultDto
+
+@{
+    ViewBag.Title = "Detail";
+}
+<h2>Details of FA Result</h2>
+<hr />
+
+<div class="row">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-lg-2">FA Code</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.ProcessType.Name, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">FA Value</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.Value, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Description</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.Description, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2">Last Update By</label>
+            <div class="col-lg-10">
+                @Html.TextBoxFor(model => model.LastUpdatedBy, htmlAttributes: new { @class = "form-control", @readonly = "true" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Last Updated</label>
+            <div class="col-lg-10">
+                @Html.DisplayFor(model => model.LastUpdate)
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<p class="col-lg-offset-2">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

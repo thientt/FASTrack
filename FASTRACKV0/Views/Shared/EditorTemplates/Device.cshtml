@@ -1,0 +1,50 @@
+﻿@model FASTrack.Model.DTO.FARDeviceDetailsDto
+
+<style>
+    table > tbody > tr:hover {
+        background-color: #f3f0b6;
+    }
+
+    table > thead > tr {
+        background-color: #f2e9e9;
+    }
+</style>
+<tr>
+    <td>
+        @Html.CheckBoxFor(x => x.IsSelected, htmlAttributes: new { @IdOfCheckbox = Model.Id, @NameOfCheckbox = "DeviceDetails_" })
+        @Html.HiddenFor(x => x.Id)
+    </td>
+    <td>@Model.LotNo</td>
+    <td>@Model.MfgPartNo</td>
+    <td>@Model.Technogoly.Name</td>
+    <td>@Model.PackageType.Name</td>
+    <td>@Model.AssemblySites.Name</td>
+    <td>@Model.FabSite.Name</td>
+    <td>@Model.DateCode</td>
+    <td>@Model.Quantity</td>
+    <td>
+        @if (Model.Stage)
+        {
+            @("Y");
+        }
+        else
+        {
+            @("N");
+        }
+    </td>
+</tr>
+<tr id="DeviceDetails_@Model.Id" style="display:none;">
+    <td colspan="10">
+        @if (Model.ProcessHis.Count() > 0)
+        {
+            <table>
+                <tbody>
+                    @for (int j = 0; j < @Model.ProcessHis.Count; j++)
+                    {
+                        @Html.EditorFor(x => @Model.ProcessHis[j], "Process")
+                    }
+                </tbody>
+            </table>
+        }
+    </td>
+</tr>

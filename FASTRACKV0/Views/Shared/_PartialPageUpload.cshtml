@@ -1,0 +1,25 @@
+﻿@model string
+
+<div class="row">
+    <div class="jumbotron">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-3">Attachments</label>
+                <div class="col-sm-9">
+                    <input id="fileUpload" type="file" class="form-control btn btn-info pull-left col-md-3 col-sm-5" />
+                    <button class="btn btn-primary" id="btnUpload" value="Upload" style="margin-left:2px;">Upload</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <div id="fileName">
+                        @if (Model != null)
+                        {
+                            @Html.Raw(Model)
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

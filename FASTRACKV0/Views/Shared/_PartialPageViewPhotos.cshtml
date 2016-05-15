@@ -1,0 +1,49 @@
+﻿@model FASTrack.ViewModel.ViewPhotoViewModel
+
+<link href="~/Content/app/popup-image.css" rel="stylesheet" />
+<style>
+    .img-outter {
+        width: 100%;
+        height: 100%;
+    }
+
+    .img-link {
+        width: 150px;
+        height: inherit;
+        min-height: 300px;
+    }
+
+    .img-show {
+        width: 500px;
+        height: 500px;
+    }
+</style>
+<div class="popup" data-popup="popupViewPhoto">
+    <div class="popup-inner">
+        <a class="popup-close" data-popup-close="popupViewPhoto" href="#">x</a>
+        <div class="row">
+            <div class="img-outter">
+                <div class="col-lg-3 col-md-3">
+                    <div class="form-horizontal">
+                        <div class="img-link">
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model.Photos)
+                                {
+                                    <a href="@item.FilePath" class="btn btn-link">@item.FileName</a>
+                                    <br />
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9">
+                    @if (Model != null)
+                    {
+                        <img src="@Url.Content("~/"+ Model.Default)" class="img-show" id="imgCurrentView" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
