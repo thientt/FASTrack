@@ -29,6 +29,10 @@ namespace FASTrack.Infrastructure
         private const int LeftPadding = 5;
         private const int RightPadding = 5;
 
+        /// <summary>
+        /// Constructor FASTrackWord
+        /// </summary>
+        /// <param name="filePath"></param>
         public FastrackWord(string filePath)
         {
             this.folderPath = filePath;
@@ -42,6 +46,9 @@ namespace FASTrack.Infrastructure
         }
 
         private string folderPath = String.Empty;
+        /// <summary>
+        /// The folder containg file exports
+        /// </summary>
         public string FolderPath
         {
             get
@@ -67,13 +74,32 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// User 1
+        /// </summary>
         public FASTrack.Model.DTO.SYSUsersDto User1 { get; set; }
+
+        /// <summary>
+        /// User 2
+        /// </summary>
         public FASTrack.Model.DTO.SYSUsersDto User2 { get; set; }
+
+        /// <summary>
+        /// User 3
+        /// </summary>
         public FASTrack.Model.DTO.SYSUsersDto User3 { get; set; }
+
+        /// <summary>
+        /// User 4
+        /// </summary>
         public FASTrack.Model.DTO.SYSUsersDto Requestor { get; set; }
 
         public System.Collections.Generic.List<FASTrack.Model.DTO.MSTProcessTypesDto> ProcessTypes { get; set; }
 
+        /// <summary>
+        /// Execute create file word document
+        /// </summary>
+        /// <returns></returns>
         public string Execute()
         {
             if (String.IsNullOrEmpty(folderPath))
@@ -375,7 +401,7 @@ namespace FASTrack.Infrastructure
         {
             object missing = Type.Missing;
             //object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
-            Word.Range wrdRng = wordDoc.Paragraphs.Add(missing).Range;//.Bookmarks.get_Item(ref oEndOfDoc).Range;
+            Word.Range wrdRng = wordDoc.Paragraphs.Add(missing).Range;
 
             Word.Table wTable = wordDoc.Tables.Add(wrdRng, 1, 2);
           
@@ -536,12 +562,18 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// Type document
+        /// </summary>
         protected internal enum ExportType
         {
             TEMP1 = 1,
             TEMP2 = 2
         }
 
+        /// <summary>
+        /// Keyword
+        /// </summary>
         protected internal class KeyWord
         {
             public const string FAR_REF = "[FAR#/REF#]";
