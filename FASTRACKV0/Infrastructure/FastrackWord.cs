@@ -6,6 +6,9 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace FASTrack.Infrastructure
 {
+    /// <summary>
+    /// Convert data to word file
+    /// </summary>
     public class FastrackWord
     {
         private Word.Application wordApp = null;

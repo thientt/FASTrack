@@ -185,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Reports\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -388,13 +389,6 @@
     </Content>
     <None Include="Properties\PublishProfiles\fadb_qa.pubxml" />
     <None Include="Properties\PublishProfiles\fasttrack.pubxml" />
-    <Content Include="Reports\17826806-f138-4b6d-9008-e8a075d24d8e.docx" />
-    <Content Include="Reports\5ec6e9e4-dc62-48d7-a22d-e4554e994d5e.docx" />
-    <Content Include="Reports\79d26e64-8307-4e88-884c-fba6811b77c0.docx" />
-    <Content Include="Reports\839fbfcc-4bff-4c53-80a5-e1de533f6080.docx" />
-    <Content Include="Reports\b466132b-098a-4694-97a0-2d67f1f90a48.docx" />
-    <Content Include="Reports\cc07c014-e243-4fc2-b358-1b46e66c73c8.docx" />
-    <Content Include="Reports\ec5de4ec-5131-48c0-bd35-38da31ba5c31.docx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DatePickerReady.js" />
     <Content Include="Scripts\dropzone.js" />

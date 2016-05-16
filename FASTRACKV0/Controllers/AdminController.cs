@@ -14,8 +14,6 @@ namespace FASTrack.Controllers
     [Authorize(Roles = AuthRole.Admin)]
     public class AdminController : AppController
     {
-        //
-        // GET: /Admin/
         /// <summary>
         /// Indexes this instance.
         /// </summary>
