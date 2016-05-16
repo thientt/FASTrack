@@ -166,11 +166,6 @@ namespace FASTrack.Infrastructure
             foreach (var device in dataSource.DeviceDetails)
             {
                 wordDoc.Range().InsertParagraphAfter();
-                if (device.ProcessHis.Any(x => x.SelectPhoto == "Yes") && !IsNotBreak)
-                {
-                    //wordDoc.Words.Last.InsertBreak(Word.WdBreakType.wdPageBreak);
-                }
-
                 ExeTableProcess(device.ProcessHis);
             }
         }
@@ -299,58 +294,6 @@ namespace FASTrack.Infrastructure
                     ReportProcessTypeCell(wCell1, (iCount % 2 == 1) ? iNumRowOfProcess - 1 : iNumRowOfProcess, 1, device.ProcessHis);
                     ReportProcessTypeCell(wCell2, iNumRowOfProcess, 2, device.ProcessHis);
 
-
-
-
-
-
-
-
-                    ////Word.Table wTableProcess = wCell.Range.Tables.Add(wCell.Range, iNumRowOfProcess, 2);
-                    //Word.Table wTableProcess = wCell.Range.Tables.Add(wCell.Range, iCount, 1);
-                    //wTableProcess.BottomPadding = 1;
-                    //wTableProcess.TopPadding = 1;
-                    //wTableProcess.LeftPadding = 5;
-                    //wTableProcess.RightPadding = 5;
-                    //wTableProcess.Spacing = 10;
-
-                    ////for (int i = 1; i <= iNumRowOfProcess; i++)
-                    //for (int i = 1; i <= iCount; i++)
-                    //{
-                    //    //for (int j = 1; j <= 2; j++)
-                    //    //{
-                    //    //Word.Range range = wTableProcess.Cell(i, j).Range;
-                    //    Word.Range range = wTableProcess.Cell(i, 1).Range;
-                    //    range.Font.Name = "Verdana";
-                    //    range.Font.Size = 10;
-                    //    //Word.FormField checkBox = range.FormFields.Add(wTableProcess.Cell(i, j).Range, Word.WdFieldType.wdFieldFormCheckBox);
-                    //    Word.FormField checkBox = range.FormFields.Add(wTableProcess.Cell(i, 1).Range, Word.WdFieldType.wdFieldFormCheckBox);
-
-                    //    //checkBox.CheckBox.Default = false;
-                    //    //checkBox.CheckBox.Size = 15;
-                    //    //checkBox.CalculateOnExit = true;
-                    //    //checkBox.Enabled = true;
-                    //    //checkBox.OwnHelp = false;
-                    //    //checkBox.OwnStatus = false;
-
-                    //    //var pro = ProcessTypes[(i * 2) - j];
-                    //    var pro = ProcessTypes[i - 1];
-
-                    //    if (device.ProcessHis.FirstOrDefault(x => x.ProcessTypeId == pro.Id) != null)
-                    //    {
-                    //        //checkBox.CheckBox.Default = true;
-                    //        checkBox.CheckBox.Value = true;
-                    //    }
-                    //    else
-                    //    {
-                    //        //checkBox.CheckBox.Default = false;
-                    //        checkBox.CheckBox.Value = false;
-                    //    }
-                    //    checkBox.Enabled = false;
-
-                    //    range.InsertAfter(pro.Name);
-                    //    //}
-                    //}
                     continue;
                 }
 
@@ -431,7 +374,8 @@ namespace FASTrack.Infrastructure
             //object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
             Word.Range wrdRng = wordDoc.Paragraphs.Add(missing).Range;//.Bookmarks.get_Item(ref oEndOfDoc).Range;
 
-            Word.Table wTable = wordDoc.Tables.Add(wrdRng, 10, 2);
+            Word.Table wTable = wordDoc.Tables.Add(wrdRng, 1, 2);
+          
             wTable.BottomPadding = 1;
             wTable.TopPadding = 1;
             wTable.LeftPadding = 5;
@@ -444,6 +388,7 @@ namespace FASTrack.Infrastructure
                 if (process.SelectPhoto != "Yes")
                     continue;
 
+                wTable.Rows.Add(missing);
                 Word.Cell wCell1 = wTable.Cell(iRowImage, 1);
                 Word.Cell wCell2 = wTable.Cell(iRowImage, 2);
                 wCell1.Merge(wCell2);
@@ -465,7 +410,10 @@ namespace FASTrack.Infrastructure
                 pText.Range.Text = process.ProcessType.Name;
 
                 if (process.Photos != null && process.Photos.Count > 0)
+                {
+                    wTable.Rows.Add(missing);
                     AddPicture(wTable, process.Photos, ref iRowImage);
+                }
 
                 iRowImage++;
             }
