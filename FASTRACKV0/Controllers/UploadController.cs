@@ -1,4 +1,18 @@
-﻿using FASTrack.Model.Abstracts;
+﻿// ***********************************************************************
+// Assembly         : FASTrack
+// Author           : tranthiencdsp@gmail.com
+// Created          : 02-25-2016
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 05-16-2016
+// ***********************************************************************
+// <copyright file="UploadController.cs" company="Atmel">
+//     Copyright © Atmel 2016
+// </copyright>
+// <summary></summary>
+// **********************************************************************
+
+using FASTrack.Model.Abstracts;
 using FASTrack.Model.Types;
 using FASTrack.Utilities;
 using FASTrack.Model.DTO;
