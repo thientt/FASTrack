@@ -1,4 +1,18 @@
-﻿using FASTrack.Infrastructure;
+﻿// ***********************************************************************
+// Assembly         : FASTrack
+// Author           : tranthiencdsp@gmail.com
+// Created          : 02-25-2016
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 03-13-2016
+// ***********************************************************************
+// <copyright file="UserController.cs" company="Atmel">
+//     Copyright © Atmel 2016
+// </copyright>
+// <summary></summary>
+// **********************************************************************
+
+using FASTrack.Infrastructure;
 using FASTrack.Model.Abstracts;
 using FASTrack.Model.DTO;
 using FASTrack.ViewModel;
