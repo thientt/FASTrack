@@ -64,6 +64,7 @@ namespace FASTrack.Model.Concretes
                                       RequestDate = item.FAR_Master.RequestDate,
                                       FailureDesc = item.FAR_Master.FailureDesc,
                                   },
+                                  FailureDetail=item.FailureDetail,
                                   WaferNo = item.WaferNo,
                                   SerialNo = item.SerialNo,
                                   LotNo = item.LotNo,

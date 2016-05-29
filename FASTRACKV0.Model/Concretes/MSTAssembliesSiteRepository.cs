@@ -1,4 +1,18 @@
-﻿using FASTrack.Model.Abstracts;
+﻿// ***********************************************************************
+// Assembly         : FASTrack
+// Author           : tranthiencdsp@gmail.com
+// Created          : 02-25-2016
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 06-16-2016
+// ***********************************************************************
+// <copyright file="MSTAssembliesSiteRepository.cs" company="Atmel">
+//     Copyright © Atmel 2016
+// </copyright>
+// <summary></summary>
+// **********************************************************************
+
+using FASTrack.Model.Abstracts;
 using FASTrack.Model.DTO;
 using FASTrack.Model.Entities;
 using FASTrack.Utilities;
