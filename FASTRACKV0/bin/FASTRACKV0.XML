@@ -1160,7 +1160,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:FASTrack.Controllers.FAReportGeneratorController.Download(System.String)">
+        <member name="M:FASTrack.Controllers.FAReportGeneratorController.Download(System.String,System.String)">
             <summary>
             Downloads the specified file.
             </summary>
@@ -3586,6 +3586,63 @@
             <param name="htmlAttributes">The HTML attributes.</param>
             <param name="disabled">if set to <c>true</c> [disabled].</param>
             <returns></returns>
+        </member>
+        <member name="T:FASTrack.Infrastructure.FastrackWord">
+            <summary>
+            Convert data to word file
+            </summary>
+        </member>
+        <member name="M:FASTrack.Infrastructure.FastrackWord.#ctor(System.String)">
+            <summary>
+            Constructor FASTrackWord
+            </summary>
+            <param name="filePath"></param>
+        </member>
+        <member name="M:FASTrack.Infrastructure.FastrackWord.Execute">
+            <summary>
+            Execute create file word document
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:FASTrack.Infrastructure.FastrackWord.FolderPath">
+            <summary>
+            The folder containg file exports
+            </summary>
+        </member>
+        <member name="P:FASTrack.Infrastructure.FastrackWord.DataSource">
+            <summary>
+            Data Source for Word
+            </summary>
+        </member>
+        <member name="P:FASTrack.Infrastructure.FastrackWord.User1">
+            <summary>
+            User 1
+            </summary>
+        </member>
+        <member name="P:FASTrack.Infrastructure.FastrackWord.User2">
+            <summary>
+            User 2
+            </summary>
+        </member>
+        <member name="P:FASTrack.Infrastructure.FastrackWord.User3">
+            <summary>
+            User 3
+            </summary>
+        </member>
+        <member name="P:FASTrack.Infrastructure.FastrackWord.Requestor">
+            <summary>
+            User 4
+            </summary>
+        </member>
+        <member name="T:FASTrack.Infrastructure.FastrackWord.ExportType">
+            <summary>
+            Type document
+            </summary>
+        </member>
+        <member name="T:FASTrack.Infrastructure.FastrackWord.KeyWord">
+            <summary>
+            Keyword
+            </summary>
         </member>
         <member name="T:FASTrack.Infrastructure.Mail">
             <summary>

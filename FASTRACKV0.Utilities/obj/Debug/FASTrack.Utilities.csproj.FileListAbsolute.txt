@@ -28,4 +28,3 @@ E:\Projects\FASTrack\TurnOverFiles\FASTrack\FASTRACKV0.Utilities\bin\Debug\log4n
 E:\Projects\FASTrack\TurnOverFiles\FASTrack\FASTRACKV0.Utilities\obj\Debug\FASTrack.Utilities.dll
 E:\Projects\FASTrack\TurnOverFiles\FASTrack\FASTRACKV0.Utilities\obj\Debug\FASTrack.Utilities.pdb
 E:\Projects\FASTrack\TurnOverFiles\FASTrack\FASTRACKV0.Utilities\bin\Debug\FASTrack.Utilities.XML
-E:\Projects\FASTrack\TurnOverFiles\FASTrack\FASTRACKV0.Utilities\obj\Debug\FASTrack.Utilities.csprojResolveAssemblyReference.cache
