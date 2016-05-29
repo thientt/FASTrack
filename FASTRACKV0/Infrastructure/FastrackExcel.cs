@@ -61,7 +61,7 @@ namespace FASTrack.Infrastructure
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
 
-                throw ex;
+                throw new Exception(ex.Message, ex);
             }
         }
 

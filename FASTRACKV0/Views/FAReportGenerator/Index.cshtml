@@ -65,6 +65,21 @@
 
 <h2>FA Detail </h2>
 
+<div class="row">
+    <p>
+        @if (!String.IsNullOrEmpty(ViewBag.Role))
+        {
+            if (ViewBag.Role == "Analyst")
+            {
+                @Html.ActionLink("FA Details", "AnaEditFA", "Dashboard", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-link" })
+            }
+            else
+            {
+                @Html.ActionLink("FA Details", "ManEditFA", "Dashboard", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-link" })
+            }
+        }
+    </p>
+</div>
 @using (Ajax.BeginForm(ajaxOption))
 {
     <div class="form-horizontal">
@@ -307,7 +322,7 @@
     </div>
 }
 
-@*Modal popup Error while execute*@
+@*Modal pop-up Error while execute*@
 <div class="modal fade in" id="modalError">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -405,7 +420,7 @@
                 switch (result) {
                     //Save
                     case "EX01":
-                        window.location = '@Url.Action("Download")' + "?file=" + data.path;
+                        window.location = '@Url.Action("Download")' + "?file=" + data.path + "&fa=" + data.fa;
                         $('#modalSuccess').modal(options);
                         break;
                     case "EX02":

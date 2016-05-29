@@ -194,7 +194,7 @@ namespace FASTrack.Controllers
             {
                 isSameOverall = (device.Master.Analyst == this.CurrentName);
             }
-            //End Enhacement 19-04-2016
+            //End Enhancement 19-04-2016
 
             FindingViewModel finding = new FindingViewModel
             {

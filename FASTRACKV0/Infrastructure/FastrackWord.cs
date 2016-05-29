@@ -59,6 +59,9 @@ namespace FASTrack.Infrastructure
 
         private FASTrack.ViewModel.FARReportGeneratorViewModel dataSource = null;
 
+        /// <summary>
+        /// Data Source for Word
+        /// </summary>
         public FASTrack.ViewModel.FARReportGeneratorViewModel DataSource
         {
             get
@@ -143,7 +146,7 @@ namespace FASTrack.Infrastructure
 
                 //Check object has how many device/samples object
                 if (dataSource == null)
-                    throw new ArgumentNullException("Datasource not null");
+                    throw new ArgumentNullException("Data Source not null");
 
                 var report = dataSource;
                 if (report.DeviceDetails != null)
@@ -211,7 +214,7 @@ namespace FASTrack.Infrastructure
 
                     if (sValue.Contains(KeyWord.FAR_REF))
                     {
-                        wCell.Range.Text = wCell.Range.Text.Replace(KeyWord.FAR_REF, device.Master.Number);
+                        wCell.Range.Text = wCell.Range.Text.Replace(KeyWord.FAR_REF, String.Format("{0} / {1}", device.Master.Number, device.Master.RefNo));
                         continue;
                     }
 
@@ -239,11 +242,12 @@ namespace FASTrack.Infrastructure
                         continue;
                     }
 
-                    if (sValue.Contains(KeyWord.PRODUCT_LINE))
-                    {
-                        wCell.Range.Text = wCell.Range.Text.Replace(KeyWord.PRODUCT_LINE, device.Master.Product);
-                        continue;
-                    }
+                    //enhancement (FADB_Enhancement_UAT_result_20160525.pttx) remove
+                    //if (sValue.Contains(KeyWord.PRODUCT_LINE))
+                    //{
+                    //    wCell.Range.Text = wCell.Range.Text.Replace(KeyWord.PRODUCT_LINE, device.Master.Product);
+                    //    continue;
+                    //}
 
 
                     if (sValue.Contains(KeyWord.REQUESTOR_EMAIL))
@@ -267,11 +271,12 @@ namespace FASTrack.Infrastructure
                             continue;
                         }
 
-                        if (sValue.Contains(KeyWord.PACK_TYPE))
-                        {
-                            wCell.Range.Text = wCell.Range.Text.Replace(KeyWord.PACK_TYPE, device.PackageType.Name);
-                            continue;
-                        }
+                        //enhancement (FADB_Enhancement_UAT_result_20160525.pttx) remove
+                        //if (sValue.Contains(KeyWord.PACK_TYPE))
+                        //{
+                        //    wCell.Range.Text = wCell.Range.Text.Replace(KeyWord.PACK_TYPE, device.PackageType.Name);
+                        //    continue;
+                        //}
 
                         if (sValue.Contains(KeyWord.ASSEMBLY_SITE))
                         {
@@ -304,6 +309,7 @@ namespace FASTrack.Infrastructure
 
                 if (sValue.Contains(KeyWord.FA_DETAILS_DESCRIPTION))
                 {
+                    wCell.Range.Font.ColorIndex = Word.WdColorIndex.wdBlack;
                     wCell.Range.Text = device.Master.FailureDesc;
                     continue;
                 }
@@ -339,19 +345,42 @@ namespace FASTrack.Infrastructure
                         if (i == 0)
                         {
                             wCell.Range.Bold = 1;
-                            wCell.Range.Text = item.ProcessType.Name;
+                            wCell.Range.Text = String.Format("{0} - {1}", item.ProcessType.Name, item.ProcessType.Description);
                         }
                         else
                         {
                             pText = wCell.Range.Paragraphs.Add(missing);
                             pText.Range.Bold = 1;
-                            pText.Range.Text = item.ProcessType.Name;
+                            pText.Range.Text = String.Format("{0} - {1}", item.ProcessType.Name, item.ProcessType.Description);
                         }
                         pText = wCell.Range.Paragraphs.Add(missing);
                         pText.Range.Bold = 0;
                         pText.Range.Text = item.Comment;
 
                         wCell.Range.InsertParagraphAfter();
+                    }
+                }
+
+                if (sValue.Contains(KeyWord.DEVICE_FAILURE))
+                {
+                    if (dataSource != null && dataSource.DeviceDetails != null && dataSource.DeviceDetails.Count > 0)
+                    {
+                        Word.Paragraph pText = null;
+                        wCell.Range.Font.ColorIndex = Word.WdColorIndex.wdBlack;
+
+                        for (int i = 0; i < dataSource.DeviceDetails.Count; i++)
+                        {
+                            var item = dataSource.DeviceDetails[i];
+                            if (i == 0)
+                                wCell.Range.Text = String.Format("{0}: {1}", item.SerialNo, item.FailureDetail);
+                            else
+                            {
+                                pText = wCell.Range.Paragraphs.Add(missing);
+                                pText.Range.Text = String.Format("{0}: {1}", item.SerialNo, item.FailureDetail);
+
+                                wCell.Range.InsertParagraphAfter();
+                            }
+                        }
                     }
                 }
             }
@@ -366,7 +395,6 @@ namespace FASTrack.Infrastructure
                     Word.Cell wCell = pTable.Cell(iRow, iCol);
                     string sValue = wCell.Range.Text;
 
-                    //[Analyst/User who will generate the Report]
                     if (sValue.Contains(KeyWord.USER_GEN_RE))
                     {
                         wCell.Range.Text = wCell.Range.Text.Replace(KeyWord.USER_GEN_RE, User1.FullName);//Get full name of user login current
@@ -380,7 +408,7 @@ namespace FASTrack.Infrastructure
                         continue;
                     }
 
-                    //[FA Overall Incharge]
+                    //[FA Overall In-charge]
                     if (sValue.Contains(KeyWord.FA_OVERALL_INCHARGE))
                     {
                         wCell.Range.Text = wCell.Range.Text.Replace(KeyWord.FA_OVERALL_INCHARGE, User2.FullName);
@@ -404,7 +432,7 @@ namespace FASTrack.Infrastructure
             Word.Range wrdRng = wordDoc.Paragraphs.Add(missing).Range;
 
             Word.Table wTable = wordDoc.Tables.Add(wrdRng, 1, 2);
-          
+
             wTable.BottomPadding = 1;
             wTable.TopPadding = 1;
             wTable.LeftPadding = 5;
@@ -529,7 +557,7 @@ namespace FASTrack.Infrastructure
 
                 checkBox.Enabled = false;
 
-                range.InsertAfter(pro.Name);
+                range.InsertAfter(String.Format("{0} - {1}", pro.Name, pro.Description));
             }
         }
 
@@ -576,19 +604,20 @@ namespace FASTrack.Infrastructure
         /// </summary>
         protected internal class KeyWord
         {
-            public const string FAR_REF = "[FAR#/REF#]";
+            public const string FAR_REF = "[FAR_REF]";
             public const string CUSTOMER = "[CUSTOMER]";
             public const string DATE_CODE = "[DATE_CODE]";
             public const string FAILURE_RATE = "[FAILURE_RATE]";
             public const string REQUEST_DATE = "[REQUEST_DATE]";
             public const string REQUESTOR = "[REQUESTOR]";
-            public const string PRODUCT_LINE = "[PRO_LINE]";
+            //public const string PRODUCT_LINE = "[PRO_LINE]";
             public const string PART_NUMBER = "[PART_NUM]";
-            public const string PACK_TYPE = "[PACK_TYPE]";
+            //public const string PACK_TYPE = "[PACK_TYPE]";
             public const string ASSEMBLY_SITE = "[ASS_SITE]";
             public const string REQUESTOR_EMAIL = "[REQ_EMAIL]";
             public const string LOT_NUMBER = "[LOT_NUM]";
             public const string SAMPLES_QTY = "[SAMPLE_QTY]";
+            public const string DEVICE_FAILURE = "[DEVICE_FAILURE]";
 
             public const string FA_DETAILS_DESCRIPTION = "[FA_DES]";
             public const string PROCESSES = "[PROCESSES]";

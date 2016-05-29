@@ -41,13 +41,12 @@ namespace FASTrack.Controllers
                 foreach (var item in devices)
                 {
                     var items = (await ProcessHisRep.GetAllAsync()).Where(x => x.DeviceId == item.Id).OrderBy(x => x.Id).ToList();
-                    //foreach (var item in items)
-                    //{
-                    //    item.IsHasPhotos = CheckExistPhoto(item);
-                    //}
                     item.ProcessHis = items;
                 }
             farRequest.DeviceDetails = devices.ToList();
+
+            //get role current in application
+            ViewBag.Role = this.Role;
 
             return View(farRequest);
         }
@@ -129,7 +128,7 @@ namespace FASTrack.Controllers
             return new JsonResult
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = new { code = "EX01", path = file }
+                Data = new { code = "EX01", path = file, fa = model.FARNumber }
             };
         }
 
@@ -139,12 +138,12 @@ namespace FASTrack.Controllers
         /// <param name="file">The file.</param>
         /// <returns></returns>
         [HttpGet, Authorize]
-        public FileResult Download(string file)
+        public FileResult Download(string file, string fa)
         {
             var bytes = System.IO.File.ReadAllBytes(file);
             System.IO.File.Delete(file);
             string contentType = "application/vnd.ms-word";
-            string fileName = "FAReport.docx";
+            string fileName = String.Format("FAReport_{0}.docx", fa);
             return File(bytes, contentType, fileName);
         }
 
