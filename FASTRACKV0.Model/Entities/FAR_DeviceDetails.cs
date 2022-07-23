@@ -34,18 +34,18 @@ namespace FASTrack.Model.Entities
         public string LastUpdatedBy { get; set; }
         public System.DateTime LastUpdate { get; set; }
         public bool IsDeleted { get; set; }
-        public Nullable<int> MechanismId { get; set; }
-        public string FailureDetail { get; set; }
         public string WaferNo { get; set; }
         public string SerialNo { get; set; }
+        public Nullable<int> MechanismId { get; set; }
+        public string FailureDetail { get; set; }
     
         public virtual FabSites FabSites { get; set; }
         public virtual FAR_Master FAR_Master { get; set; }
         public virtual MST_AssemblySites MST_AssemblySites { get; set; }
         public virtual MST_PackageTypes MST_PackageTypes { get; set; }
         public virtual MST_Services MST_Services { get; set; }
+        public virtual ICollection<FAR_ProcessHistory> FAR_ProcessHistory { get; set; }
         public virtual FAR_Mechanism FAR_Mechanism { get; set; }
         public virtual MST_Technology MST_Technology { get; set; }
-        public virtual ICollection<FAR_ProcessHistory> FAR_ProcessHistory { get; set; }
     }
 }

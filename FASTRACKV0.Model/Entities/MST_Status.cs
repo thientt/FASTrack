@@ -16,8 +16,8 @@ namespace FASTrack.Model.Entities
     {
         public MST_Status()
         {
-            this.FAR_Master = new HashSet<FAR_Master>();
             this.LOG_FARHistory = new HashSet<LOG_FARHistory>();
+            this.FAR_Master = new HashSet<FAR_Master>();
         }
     
         public int Id { get; set; }
@@ -27,7 +27,7 @@ namespace FASTrack.Model.Entities
         public System.DateTime LastUpdate { get; set; }
         public bool IsDeleted { get; set; }
     
-        public virtual ICollection<FAR_Master> FAR_Master { get; set; }
         public virtual ICollection<LOG_FARHistory> LOG_FARHistory { get; set; }
+        public virtual ICollection<FAR_Master> FAR_Master { get; set; }
     }
 }

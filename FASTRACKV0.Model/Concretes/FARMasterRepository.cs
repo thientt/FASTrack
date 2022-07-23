@@ -35,7 +35,7 @@ namespace FASTrack.Model.Concretes
         /// <summary>
         /// The _log service
         /// </summary>
-        private ILogService _logService;
+        private readonly ILogService _logService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FARMasterRepository"/> class.
@@ -43,7 +43,7 @@ namespace FASTrack.Model.Concretes
         /// <param name="logService">The log service.</param>
         public FARMasterRepository(ILogService logService)
         {
-            this._logService = logService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -329,7 +329,7 @@ namespace FASTrack.Model.Concretes
                     entry.LastUpdatedBy = entity.LastUpdatedBy;
                     entry.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_Master>(entry).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_Master>(entry).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -383,7 +383,7 @@ namespace FASTrack.Model.Concretes
                     entry.LastUpdatedBy = entity.LastUpdatedBy;
                     entry.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_Master>(entry).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_Master>(entry).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -436,7 +436,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_Master>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<FAR_Master>(add).State = EntityState.Added;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -488,7 +488,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_Master>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<FAR_Master>(add).State = EntityState.Added;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -540,7 +540,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_Master>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<FAR_Master>(add).State = EntityState.Added;
                     context.SaveChanges();
 
                     result = add.Id;
@@ -594,7 +594,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_Master>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<FAR_Master>(add).State = EntityState.Added;
                     await context.SaveChangesAsync();
                     result = add.Id;
                 }
@@ -650,7 +650,7 @@ namespace FASTrack.Model.Concretes
                         add.LastUpdatedBy = entity.LastUpdatedBy;
                         add.LastUpdate = DateTime.Now;
 
-                        context.Entry<FAR_Master>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry<FAR_Master>(add).State = EntityState.Added;
                     }
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -706,7 +706,7 @@ namespace FASTrack.Model.Concretes
                         add.LastUpdatedBy = entity.LastUpdatedBy;
                         add.LastUpdate = DateTime.Now;
 
-                        context.Entry<FAR_Master>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry<FAR_Master>(add).State = EntityState.Added;
                     }
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -737,7 +737,7 @@ namespace FASTrack.Model.Concretes
                     master.LastUpdate = DateTime.Now;
                     master.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<FAR_Master>(master).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_Master>(master).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -768,7 +768,7 @@ namespace FASTrack.Model.Concretes
                     master.LastUpdate = DateTime.Now;
                     master.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<FAR_Master>(master).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_Master>(master).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -798,7 +798,7 @@ namespace FASTrack.Model.Concretes
                     master.IsDeleted = true;
                     master.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_Master>(master).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_Master>(master).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -828,7 +828,7 @@ namespace FASTrack.Model.Concretes
                     master.IsDeleted = true;
                     master.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_Master>(master).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_Master>(master).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }

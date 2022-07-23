@@ -35,7 +35,7 @@ namespace FASTrack.Model.Concretes
         /// <summary>
         /// The _log service
         /// </summary>
-        private ILogService _logService;
+        private readonly ILogService _logService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FARProcessHistoryRepository"/> class.
@@ -43,7 +43,7 @@ namespace FASTrack.Model.Concretes
         /// <param name="logService">The log service.</param>
         public FARProcessHistoryRepository(ILogService logService)
         {
-            this._logService = logService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -370,7 +370,7 @@ namespace FASTrack.Model.Concretes
                     updated.LastUpdate = DateTime.Now;
                     updated.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<FAR_ProcessHistory>(updated).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_ProcessHistory>(updated).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -415,7 +415,7 @@ namespace FASTrack.Model.Concretes
                     update.LastUpdate = DateTime.Now;
                     update.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<FAR_ProcessHistory>(update).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_ProcessHistory>(update).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -449,7 +449,7 @@ namespace FASTrack.Model.Concretes
                     updated.LastUpdate = DateTime.Now;
                     updated.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<FAR_ProcessHistory>(updated).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_ProcessHistory>(updated).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -477,7 +477,7 @@ namespace FASTrack.Model.Concretes
                 {
                     var history = context.FAR_ProcessHistory.Single(x => x.Id == id && x.IsDeleted == false);
 
-                    context.Entry<FAR_ProcessHistory>(history).State = System.Data.Entity.EntityState.Deleted;
+                    context.Entry<FAR_ProcessHistory>(history).State = EntityState.Deleted;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -521,7 +521,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdate = DateTime.Now;
                     add.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<FAR_ProcessHistory>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<FAR_ProcessHistory>(add).State = EntityState.Added;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -564,7 +564,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdate = DateTime.Now;
                     add.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<FAR_ProcessHistory>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<FAR_ProcessHistory>(add).State = EntityState.Added;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -610,7 +610,7 @@ namespace FASTrack.Model.Concretes
                         add.LastUpdate = DateTime.Now;
                         add.LastUpdatedBy = entity.LastUpdatedBy;
 
-                        context.Entry<FAR_ProcessHistory>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry<FAR_ProcessHistory>(add).State = EntityState.Added;
                     }
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -657,7 +657,7 @@ namespace FASTrack.Model.Concretes
                         add.LastUpdate = DateTime.Now;
                         add.LastUpdatedBy = entity.LastUpdatedBy;
 
-                        context.Entry<FAR_ProcessHistory>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry<FAR_ProcessHistory>(add).State = EntityState.Added;
                     }
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -688,7 +688,7 @@ namespace FASTrack.Model.Concretes
                     history.LastUpdate = DateTime.Now;
                     history.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<FAR_ProcessHistory>(history).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_ProcessHistory>(history).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -719,7 +719,7 @@ namespace FASTrack.Model.Concretes
                     history.LastUpdate = DateTime.Now;
                     history.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<FAR_ProcessHistory>(history).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_ProcessHistory>(history).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -749,7 +749,7 @@ namespace FASTrack.Model.Concretes
                     history.IsDeleted = true;
                     history.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_ProcessHistory>(history).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_ProcessHistory>(history).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -779,7 +779,7 @@ namespace FASTrack.Model.Concretes
                     history.IsDeleted = true;
                     history.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_ProcessHistory>(history).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_ProcessHistory>(history).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -809,7 +809,7 @@ namespace FASTrack.Model.Concretes
                     var updated = context.FAR_ProcessHistory.Single(x => x.Id == id && x.IsDeleted == false);
                     updated.IsIncluded = isIncluded;
 
-                    context.Entry<FAR_ProcessHistory>(updated).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_ProcessHistory>(updated).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -839,7 +839,7 @@ namespace FASTrack.Model.Concretes
                     var updated = context.FAR_ProcessHistory.Single(x => x.Id == id && x.IsDeleted == false);
                     updated.IsIncluded = isIncluded;
 
-                    context.Entry<FAR_ProcessHistory>(updated).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FAR_ProcessHistory>(updated).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }

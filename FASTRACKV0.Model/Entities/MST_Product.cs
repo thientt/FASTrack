@@ -30,7 +30,7 @@ namespace FASTrack.Model.Entities
         public bool IsDeleted { get; set; }
         public int LabSiteId { get; set; }
     
-        public virtual MST_LabSite MST_LabSite { get; set; }
         public virtual ICollection<MST_ProcessProduct> MST_ProcessProduct { get; set; }
+        public virtual MST_LabSite MST_LabSite { get; set; }
     }
 }

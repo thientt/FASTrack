@@ -21,7 +21,7 @@ namespace FASTrack.Model.Concretes
         /// <summary>
         /// The _log service
         /// </summary>
-        private ILogService _logService;
+        private readonly ILogService _logService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FARUploadRepository"/> class.
@@ -29,7 +29,7 @@ namespace FASTrack.Model.Concretes
         /// <param name="logService">The log service.</param>
         public FARUploadRepository(ILogService logService)
         {
-            this._logService = logService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace FASTrack.Model.Concretes
                     upload.UploadedBy = entity.UploadedBy;
                     upload.UploadedDate = DateTime.Now;
 
-                    context.Entry<LOG_FARUpload>(upload).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<LOG_FARUpload>(upload).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -221,7 +221,7 @@ namespace FASTrack.Model.Concretes
                     upload.UploadedBy = entity.UploadedBy;
                     upload.UploadedDate = DateTime.Now;
 
-                    context.Entry<LOG_FARUpload>(upload).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<LOG_FARUpload>(upload).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -255,7 +255,7 @@ namespace FASTrack.Model.Concretes
                     add.UploadedBy = entity.UploadedBy;
                     add.UploadedDate = DateTime.Now;
 
-                    context.Entry<LOG_FARUpload>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<LOG_FARUpload>(add).State = EntityState.Added;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -287,7 +287,7 @@ namespace FASTrack.Model.Concretes
                     add.UploadedBy = entity.UploadedBy;
                     add.UploadedDate = DateTime.Now;
 
-                    context.Entry<LOG_FARUpload>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<LOG_FARUpload>(add).State = EntityState.Added;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -323,7 +323,7 @@ namespace FASTrack.Model.Concretes
                         add.UploadedBy = entity.UploadedBy;
                         add.UploadedDate = DateTime.Now;
 
-                        context.Entry<LOG_FARUpload>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry<LOG_FARUpload>(add).State = EntityState.Added;
                     }
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -360,7 +360,7 @@ namespace FASTrack.Model.Concretes
                         add.UploadedBy = entity.UploadedBy;
                         add.UploadedDate = DateTime.Now;
 
-                        context.Entry<LOG_FARUpload>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry<LOG_FARUpload>(add).State = EntityState.Added;
                     }
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -388,7 +388,7 @@ namespace FASTrack.Model.Concretes
                 {
                     var assembly = context.LOG_FARUpload.Single(x => x.Id == entity.Id);
 
-                    context.Entry<LOG_FARUpload>(assembly).State = System.Data.Entity.EntityState.Deleted;
+                    context.Entry<LOG_FARUpload>(assembly).State = EntityState.Deleted;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -416,7 +416,7 @@ namespace FASTrack.Model.Concretes
                 {
                     var assembly = context.LOG_FARUpload.Single(x => x.Id == entity.Id);
 
-                    context.Entry<LOG_FARUpload>(assembly).State = System.Data.Entity.EntityState.Deleted;
+                    context.Entry<LOG_FARUpload>(assembly).State = EntityState.Deleted;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -444,7 +444,7 @@ namespace FASTrack.Model.Concretes
                 {
                     var assembly = context.LOG_FARUpload.Single(x => x.Id == Id);
 
-                    context.Entry<LOG_FARUpload>(assembly).State = System.Data.Entity.EntityState.Deleted;
+                    context.Entry<LOG_FARUpload>(assembly).State = EntityState.Deleted;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -472,7 +472,7 @@ namespace FASTrack.Model.Concretes
                 {
                     var assembly = context.LOG_FARUpload.Single(x => x.Id == Id);
 
-                    context.Entry<LOG_FARUpload>(assembly).State = System.Data.Entity.EntityState.Deleted;
+                    context.Entry<LOG_FARUpload>(assembly).State = EntityState.Deleted;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }

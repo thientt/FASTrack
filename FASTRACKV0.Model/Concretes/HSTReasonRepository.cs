@@ -21,7 +21,7 @@ namespace FASTrack.Model.Concretes
         /// <summary>
         /// The _log service
         /// </summary>
-        private ILogService _logService;
+        private readonly ILogService _logService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HSTReasonRepository"/> class.
@@ -29,7 +29,7 @@ namespace FASTrack.Model.Concretes
         /// <param name="logService">The log service.</param>
         public HSTReasonRepository(ILogService logService)
         {
-            this._logService = logService;
+            _logService = logService;
         }
 
         /// <summary>

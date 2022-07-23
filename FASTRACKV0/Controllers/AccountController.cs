@@ -1,4 +1,18 @@
-﻿using FASTrack.Infrastructure;
+﻿// ***********************************************************************
+// Assembly         : FASTrack.Controllers
+// Author           : tranthiencdsp@gmail.com
+// Created          : 23-07-2022
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 23-07-2022
+// ***********************************************************************
+// <copyright file="AccountController.cs" company="Atmel Corporation">
+//     Copyright © Atmel 2015
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
+using FASTrack.Infrastructure;
 using FASTrack.Model.Abstracts;
 using FASTrack.Model.DTO;
 using FASTrack.Model.Types;
@@ -379,6 +393,9 @@ namespace FASTrack.Controllers
         }
 
         #region Inject
+        /// <summary>
+        /// Log service
+        /// </summary>
         [Inject]
         public ILogService LogService { get; set; }
 

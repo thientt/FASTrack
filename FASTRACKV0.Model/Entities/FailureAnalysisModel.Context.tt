@@ -42,12 +42,12 @@ namespace <#=code.EscapeNamespace(codeNamespace)#>
 #>
 using System;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+using Infrastructure;
 <#
 if (container.FunctionImports.Any())
 {
 #>
-using System.Data.Entity.Core.Objects;
+using Core.Objects;
 using System.Linq;
 <#
 }
@@ -347,7 +347,7 @@ public class TypeMapper
 
     public static string FixNamespaces(string typeName)
     {
-        return typeName.Replace("System.Data.Spatial.", "System.Data.Entity.Spatial.");
+        return typeName.Replace("System.Data.Spatial.", "Spatial.");
     }
 
     public TypeMapper(CodeGenerationTools code, MetadataTools ef, System.Collections.IList errors)

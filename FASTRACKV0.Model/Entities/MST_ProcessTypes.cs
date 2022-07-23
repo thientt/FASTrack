@@ -16,9 +16,9 @@ namespace FASTrack.Model.Entities
     {
         public MST_ProcessTypes()
         {
-            this.MST_ProcessProduct = new HashSet<MST_ProcessProduct>();
-            this.MST_ProcessResult = new HashSet<MST_ProcessResult>();
             this.FAR_ProcessHistory = new HashSet<FAR_ProcessHistory>();
+            this.MST_ProcessResult = new HashSet<MST_ProcessResult>();
+            this.MST_ProcessProduct = new HashSet<MST_ProcessProduct>();
         }
     
         public int Id { get; set; }
@@ -30,8 +30,8 @@ namespace FASTrack.Model.Entities
         public System.DateTime LastUpdate { get; set; }
         public bool IsDeleted { get; set; }
     
-        public virtual ICollection<MST_ProcessProduct> MST_ProcessProduct { get; set; }
-        public virtual ICollection<MST_ProcessResult> MST_ProcessResult { get; set; }
         public virtual ICollection<FAR_ProcessHistory> FAR_ProcessHistory { get; set; }
+        public virtual ICollection<MST_ProcessResult> MST_ProcessResult { get; set; }
+        public virtual ICollection<MST_ProcessProduct> MST_ProcessProduct { get; set; }
     }
 }

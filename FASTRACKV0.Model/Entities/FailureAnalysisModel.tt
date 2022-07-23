@@ -448,7 +448,7 @@ public class TypeMapper
 
     public static string FixNamespaces(string typeName)
     {
-        return typeName.Replace("System.Data.Spatial.", "System.Data.Entity.Spatial.");
+        return typeName.Replace("System.Data.Spatial.", "Spatial.");
     }
 
     public string GetTypeName(TypeUsage typeUsage)

@@ -16,6 +16,7 @@ namespace FASTrack.Model.Entities
     {
         public FAR_ProcessHistory()
         {
+            this.FAR_RecordLock = new HashSet<FAR_RecordLock>();
             this.LOG_ProcessHistory = new HashSet<LOG_ProcessHistory>();
         }
     
@@ -40,6 +41,7 @@ namespace FASTrack.Model.Entities
         public virtual FAR_DeviceDetails FAR_DeviceDetails { get; set; }
         public virtual MST_ProcessResult MST_ProcessResult { get; set; }
         public virtual MST_ProcessTypes MST_ProcessTypes { get; set; }
+        public virtual ICollection<FAR_RecordLock> FAR_RecordLock { get; set; }
         public virtual ICollection<LOG_ProcessHistory> LOG_ProcessHistory { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Assembly         : FASTrack
+// Assembly         : FASTrack.Model
 // Author           : tranthiencdsp@gmail.com
 // Created          : 02-25-2016
 //
@@ -36,7 +36,7 @@ namespace FASTrack.Model.Concretes
         /// <summary>
         /// The _log service
         /// </summary>
-        private ILogService _logService;
+        private readonly ILogService _logService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SYSUsersRepository"/> class.
@@ -44,7 +44,7 @@ namespace FASTrack.Model.Concretes
         /// <param name="logService">The log service.</param>
         public SYSUsersRepository(ILogService logService)
         {
-            this._logService = logService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace FASTrack.Model.Concretes
                     update.LastUpdatedBy = entity.LastUpdatedBy;
                     update.LastUpdate = DateTime.Now;
 
-                    context.Entry<SYS_Users>(update).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(update).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -304,7 +304,7 @@ namespace FASTrack.Model.Concretes
                     update.LastUpdatedBy = entity.LastUpdatedBy;
                     update.LastUpdate = DateTime.Now;
 
-                    context.Entry<SYS_Users>(update).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(update).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -350,7 +350,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<SYS_Users>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<SYS_Users>(add).State = EntityState.Added;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -395,7 +395,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<SYS_Users>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<SYS_Users>(add).State = EntityState.Added;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -443,7 +443,7 @@ namespace FASTrack.Model.Concretes
                         add.LastUpdatedBy = entity.LastUpdatedBy;
                         add.LastUpdate = DateTime.Now;
 
-                        context.Entry<SYS_Users>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry<SYS_Users>(add).State = EntityState.Added;
                     }
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -492,7 +492,7 @@ namespace FASTrack.Model.Concretes
                         add.LastUpdatedBy = entity.LastUpdatedBy;
                         add.LastUpdate = DateTime.Now;
 
-                        context.Entry<SYS_Users>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry<SYS_Users>(add).State = EntityState.Added;
                     }
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -521,7 +521,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.SYS_Users.Single(x => x.Id == entity.Id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<SYS_Users>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(assembly).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -550,7 +550,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.SYS_Users.Single(x => x.Id == entity.Id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<SYS_Users>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(assembly).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -579,7 +579,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.SYS_Users.Single(x => x.Id == Id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<SYS_Users>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(assembly).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -608,7 +608,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.SYS_Users.Single(x => x.Id == Id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<SYS_Users>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(assembly).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -731,7 +731,7 @@ namespace FASTrack.Model.Concretes
                     assembly.IsLocked = false;
                     assembly.LastUpdate = DateTime.Now;
 
-                    context.Entry<SYS_Users>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(assembly).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -762,7 +762,7 @@ namespace FASTrack.Model.Concretes
                     assembly.IsLocked = true;
                     assembly.LastUpdate = DateTime.Now;
 
-                    context.Entry<SYS_Users>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(assembly).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -793,7 +793,7 @@ namespace FASTrack.Model.Concretes
                     assembly.IsLocked = false;
                     assembly.LastUpdate = DateTime.Now;
 
-                    context.Entry<SYS_Users>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(assembly).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -824,7 +824,7 @@ namespace FASTrack.Model.Concretes
                     assembly.IsLocked = true;
                     assembly.LastUpdate = DateTime.Now;
 
-                    context.Entry<SYS_Users>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(assembly).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -1032,7 +1032,7 @@ namespace FASTrack.Model.Concretes
                     user.RoleId = (int)roleType;
                     user.LastUpdate = DateTime.Now;
 
-                    context.Entry<SYS_Users>(user).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(user).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -1064,7 +1064,7 @@ namespace FASTrack.Model.Concretes
                     user.RoleId = (int)roleType;
                     user.LastUpdate = DateTime.Now;
 
-                    context.Entry<SYS_Users>(user).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(user).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -1187,7 +1187,7 @@ namespace FASTrack.Model.Concretes
 
                     update.PasswordHash = AppCipher.EncryptCipher(newPassword);
 
-                    context.Entry<SYS_Users>(update).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(update).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -1218,7 +1218,7 @@ namespace FASTrack.Model.Concretes
 
                     update.PasswordHash = AppCipher.EncryptCipher(newPassword);
 
-                    context.Entry<SYS_Users>(update).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<SYS_Users>(update).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }

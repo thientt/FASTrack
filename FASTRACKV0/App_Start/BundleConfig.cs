@@ -1,11 +1,30 @@
-﻿using System.Web;
+﻿// ***********************************************************************
+// Assembly         : FASTrack
+// Author           : tranthiencdsp@gmail.com
+// Created          : 11-04-2015
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 08-26-2015
+// ***********************************************************************
+// <copyright file="BundleConfig.cs" company="Atmel Corporation">
+//     Copyright © Atmel 2015
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
 using System.Web.Optimization;
 
 namespace FASTrack
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class BundleConfig
     {
-        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+        /// <summary>
+        /// // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+        /// </summary>
+        /// <param name="bundles"></param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

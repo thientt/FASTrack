@@ -22,7 +22,7 @@ namespace FASTrack.Model.Concretes
         /// <summary>
         /// The _log service
         /// </summary>
-        private ILogService _logService;
+        private readonly ILogService _logService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FARHistoryRepository"/> class.
@@ -30,7 +30,7 @@ namespace FASTrack.Model.Concretes
         /// <param name="logService">The log service.</param>
         public LOGProcessHistoryRepository(ILogService logService)
         {
-            this._logService = logService;
+            _logService = logService;
         }
 
         #region Implment Single
@@ -240,7 +240,7 @@ namespace FASTrack.Model.Concretes
                     add.Description = entity.Description;
                     add.InsertedDate = DateTime.Now;
 
-                    context.Entry<LOG_ProcessHistory>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<LOG_ProcessHistory>(add).State = EntityState.Added;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -274,7 +274,7 @@ namespace FASTrack.Model.Concretes
                     add.Description = entity.Description;
                     add.InsertedDate = DateTime.Now;
 
-                    context.Entry<LOG_ProcessHistory>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry<LOG_ProcessHistory>(add).State = EntityState.Added;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }

@@ -1,7 +1,24 @@
-﻿using System.Configuration;
+﻿// ***********************************************************************
+// Assembly         : FASTRACKV0
+// Author           : tranthiencdsp@gmail.com
+// Created          : 11-04-2015
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 03-23-2016
+// ***********************************************************************
+// <copyright file="FastrackConfig.cs" company="">
+//     Copyright ©  2015
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
+using System.Configuration;
 
 namespace FASTrack.Infrastructure
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class FastrackConfig
     {
         private const int _PAGESIZE = 15;
@@ -15,6 +32,9 @@ namespace FASTrack.Infrastructure
         //format file image upload
         private const string _FILE_EXTENSION = "jpg,png,jpeg,gif,bmp,tif,tiff|images/*";
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static int PAGESIZE
         {
             get
@@ -31,6 +51,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static int PORT
         {
             get
@@ -47,6 +70,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string HOST
         {
             get
@@ -63,6 +89,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string FROM
         {
             get
@@ -79,6 +108,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string USERNAME
         {
             get
@@ -95,6 +127,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string PASSWORD
         {
             get
@@ -111,6 +146,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string EMAIL_ADMIN
         {
             get
@@ -127,6 +165,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string FILEEXTENSION
         {
             get

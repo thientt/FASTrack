@@ -29,6 +29,9 @@ namespace FASTrack.Model.Entities
         public virtual DbSet<FAR_DeviceDetails> FAR_DeviceDetails { get; set; }
         public virtual DbSet<FAR_Master> FAR_Master { get; set; }
         public virtual DbSet<FAR_Mechanism> FAR_Mechanism { get; set; }
+        public virtual DbSet<FAR_ProcessHistory> FAR_ProcessHistory { get; set; }
+        public virtual DbSet<FAR_RecordLock> FAR_RecordLock { get; set; }
+        public virtual DbSet<InterimAnalysis> InterimAnalysis { get; set; }
         public virtual DbSet<LOG_FARAnalystReassign> LOG_FARAnalystReassign { get; set; }
         public virtual DbSet<LOG_FARFinalTarget> LOG_FARFinalTarget { get; set; }
         public virtual DbSet<LOG_FARHistory> LOG_FARHistory { get; set; }
@@ -38,18 +41,16 @@ namespace FASTrack.Model.Entities
         public virtual DbSet<LOG_ProcessHistory> LOG_ProcessHistory { get; set; }
         public virtual DbSet<MST_AssemblySites> MST_AssemblySites { get; set; }
         public virtual DbSet<MST_BU> MST_BU { get; set; }
-        public virtual DbSet<MST_Customer> MST_Customer { get; set; }
         public virtual DbSet<MST_Department> MST_Department { get; set; }
         public virtual DbSet<MST_FailureOrigin> MST_FailureOrigin { get; set; }
         public virtual DbSet<MST_FailureType> MST_FailureType { get; set; }
-        public virtual DbSet<MST_FARReport> MST_FARReport { get; set; }
         public virtual DbSet<MST_LabSite> MST_LabSite { get; set; }
         public virtual DbSet<MST_Origin> MST_Origin { get; set; }
         public virtual DbSet<MST_PackageTypes> MST_PackageTypes { get; set; }
         public virtual DbSet<MST_Priority> MST_Priority { get; set; }
-        public virtual DbSet<MST_ProcessProduct> MST_ProcessProduct { get; set; }
         public virtual DbSet<MST_ProcessResult> MST_ProcessResult { get; set; }
         public virtual DbSet<MST_ProcessTypes> MST_ProcessTypes { get; set; }
+        public virtual DbSet<MST_Product> MST_Product { get; set; }
         public virtual DbSet<MST_Rating> MST_Rating { get; set; }
         public virtual DbSet<MST_Reason> MST_Reason { get; set; }
         public virtual DbSet<MST_ReasonChangingFINTarget> MST_ReasonChangingFINTarget { get; set; }
@@ -66,7 +67,8 @@ namespace FASTrack.Model.Entities
         public virtual DbSet<MST_Technology> MST_Technology { get; set; }
         public virtual DbSet<SYS_Roles> SYS_Roles { get; set; }
         public virtual DbSet<SYS_Users> SYS_Users { get; set; }
-        public virtual DbSet<FAR_ProcessHistory> FAR_ProcessHistory { get; set; }
-        public virtual DbSet<MST_Product> MST_Product { get; set; }
+        public virtual DbSet<MST_Customer> MST_Customer { get; set; }
+        public virtual DbSet<MST_FARReport> MST_FARReport { get; set; }
+        public virtual DbSet<MST_ProcessProduct> MST_ProcessProduct { get; set; }
     }
 }

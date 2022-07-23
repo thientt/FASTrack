@@ -27,7 +27,7 @@ namespace FASTrack.Model.Entities
         public System.DateTime LastUpdate { get; set; }
         public bool IsDeleted { get; set; }
     
-        public virtual MST_ProcessTypes MST_ProcessTypes { get; set; }
         public virtual ICollection<FAR_ProcessHistory> FAR_ProcessHistory { get; set; }
+        public virtual MST_ProcessTypes MST_ProcessTypes { get; set; }
     }
 }

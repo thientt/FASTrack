@@ -16,9 +16,9 @@ namespace FASTrack.Model.Entities
     {
         public MST_Priority()
         {
-            this.FAR_Master = new HashSet<FAR_Master>();
             this.LOG_FARPriority = new HashSet<LOG_FARPriority>();
             this.LOG_FARPriority1 = new HashSet<LOG_FARPriority>();
+            this.FAR_Master = new HashSet<FAR_Master>();
         }
     
         public int Id { get; set; }
@@ -28,8 +28,8 @@ namespace FASTrack.Model.Entities
         public System.DateTime LastUpdate { get; set; }
         public bool IsDeleted { get; set; }
     
-        public virtual ICollection<FAR_Master> FAR_Master { get; set; }
         public virtual ICollection<LOG_FARPriority> LOG_FARPriority { get; set; }
         public virtual ICollection<LOG_FARPriority> LOG_FARPriority1 { get; set; }
+        public virtual ICollection<FAR_Master> FAR_Master { get; set; }
     }
 }

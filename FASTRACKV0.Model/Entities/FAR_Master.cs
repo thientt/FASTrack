@@ -18,6 +18,7 @@ namespace FASTrack.Model.Entities
         {
             this.FAR_DeviceDetails = new HashSet<FAR_DeviceDetails>();
             this.LOG_FARAnalystReassign = new HashSet<LOG_FARAnalystReassign>();
+            this.FAR_RecordLock = new HashSet<FAR_RecordLock>();
             this.LOG_FARFinalTarget = new HashSet<LOG_FARFinalTarget>();
             this.LOG_FARHistory = new HashSet<LOG_FARHistory>();
             this.LOG_FARInitialTarget = new HashSet<LOG_FARInitialTarget>();
@@ -28,7 +29,7 @@ namespace FASTrack.Model.Entities
         public string Number { get; set; }
         public int OriginId { get; set; }
         public string Requestor { get; set; }
-        public int RefNo { get; set; }
+        public string RefNo { get; set; }
         public int FailureTypeId { get; set; }
         public int FailureOriginId { get; set; }
         public byte FailureRate { get; set; }
@@ -42,28 +43,29 @@ namespace FASTrack.Model.Entities
         public string Product { get; set; }
         public string FailureDesc { get; set; }
         public Nullable<System.DateTime> FinalReportTargetDate { get; set; }
-        public string Customer { get; set; }
         public bool Submitted { get; set; }
         public string LastUpdatedBy { get; set; }
         public System.DateTime LastUpdate { get; set; }
         public bool IsDeleted { get; set; }
-        public int LabSiteId { get; set; }
         public Nullable<int> RatingId { get; set; }
         public string Comments { get; set; }
+        public string Customer { get; set; }
+        public int LabSiteId { get; set; }
     
         public virtual ICollection<FAR_DeviceDetails> FAR_DeviceDetails { get; set; }
         public virtual ICollection<LOG_FARAnalystReassign> LOG_FARAnalystReassign { get; set; }
-        public virtual MST_BU MST_BU { get; set; }
-        public virtual MST_FailureOrigin MST_FailureOrigin { get; set; }
-        public virtual MST_FailureType MST_FailureType { get; set; }
-        public virtual MST_LabSite MST_LabSite { get; set; }
-        public virtual MST_Origin MST_Origin { get; set; }
-        public virtual MST_Priority MST_Priority { get; set; }
-        public virtual MST_Status MST_Status { get; set; }
+        public virtual ICollection<FAR_RecordLock> FAR_RecordLock { get; set; }
         public virtual ICollection<LOG_FARFinalTarget> LOG_FARFinalTarget { get; set; }
         public virtual ICollection<LOG_FARHistory> LOG_FARHistory { get; set; }
         public virtual ICollection<LOG_FARInitialTarget> LOG_FARInitialTarget { get; set; }
         public virtual ICollection<LOG_FARPriority> LOG_FARPriority { get; set; }
+        public virtual MST_BU MST_BU { get; set; }
+        public virtual MST_FailureOrigin MST_FailureOrigin { get; set; }
+        public virtual MST_FailureType MST_FailureType { get; set; }
+        public virtual MST_Origin MST_Origin { get; set; }
+        public virtual MST_Priority MST_Priority { get; set; }
+        public virtual MST_Status MST_Status { get; set; }
+        public virtual MST_LabSite MST_LabSite { get; set; }
         public virtual MST_Rating MST_Rating { get; set; }
     }
 }

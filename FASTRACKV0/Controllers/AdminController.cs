@@ -1,4 +1,18 @@
-﻿using FASTrack.Infrastructure;
+﻿// ***********************************************************************
+// Assembly         : FASTrack.Model
+// Author           : tranthiencdsp@gmail.com
+// Created          : 23-07-2022
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 23-07-2022
+// ***********************************************************************
+// <copyright file="AdminController.cs" company="Atmel Corporation">
+//     Copyright © Atmel 2015
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
+using FASTrack.Infrastructure;
 using FASTrack.Model.Abstracts;
 using Ninject;
 using System.Web.Mvc;
@@ -23,6 +37,10 @@ namespace FASTrack.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Management()
         {
             return View();

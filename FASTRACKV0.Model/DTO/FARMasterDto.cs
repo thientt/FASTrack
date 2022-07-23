@@ -55,7 +55,7 @@ namespace FASTrack.Model.DTO
         /// <value>
         /// The reference no.
         /// </value>
-        public int RefNo { get; set; }
+        public string RefNo { get; set; }
 
         /// <summary>
         /// Gets or sets the failure type identifier.

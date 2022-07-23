@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using FASTrack.Infrastructure;
 using FASTrack.Model.Abstracts;
 using FASTrack.Model.DTO;
@@ -24,7 +25,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 /// <summary>
@@ -2423,36 +2423,38 @@ namespace FASTrack.Controllers
 
             var request = await BindRequestDashboard();
 
-            var farRequest = new AnaRequestViewModel();
-            farRequest.Id = masterId;
-            farRequest.Analyst = master.Analyst;
-            farRequest.BUId = master.BUId;
-            farRequest.FailureDesc = master.FailureDesc;
-            farRequest.FailureOriginId = master.FailureOriginId;
-            farRequest.FailureRate = master.FailureRate;
-            farRequest.FailureTypeId = master.FailureTypeId;
-            farRequest.FARNumber = master.Number;
-            farRequest.FinalReportTargetDate = master.FinalReportTargetDate;
-            farRequest.InitialReportTargetDate = master.InitialReportTargetDate;
-            farRequest.OriginId = master.OriginId;
-            farRequest.PriorityId = master.PriorityId;
-            farRequest.Product = master.Product;
-            farRequest.RefNo = master.RefNo;
-            farRequest.RequestDate = master.RequestDate;
-            farRequest.Requestor = master.Requestor;
-            farRequest.SamplesArriveDate = master.SamplesArriveDate;
-            farRequest.StatusId = master.StatusId;
-            farRequest.Submitted = master.Submitted;
-            farRequest.Origins = request.Origins;
-            farRequest.Status = request.Status;
-            farRequest.BUs = request.BUs;
-            farRequest.FailureTypes = request.FailureTypes;
-            farRequest.FailureOrigins = request.FailureOrigins;
-            farRequest.Priorities = request.Priorities;
-            farRequest.Site = request.Site;
-            farRequest.InitialReason = await ReasonChangingINITargetRepository.GetAllAsync(); //reason;
-            farRequest.FinalReason = await ReasonChangingFINTargetRepository.GetAllAsync();// reason;
-            farRequest.OnHoldReason = await ReasonFAROnHoldRepository.GetAllAsync();
+            var farRequest = new AnaRequestViewModel
+            {
+                Id = masterId,
+                Analyst = master.Analyst,
+                BUId = master.BUId,
+                FailureDesc = master.FailureDesc,
+                FailureOriginId = master.FailureOriginId,
+                FailureRate = master.FailureRate,
+                FailureTypeId = master.FailureTypeId,
+                FARNumber = master.Number,
+                FinalReportTargetDate = master.FinalReportTargetDate,
+                InitialReportTargetDate = master.InitialReportTargetDate,
+                OriginId = master.OriginId,
+                PriorityId = master.PriorityId,
+                Product = master.Product,
+                RefNo = master.RefNo,
+                RequestDate = master.RequestDate,
+                Requestor = master.Requestor,
+                SamplesArriveDate = master.SamplesArriveDate,
+                StatusId = master.StatusId,
+                Submitted = master.Submitted,
+                Origins = request.Origins,
+                Status = request.Status,
+                BUs = request.BUs,
+                FailureTypes = request.FailureTypes,
+                FailureOrigins = request.FailureOrigins,
+                Priorities = request.Priorities,
+                Site = request.Site,
+                InitialReason = await ReasonChangingINITargetRepository.GetAllAsync(), //reason;
+                FinalReason = await ReasonChangingFINTargetRepository.GetAllAsync(),// reason;
+                OnHoldReason = await ReasonFAROnHoldRepository.GetAllAsync()
+            };
 
             var userRequestor = UserRepository.CheckExistEmail(request.Requestor);
             if (userRequestor != null)

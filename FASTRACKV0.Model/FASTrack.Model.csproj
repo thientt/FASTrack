@@ -205,6 +205,12 @@
     <Compile Include="Entities\FAR_ProcessHistory.cs">
       <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\FAR_RecordLock.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\InterimAnalysis.cs">
+      <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\LOG_FARAnalystReassign.cs">
       <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
     </Compile>
@@ -319,6 +325,7 @@
     <Compile Include="Entities\SYS_Users.cs">
       <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\FARInitialTargetLogExtension.cs" />
     <Compile Include="Extensions\LOGHistoryExtension.cs" />
     <Compile Include="Extensions\FARFinalTargetLog.cs" />
     <Compile Include="Extensions\FARAnalystReassignLogExtension.cs" />

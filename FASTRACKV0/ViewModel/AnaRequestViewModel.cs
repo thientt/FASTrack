@@ -15,7 +15,6 @@ using FASTrack.Model.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web;
 
 /// <summary>
 /// 
@@ -43,7 +42,7 @@ namespace FASTrack.ViewModel
         /// The reference no.
         /// </value>
         [Display(Name = "Reference No.")]
-        public int RefNo { get; set; }
+        public string RefNo { get; set; }
 
         /// <summary>
         /// Gets or sets the failure rate.

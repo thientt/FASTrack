@@ -1,8 +1,24 @@
-﻿using FASTrack.Model.DTO;
+﻿//***********************************************************************
+// Assembly         : FASTrack
+// Author           : tranthiencdsp@gmail.com
+// Created          : 11-04-2015
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 08-26-2015
+// ***********************************************************************
+// <copyright file="DashboardViewModel.cs" company="Atmel Corporation">
+//     Copyright © Atmel 2015
+// </copyright>
+// ***********************************************************************
+
+using FASTrack.Model.DTO;
 using System;
 
 namespace FASTrack.ViewModel
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DashboardViewModel : BaseDto
     {
         public string fanumber { get; set; }
