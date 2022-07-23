@@ -322,6 +322,9 @@
     </div>
 }
 
+
+<div id="containerViewPhoto"></div>
+
 @*Modal pop-up Error while execute*@
 <div class="modal fade in" id="modalError">
     <div class="modal-dialog">
@@ -357,8 +360,11 @@
         </div>
     </div>
 </div>
+
+
 @section Scripts{
     <script>
+
         $(window).load(function () {
             $('#fileUpload').attr('disabled', 'disabled');
 
@@ -380,7 +386,6 @@
                 });
             });
 
-
             //param popup
             var options = {
                 show: true,
@@ -388,15 +393,22 @@
             };
 
             $('body').on('click', '.btn-selectphoto', function () {
-                if ($(this).attr('value') == 'Select Photos') {
-                    $(this).attr('value', 'Remove Photos');
-                    $('#Status_' + $(this).attr('id').split('_')[1]).text('Added Photos');
-                    $(this).next().attr('value', 'Yes')
+
+                $('#photo_' + $(this).attr('id').split('_')[1]).modal('show');
+            });
+
+
+            $('body').on('change', 'input[data-name="process"]', function () {
+
+                if ($(this).is(":checked")) {
+                    $(this)
+                       .closest("tr")
+                       .find("td .status").fadeIn(1000);//.show();
                 }
                 else {
-                    $(this).attr('value', 'Select Photos');
-                    $(this).next().attr('value', 'No');
-                    $('#Status_' + $(this).attr('id').split('_')[1]).text('No Photo');
+                    $(this)
+                       .closest("tr")
+                       .find("td .status").fadeOut(500);//.hide();
                 }
             });
 
@@ -434,6 +446,21 @@
                 $('#modalError').modal(options);
             };
 
+
+        });
+
+        //catch event raise while hiiden modal popup
+        $('.modal.fade').on('hidden.bs.modal', function (e) {
+            var id = $(this).attr('id');
+            if (id.indexOf('_') > 0) {
+                var processId = id.split('_')[1];
+                if ($('#' + id + ' .modal-body').find('input[type="checkbox"]').is(':checked')) {
+                    $('#Status_' + processId).text('Added Photos');
+                }
+                else {
+                    $('#Status_' + processId).text('No Photo');
+                }
+            }
         });
 
     </script>

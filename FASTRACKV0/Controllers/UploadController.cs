@@ -90,7 +90,7 @@ namespace FASTrack.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return View();
             }
-           
+
             var item = new FASTrack.ViewModel.AttachmentViewModel();
             item.Id = id;
             item.InitalReasons = ReasonINI.GetAll();// ReasonRes.GetAll();
@@ -514,7 +514,7 @@ namespace FASTrack.Controllers
             string folderDevice = Path.Combine(folderMaster, "DEVICE");
             string folderDeviceDetail = Path.Combine(folderDevice, deviceid.ToString().PadLeft(10, '0'));
             string folderProcess = Path.Combine(folderDeviceDetail, processid.ToString().PadLeft(10, '0'));
-            List<ViewPhoto> photos = new List<ViewPhoto>();
+            List<FASTrack.ViewModel.ViewPhoto> photos = new List<FASTrack.ViewModel.ViewPhoto>();
             if (Directory.Exists(folderProcess))
             {
                 //Get all files
@@ -522,7 +522,7 @@ namespace FASTrack.Controllers
                 folderProcess = Path.Combine("Upload", masterid.ToString().PadLeft(10, '0'), "DEVICE", deviceid.ToString().PadLeft(10, '0'), processid.ToString().PadLeft(10, '0'));
                 foreach (string file in files)
                 {
-                    photos.Add(new ViewPhoto
+                    photos.Add(new FASTrack.ViewModel.ViewPhoto
                     {
                         FilePath = Path.Combine(folderProcess, Path.GetFileName(file)),
                         FileName = Path.GetFileName(file),

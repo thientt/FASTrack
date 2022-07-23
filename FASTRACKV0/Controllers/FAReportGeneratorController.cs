@@ -1,4 +1,18 @@
-﻿using FASTrack.Model.Abstracts;
+﻿// ***********************************************************************
+// Assembly         : FASTrack
+// Author           : tranthiencdsp@gmail.com
+// Created          : 02-25-2016
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 06-04-2016
+// ***********************************************************************
+// <copyright file="FAReportGeneratorController.cs" company="Atmel">
+//     Copyright © Atmel 2016
+// </copyright>
+// <summary></summary>
+// **********************************************************************
+
+using FASTrack.Model.Abstracts;
 using FASTrack.ViewModel;
 using Ninject;
 using System.Net;
@@ -36,13 +50,18 @@ namespace FASTrack.Controllers
                 return HttpNotFound();
 
             var devices = DeviceDetailsRepository.FindBy(id);
-            var process = new ProcessHistoryViewModel();
             if (devices != null && devices.Count() > 0)
                 foreach (var item in devices)
                 {
                     var items = (await ProcessHisRep.GetAllAsync()).Where(x => x.DeviceId == item.Id).OrderBy(x => x.Id).ToList();
+                    foreach (var v in items)
+                    {
+                        v.ViewPhotos = SelectPhotos(id, item.Id, v.Id);
+                    }
+
                     item.ProcessHis = items;
                 }
+
             farRequest.DeviceDetails = devices.ToList();
 
             //get role current in application
@@ -81,25 +100,20 @@ namespace FASTrack.Controllers
                 folderDeviceDetail = Path.Combine(folderDevice, device.Id.ToString().PadLeft(10, '0'));
                 foreach (var pro in device.ProcessHis)
                 {
-                    folderProcess = Path.Combine(folderDeviceDetail, pro.Id.ToString().PadLeft(10, '0'));
                     if (pro.IsSelected)
                     {
-                        //if (!String.IsNullOrEmpty(pro.SelectPhoto) && pro.SelectPhoto.Equals("Yes"))
-                        //{
                         var proHis = ProcessHisRep.Single(pro.Id);
                         proHis.SelectPhoto = pro.SelectPhoto;
-                        //Get all files in folder Process
-                        if (Directory.Exists(folderProcess))
+                        foreach (var photo in pro.ViewPhotos)
                         {
-                            string[] files = Directory.GetFiles(folderProcess);
-                            if (files != null && files.Count() > 0)
+                            folderProcess = Path.Combine(folderDeviceDetail, pro.Id.ToString().PadLeft(10, '0'));
+                            if (photo.IsSelected)
                             {
-                                proHis.Photos.AddRange(files);
+                                //Get file path images
+                                proHis.Photos.Add(Path.Combine(folderProcess, photo.FileName));
                             }
                         }
                         deviceEnity.ProcessHis.Add(proHis);
-                        //}
-
                     }
                 }
             }
@@ -130,6 +144,38 @@ namespace FASTrack.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                 Data = new { code = "EX01", path = file, fa = model.FARNumber }
             };
+        }
+
+        [HttpGet]
+        public List<FASTrack.Model.DTO.ViewPhoto> SelectPhotos(int masterid, int deviceid, int processid)
+        {
+
+            //Get folder master
+            string folderMaster = Path.Combine(Server.MapPath("~/Upload"), masterid.ToString().PadLeft(10, '0'));
+            //Get folder Device
+            string folderDevice = Path.Combine(folderMaster, "DEVICE");
+            //Get folder Device Detail
+            string folderDeviceDetail = Path.Combine(folderDevice, deviceid.ToString().PadLeft(10, '0'));
+            //Get folder Process
+            string folderProcess = Path.Combine(folderDeviceDetail, processid.ToString().PadLeft(10, '0'));
+
+            List<FASTrack.Model.DTO.ViewPhoto> photos = new List<FASTrack.Model.DTO.ViewPhoto>();
+            if (Directory.Exists(folderProcess))
+            {
+                //Get all files
+                string[] files = Directory.GetFiles(folderProcess);
+                folderProcess = Path.Combine("Upload", masterid.ToString().PadLeft(10, '0'), "DEVICE", deviceid.ToString().PadLeft(10, '0'), processid.ToString().PadLeft(10, '0'));
+                foreach (string file in files)
+                {
+                    photos.Add(new FASTrack.Model.DTO.ViewPhoto
+                    {
+                        FilePath = Path.Combine(folderProcess, Path.GetFileName(file)),
+                        FileName = Path.GetFileName(file),
+                    });
+                }
+            }
+
+            return photos;
         }
 
         /// <summary>

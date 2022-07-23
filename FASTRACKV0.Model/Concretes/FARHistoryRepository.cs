@@ -1,6 +1,21 @@
-﻿using FASTrack.Model.Abstracts;
+﻿// ***********************************************************************
+// Assembly         : FASTrack.Model
+// Author           : tranthiencdsp@gmail.com
+// Created          : 23-07-2022
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 23-07-2022
+// ***********************************************************************
+// <copyright file="FARHistoryRepository.cs" company="Atmel Corporation">
+//     Copyright © Atmel 2015
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
+using FASTrack.Model.Abstracts;
 using FASTrack.Model.DTO;
 using FASTrack.Model.Entities;
+using FASTrack.Model.Extensions;
 using FASTrack.Utilities;
 using System;
 using System.Collections.Generic;
@@ -21,7 +36,7 @@ namespace FASTrack.Model.Concretes
         /// <summary>
         /// The _log service
         /// </summary>
-        private ILogService _logService;
+        private readonly ILogService _logService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FARHistoryRepository"/> class.
@@ -29,7 +44,7 @@ namespace FASTrack.Model.Concretes
         /// <param name="logService">The log service.</param>
         public FARHistoryRepository(ILogService logService)
         {
-            this._logService = logService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -39,32 +54,20 @@ namespace FASTrack.Model.Concretes
         /// <returns></returns>
         public LOGHistoryDto Single(int id)
         {
-            LOGHistoryDto result = null;
             try
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    result = (from item in context.LOG_FARHistory
-                              where item.IsDeleted == false && item.Id == id
-                              select new LOGHistoryDto()
-                              {
-                                  Id = item.Id,
-                                  MasterId = item.MasterId,
-                                  StatusId = item.StatusId,
-                                  ReasonId = item.ReasonId,
-                                  LogDate = item.LogDate,
-                                  IsDeleted = item.IsDeleted,
-                                  LastUpdatedBy = item.LastUpdatedBy,
-                                  LastUpdate = item.LastUpdate,
-                              }).Single();
+                    return (from item in context.LOG_FARHistory
+                            where item.IsDeleted == false && item.Id == id
+                            select item.ToDto()).Single();
                 }
             }
             catch (Exception ex)
             {
                 _logService.Error(ex.Message, ex);
-                result = null;
+                return null;
             }
-            return result;
         }
 
         /// <summary>
@@ -74,34 +77,20 @@ namespace FASTrack.Model.Concretes
         /// <returns></returns>
         public async Task<LOGHistoryDto> SingleAsync(int id)
         {
-            LOGHistoryDto result = null;
             try
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    result = await (from item in context.LOG_FARHistory
-                                    where item.IsDeleted == false && item.Id == id
-                                    select new LOGHistoryDto()
-                                    {
-                                        Id = item.Id,
-                                        MasterId = item.MasterId,
-                                        StatusId = item.StatusId,
-                                        ReasonId = item.ReasonId,
-                                        LogDate = item.LogDate,
-                                        IsDeleted = item.IsDeleted,
-                                        LastUpdatedBy = item.LastUpdatedBy,
-                                        LastUpdate = item.LastUpdate,
-                                        
-                                       
-                                    }).SingleAsync();
+                    return await (from item in context.LOG_FARHistory
+                                  where item.IsDeleted == false && item.Id == id
+                                  select item.ToDto()).SingleAsync();
                 }
             }
             catch (Exception ex)
             {
                 _logService.Error(ex.Message, ex);
-                result = null;
+                return null;
             }
-            return result;
         }
 
         /// <summary>
@@ -110,26 +99,13 @@ namespace FASTrack.Model.Concretes
         /// <returns></returns>
         public IEnumerable<LOGHistoryDto> GetAll()
         {
-            IEnumerable<LOGHistoryDto> results = null;
             try
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    results = (from item in context.LOG_FARHistory
-                               where item.IsDeleted == false
-                               select new LOGHistoryDto()
-                               {
-                                   Id = item.Id,
-                                   MasterId = item.MasterId,
-                                   StatusId = item.StatusId,
-                                   ReasonId = item.ReasonId,
-                                   LogDate = item.LogDate,
-                                   IsDeleted = item.IsDeleted,
-                                   LastUpdatedBy = item.LastUpdatedBy,
-                                   LastUpdate = item.LastUpdate,
-                                   
-                                  
-                               }).ToList();
+                    return (from item in context.LOG_FARHistory
+                            where item.IsDeleted == false
+                            select item.ToDto()).ToList();
                 }
             }
             catch (Exception ex)
@@ -137,7 +113,6 @@ namespace FASTrack.Model.Concretes
                 _logService.Error(ex.Message, ex);
                 return null;
             }
-            return results;
         }
 
         /// <summary>
@@ -146,26 +121,13 @@ namespace FASTrack.Model.Concretes
         /// <returns></returns>
         public async Task<IEnumerable<LOGHistoryDto>> GetAllAsync()
         {
-            IEnumerable<LOGHistoryDto> results = null;
             try
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    results = await (from item in context.LOG_FARHistory
-                                     where item.IsDeleted == false
-                                     select new LOGHistoryDto()
-                                     {
-                                         Id = item.Id,
-                                         MasterId = item.MasterId,
-                                         StatusId = item.StatusId,
-                                         ReasonId = item.ReasonId,
-                                         LogDate = item.LogDate,
-                                         IsDeleted = item.IsDeleted,
-                                         LastUpdatedBy = item.LastUpdatedBy,
-                                         LastUpdate = item.LastUpdate,
-                                         
-                                        
-                                     }).ToListAsync();
+                    return await (from item in context.LOG_FARHistory
+                                  where item.IsDeleted == false
+                                  select item.ToDto()).ToListAsync();
                 }
             }
             catch (Exception ex)
@@ -173,7 +135,6 @@ namespace FASTrack.Model.Concretes
                 _logService.Error(ex.Message, ex);
                 return null;
             }
-            return results;
         }
 
         /// <summary>
@@ -190,17 +151,7 @@ namespace FASTrack.Model.Concretes
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
                     var assembly = context.LOG_FARHistory.Single(x => x.Id == entity.Id && x.IsDeleted == false);
-
-                    assembly.StatusId = entity.StatusId;
-                    assembly.MasterId = entity.MasterId;
-                    assembly.ReasonId = entity.ReasonId;
-                    assembly.IsDeleted = entity.IsDeleted;
-                    assembly.LogDate = entity.LogDate;
-                    assembly.ReasonId = entity.ReasonId;
-                    assembly.LastUpdatedBy = entity.LastUpdatedBy;
-                    assembly.LastUpdate = DateTime.Now;
-
-                    context.Entry<LOG_FARHistory>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    _update(context, entity, assembly);
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -227,18 +178,7 @@ namespace FASTrack.Model.Concretes
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
                     var assembly = context.LOG_FARHistory.Single(x => x.Id == entity.Id && x.IsDeleted == false);
-
-                    assembly.Id = entity.Id;
-                    assembly.MasterId = entity.MasterId;
-                    assembly.StatusId = entity.StatusId;
-                    assembly.ReasonId = entity.ReasonId;
-                    assembly.LogDate = entity.LogDate;
-                    assembly.IsDeleted = entity.IsDeleted;
-                    assembly.ReasonId = entity.ReasonId;
-                    assembly.LastUpdatedBy = entity.LastUpdatedBy;
-                    assembly.LastUpdate = DateTime.Now;
-
-                    context.Entry<LOG_FARHistory>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    _update(context, entity, assembly);
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -263,18 +203,7 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    LOG_FARHistory add = context.LOG_FARHistory.Create();
-
-                    add.StatusId = entity.StatusId;
-                    add.MasterId = entity.MasterId;
-                    add.ReasonId = entity.ReasonId;
-                    add.LogDate = entity.LogDate;
-                    add.IsDeleted = entity.IsDeleted;
-                    add.ReasonId = entity.ReasonId;
-                    add.LastUpdatedBy = entity.LastUpdatedBy;
-                    add.LastUpdate = DateTime.Now;
-
-                    context.Entry<LOG_FARHistory>(add).State = System.Data.Entity.EntityState.Added;
+                    _add(context, entity);
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -298,17 +227,7 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    LOG_FARHistory add = context.LOG_FARHistory.Create();
-
-                    add.StatusId = entity.StatusId;
-                    add.MasterId = entity.MasterId;
-                    add.ReasonId = entity.ReasonId;
-                    add.LogDate = entity.LogDate;
-                    add.IsDeleted = entity.IsDeleted;
-                    add.LastUpdatedBy = entity.LastUpdatedBy;
-                    add.LastUpdate = DateTime.Now;
-
-                    context.Entry<LOG_FARHistory>(add).State = System.Data.Entity.EntityState.Added;
+                    _add(context, entity);
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -332,21 +251,9 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    LOG_FARHistory add = null;
                     foreach (var entity in entities)
                     {
-                        add = context.LOG_FARHistory.Create();
-
-                        add.StatusId = entity.StatusId;
-                        add.MasterId = entity.MasterId;
-                        add.ReasonId = entity.ReasonId;
-                        add.LogDate = entity.LogDate;
-                        add.IsDeleted = entity.IsDeleted;
-                        add.ReasonId = entity.ReasonId;
-                        add.LastUpdatedBy = entity.LastUpdatedBy;
-                        add.LastUpdate = DateTime.Now;
-
-                        context.Entry<LOG_FARHistory>(add).State = System.Data.Entity.EntityState.Added;
+                        _add(context, entity);
                     }
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -371,21 +278,9 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    LOG_FARHistory add = null;
                     foreach (var entity in entities)
                     {
-                        add = context.LOG_FARHistory.Create();
-
-                        add.StatusId = entity.StatusId;
-                        add.MasterId = entity.MasterId;
-                        add.ReasonId = entity.ReasonId;
-                        add.LogDate = entity.LogDate;
-                        add.IsDeleted = entity.IsDeleted;
-                        add.ReasonId = entity.ReasonId;
-                        add.LastUpdatedBy = entity.LastUpdatedBy;
-                        add.LastUpdate = DateTime.Now;
-
-                        context.Entry<LOG_FARHistory>(add).State = System.Data.Entity.EntityState.Added;
+                        _add(context, entity);
                     }
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -414,7 +309,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.LOG_FARHistory.Single(x => x.Id == entity.Id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<LOG_FARHistory>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(assembly).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -443,7 +338,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.LOG_FARHistory.Single(x => x.Id == entity.Id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<LOG_FARHistory>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(assembly).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -472,7 +367,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.LOG_FARHistory.Single(x => x.Id == Id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<LOG_FARHistory>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(assembly).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -501,7 +396,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.LOG_FARHistory.Single(x => x.Id == Id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<LOG_FARHistory>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(assembly).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -512,6 +407,47 @@ namespace FASTrack.Model.Concretes
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Add entity
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="context"></param>
+        private static void _add(FailureAnalysisEntities context, LOGHistoryDto entity)
+        {
+            LOG_FARHistory add = context.LOG_FARHistory.Create();
+
+            add.StatusId = entity.StatusId;
+            add.MasterId = entity.MasterId;
+            add.ReasonId = entity.ReasonId;
+            add.LogDate = entity.LogDate;
+            add.IsDeleted = entity.IsDeleted;
+            add.ReasonId = entity.ReasonId;
+            add.LastUpdatedBy = entity.LastUpdatedBy;
+            add.LastUpdate = DateTime.Now;
+
+            context.Entry(add).State = EntityState.Added;
+        }
+
+        /// <summary>
+        /// Update entity
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="entity"></param>
+        /// <param name="assembly"></param>
+        private static void _update(FailureAnalysisEntities context, LOGHistoryDto entity, LOG_FARHistory assembly)
+        {
+            assembly.StatusId = entity.StatusId;
+            assembly.MasterId = entity.MasterId;
+            assembly.ReasonId = entity.ReasonId;
+            assembly.IsDeleted = entity.IsDeleted;
+            assembly.LogDate = entity.LogDate;
+            assembly.ReasonId = entity.ReasonId;
+            assembly.LastUpdatedBy = entity.LastUpdatedBy;
+            assembly.LastUpdate = DateTime.Now;
+
+            context.Entry(assembly).State = EntityState.Modified;
         }
     }
 }

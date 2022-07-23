@@ -47,7 +47,7 @@ namespace FASTrack.Infrastructure
 
         private string folderPath = String.Empty;
         /// <summary>
-        /// The folder containg file exports
+        /// The folder contain file exports
         /// </summary>
         public string FolderPath
         {
@@ -73,7 +73,7 @@ namespace FASTrack.Infrastructure
                 dataSource = value;
 
                 if (dataSource == null)
-                    throw new Exception("Datasource not null");
+                    throw new Exception("Data source can't be null");
             }
         }
 
@@ -106,7 +106,7 @@ namespace FASTrack.Infrastructure
         public string Execute()
         {
             if (String.IsNullOrEmpty(folderPath))
-                throw new FileNotFoundException("File path not valiable");
+                throw new FileNotFoundException("File path does not available");
             try
             {
                 FindTables();
@@ -194,7 +194,6 @@ namespace FASTrack.Infrastructure
 
 
 
-            bool IsNotBreak = false;
             foreach (var device in dataSource.DeviceDetails)
             {
                 wordDoc.Range().InsertParagraphAfter();
@@ -427,10 +426,11 @@ namespace FASTrack.Infrastructure
 
         private void ExeTableProcess(System.Collections.Generic.List<FASTrack.Model.DTO.FARProcessHistoryDto> processes)
         {
-            object missing = Type.Missing;
-            //object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
+            object missing = System.Reflection.Missing.Value; //Type.Missing;
+
             Word.Range wrdRng = wordDoc.Paragraphs.Add(missing).Range;
 
+            //Add table with 2 column and 1 row
             Word.Table wTable = wordDoc.Tables.Add(wrdRng, 1, 2);
 
             wTable.BottomPadding = 1;
@@ -442,10 +442,8 @@ namespace FASTrack.Infrastructure
 
             foreach (var process in processes)
             {
-                if (process.SelectPhoto != "Yes")
-                    continue;
+                wTable.Rows.Add(ref missing);
 
-                wTable.Rows.Add(missing);
                 Word.Cell wCell1 = wTable.Cell(iRowImage, 1);
                 Word.Cell wCell2 = wTable.Cell(iRowImage, 2);
                 wCell1.Merge(wCell2);
@@ -468,27 +466,32 @@ namespace FASTrack.Infrastructure
 
                 if (process.Photos != null && process.Photos.Count > 0)
                 {
-                    wTable.Rows.Add(missing);
-                    AddPicture(wTable, process.Photos, ref iRowImage);
+                    //wTable.Rows.Add(ref missing);
+                    AddPicture(ref wTable, process.Photos, ref iRowImage);
                 }
 
                 iRowImage++;
             }
         }
 
-        private void AddPicture(Word.Table wTable, System.Collections.Generic.List<string> photos, ref int row)
+        private void AddPicture(ref Word.Table wTable, System.Collections.Generic.List<string> photos, ref int row)
         {
             int iCountImage = (int)Math.Ceiling(photos.Count / 2d);
             int iRowImage = row;
-            int iColImage = 1;
+            int iColImage = 0;
 
             foreach (var photo in photos)
             {
-                int iCol = (iColImage % 2) == 0 ? 2 : 1;
-                if (iCol == 1)
+                //int iCol = (iColImage % 2) == 0 ? 2 : 1;
+                //if (iCol == 1)
+                int iCol = (iColImage % 2);
+                if (iCol == 0)
+                {
+                    wTable.Rows.Add(ref missing);
                     iRowImage++;
+                }
 
-                Word.Cell wCell = wTable.Cell(iRowImage, iCol);
+                Word.Cell wCell = wTable.Cell(iRowImage, iCol + 1);
                 wCell.BottomPadding = 5;
                 wCell.TopPadding = 5;
                 wCell.RightPadding = 5;

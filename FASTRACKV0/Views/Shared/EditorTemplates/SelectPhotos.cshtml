@@ -1,0 +1,19 @@
+﻿@model  FASTrack.Model.DTO.ViewPhoto
+<style>
+    .check-box {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        border-width: 1px;
+        cursor: pointer;
+        border-style: dashed;
+        margin-left: -40px !important;
+        display: inline-block;
+    }
+</style>
+<div>
+    <img src="@Url.Content("~/"+ Model.FilePath)" class="img-thumbnail" id="imgCurrentView" style="width:550px; height:550px;" />
+    @Html.CheckBoxFor(x => Model.IsSelected, htmlAttributes: new { @class = "check-box" })
+    @Html.HiddenFor(x => x.FileName)
+    @Html.HiddenFor(x => x.FilePath)
+</div>

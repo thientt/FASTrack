@@ -186,6 +186,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Reports\" />
+    <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="ViewModel\ViewPhotoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\app\admin.css" />
     <Content Include="Content\app\ajax-loader.gif" />
     <Content Include="Content\app\app.css" />
     <Content Include="Content\app\error.css" />
@@ -294,6 +296,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dropzone.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\calendar.png" />
     <Content Include="Content\images\logo.png" />
@@ -369,6 +373,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -387,6 +392,12 @@
     <Content Include="Logs\Log.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\app\admin.less" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\fadb_qa.pubxml" />
     <None Include="Properties\PublishProfiles\fasttrack.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -736,8 +747,10 @@
     <Content Include="Views\Shared\EditorTemplates\Device.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Process.cshtml" />
     <Content Include="Templates\IFAR_Template_01.docx" />
-    <Content Include="Templates\IFAR_Template_01_BAK.docx" />
     <Content Include="Templates\IFAR_Template_02.docx" />
+    <Content Include="Views\Shared\_PartialPageSelectPhotos.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SelectPhotos.cshtml" />
+    <Content Include="Views\Admin\Management.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

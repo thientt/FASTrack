@@ -1,6 +1,21 @@
-﻿using FASTrack.Model.Abstracts;
+﻿// ***********************************************************************
+// Assembly         : FASTrack.Model
+// Author           : tranthiencdsp@gmail.com
+// Created          : 10-06-2022
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 23-07-2022
+// ***********************************************************************
+// <copyright file="FabSiteRepository.cs" company="Atmel Corporation">
+//     Copyright © Atmel 2015
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
+using FASTrack.Model.Abstracts;
 using FASTrack.Model.DTO;
 using FASTrack.Model.Entities;
+using FASTrack.Model.Extensions;
 using FASTrack.Utilities;
 using System;
 using System.Collections.Generic;
@@ -46,15 +61,7 @@ namespace FASTrack.Model.Concretes
                 {
                     result = (from item in context.FabSites
                               where item.IsDeleted == false && item.Id == id
-                              select new FabSiteDto()
-                              {
-                                  Id = item.Id,
-                                  Name = item.Name,
-                                  Description = item.Description,
-                                  IsDeleted = item.IsDeleted,
-                                  LastUpdatedBy = item.LastUpdatedBy,
-                                  LastUpdate = item.LastUpdate,
-                              }).Single();
+                              select item.ToDto()).Single();
                 }
             }
             catch (Exception ex)
@@ -79,15 +86,7 @@ namespace FASTrack.Model.Concretes
                 {
                     result = await (from item in context.FabSites
                                     where item.IsDeleted == false && item.Id == id
-                                    select new FabSiteDto()
-                                    {
-                                        Id = item.Id,
-                                        Name = item.Name,
-                                        Description = item.Description,
-                                        IsDeleted = item.IsDeleted,
-                                        LastUpdatedBy = item.LastUpdatedBy,
-                                        LastUpdate = item.LastUpdate,
-                                    }).SingleAsync();
+                                    select item.ToDto()).SingleAsync();
                 }
             }
             catch (Exception ex)
@@ -112,15 +111,7 @@ namespace FASTrack.Model.Concretes
                     results = (from item in context.FabSites
                                where item.IsDeleted == false
                                orderby item.Name
-                               select new FabSiteDto()
-                               {
-                                   Id = item.Id,
-                                   Name = item.Name,
-                                   Description = item.Description,
-                                   IsDeleted = item.IsDeleted,
-                                   LastUpdatedBy = item.LastUpdatedBy,
-                                   LastUpdate = item.LastUpdate,
-                               }).ToList();
+                               select item.ToDto()).ToList();
                 }
             }
             catch (Exception ex)
@@ -145,15 +136,7 @@ namespace FASTrack.Model.Concretes
                     results = await (from item in context.FabSites
                                      where item.IsDeleted == false
                                      orderby item.Name
-                                     select new FabSiteDto()
-                                     {
-                                         Id = item.Id,
-                                         Name = item.Name,
-                                         Description = item.Description,
-                                         IsDeleted = item.IsDeleted,
-                                         LastUpdatedBy = item.LastUpdatedBy,
-                                         LastUpdate = item.LastUpdate,
-                                     }).ToListAsync();
+                                     select item.ToDto()).ToListAsync();
                 }
             }
             catch (Exception ex)
@@ -178,14 +161,7 @@ namespace FASTrack.Model.Concretes
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
                     var fabSite = context.FabSites.Single(x => x.Id == entity.Id && x.IsDeleted == false);
-
-                    fabSite.Name = entity.Name;
-                    fabSite.IsDeleted = entity.IsDeleted;
-                    fabSite.Description = entity.Description;
-                    fabSite.LastUpdatedBy = entity.LastUpdatedBy;
-                    fabSite.LastUpdate = DateTime.Now;
-
-                    context.Entry<FabSites>(fabSite).State = System.Data.Entity.EntityState.Modified;
+                    _update(context, fabSite, entity);
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -212,15 +188,7 @@ namespace FASTrack.Model.Concretes
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
                     var fabSite = context.FabSites.Single(x => x.Id == entity.Id && x.IsDeleted == false);
-
-                    fabSite.Id = entity.Id;
-                    fabSite.Name = entity.Name;
-                    fabSite.IsDeleted = entity.IsDeleted;
-                    fabSite.Description = entity.Description;
-                    fabSite.LastUpdatedBy = entity.LastUpdatedBy;
-                    fabSite.LastUpdate = DateTime.Now;
-
-                    context.Entry<FabSites>(fabSite).State = System.Data.Entity.EntityState.Modified;
+                    _update(context, fabSite, entity);
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -245,15 +213,7 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    FabSites add = context.FabSites.Create();
-
-                    add.Description = entity.Description;
-                    add.IsDeleted = false;
-                    add.Name = entity.Name;
-                    add.LastUpdatedBy = entity.LastUpdatedBy;
-                    add.LastUpdate = DateTime.Now;
-
-                    context.Entry<FabSites>(add).State = System.Data.Entity.EntityState.Added;
+                    _add(context, entity);
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -277,15 +237,7 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    FabSites add = context.FabSites.Create();
-
-                    add.Description = entity.Description;
-                    add.Name = entity.Name;
-                    add.IsDeleted = false;
-                    add.LastUpdatedBy = entity.LastUpdatedBy;
-                    add.LastUpdate = DateTime.Now;
-
-                    context.Entry<FabSites>(add).State = System.Data.Entity.EntityState.Added;
+                    _add(context, entity);
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -309,18 +261,9 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    FabSites add = null;
                     foreach (var entity in entities)
                     {
-                        add = context.FabSites.Create();
-
-                        add.Description = entity.Description;
-                        add.IsDeleted = false;
-                        add.Name = entity.Name;
-                        add.LastUpdatedBy = entity.LastUpdatedBy;
-                        add.LastUpdate = DateTime.Now;
-
-                        context.Entry<FabSites>(add).State = System.Data.Entity.EntityState.Added;
+                        _add(context, entity);
                     }
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -345,18 +288,9 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    FabSites add = null;
                     foreach (var entity in entities)
                     {
-                        add = context.FabSites.Create();
-
-                        add.Description = entity.Description;
-                        add.IsDeleted = false;
-                        add.Name = entity.Name;
-                        add.LastUpdatedBy = entity.LastUpdatedBy;
-                        add.LastUpdate = DateTime.Now;
-
-                        context.Entry<FabSites>(add).State = System.Data.Entity.EntityState.Added;
+                        _add(context, entity);
                     }
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -383,11 +317,7 @@ namespace FASTrack.Model.Concretes
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
                     var fabSite = context.FabSites.Single(x => x.Id == entity.Id && x.IsDeleted == false);
-                    fabSite.IsDeleted = true;
-                    fabSite.LastUpdate = DateTime.Now;
-                    fabSite.LastUpdatedBy = entity.LastUpdatedBy;
-
-                    context.Entry<FabSites>(fabSite).State = System.Data.Entity.EntityState.Modified;
+                    _delete(context, fabSite, entity);
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -414,11 +344,7 @@ namespace FASTrack.Model.Concretes
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
                     var fabSite = context.FabSites.Single(x => x.Id == entity.Id && x.IsDeleted == false);
-                    fabSite.IsDeleted = true;
-                    fabSite.LastUpdate = DateTime.Now;
-                    fabSite.LastUpdatedBy = entity.LastUpdatedBy;
-
-                    context.Entry<FabSites>(fabSite).State = System.Data.Entity.EntityState.Modified;
+                    _delete(context, fabSite, entity);
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -445,10 +371,7 @@ namespace FASTrack.Model.Concretes
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
                     var fabSite = context.FabSites.Single(x => x.Id == Id && x.IsDeleted == false);
-                    fabSite.IsDeleted = true;
-                    fabSite.LastUpdate = DateTime.Now;
-
-                    context.Entry<FabSites>(fabSite).State = System.Data.Entity.EntityState.Modified;
+                    _delete(context, fabSite, null);
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -478,7 +401,7 @@ namespace FASTrack.Model.Concretes
                     fabSite.IsDeleted = true;
                     fabSite.LastUpdate = DateTime.Now;
 
-                    context.Entry<FabSites>(fabSite).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry<FabSites>(fabSite).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -489,6 +412,57 @@ namespace FASTrack.Model.Concretes
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// New entity from dto
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="dto"></param>
+        private void _add(FailureAnalysisEntities context, FabSiteDto dto)
+        {
+            FabSites add = context.FabSites.Create();
+
+            add.Description = dto.Description;
+            add.Name = dto.Name;
+            add.IsDeleted = false;
+            add.LastUpdatedBy = dto.LastUpdatedBy;
+            add.LastUpdate = DateTime.Now;
+
+            context.Entry(add).State = EntityState.Added;
+        }
+
+        /// <summary>
+        /// Update entity
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="fabSite"></param>
+        /// <param name="entity"></param>
+        private void _update(FailureAnalysisEntities context, FabSites fabSite, FabSiteDto entity)
+        {
+            fabSite.Name = entity.Name;
+            fabSite.IsDeleted = entity.IsDeleted;
+            fabSite.Description = entity.Description;
+            fabSite.LastUpdatedBy = entity.LastUpdatedBy;
+            fabSite.LastUpdate = DateTime.Now;
+
+            context.Entry(fabSite).State = EntityState.Modified;
+        }
+
+        /// <summary>
+        /// Delete entity
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="fabSite"></param>
+        /// <param name="entity"></param>
+        private void _delete(FailureAnalysisEntities context, FabSites fabSite, FabSiteDto entity = null)
+        {
+            fabSite.IsDeleted = true;
+            fabSite.LastUpdate = DateTime.Now;
+            if (entity != null)
+                fabSite.LastUpdatedBy = entity.LastUpdatedBy;
+
+            context.Entry(fabSite).State = EntityState.Modified;
         }
     }
 }

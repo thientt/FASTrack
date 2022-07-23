@@ -23,6 +23,11 @@ namespace FASTrack.Controllers
             return View();
         }
 
+        public ActionResult Management()
+        {
+            return View();
+
+        }
         /// <summary>
         /// Users the type list.
         /// </summary>

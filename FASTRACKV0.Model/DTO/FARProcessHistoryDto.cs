@@ -195,5 +195,14 @@ namespace FASTrack.Model.DTO
             }
         }
 
+        //Enhancement Report
+        public List<ViewPhoto> ViewPhotos { get; set; }
+    }
+
+    public class ViewPhoto
+    {
+        public string FilePath { get; set; }
+        public string FileName { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

@@ -1,0 +1,278 @@
+﻿@{
+    ViewBag.Title = "Admin Modules";
+}
+<link href="~/Content/app/admin.css" rel="stylesheet" />
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-sm-6">
+        <div class="menu">
+            <ul class="main-menu">
+                <li class="menu-category">
+                    <div class="menu-title">
+                        <span class="fa fa-users"></span>
+                        <span> Account</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("Index", "Roles")" class="menu-title">
+                                <span class="fa fa-user-secret"></span>
+                                Roles
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "User")" class="menu-title">
+                                <span class="fa fa-user"></span>
+                                Users
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="menu-category">
+                    <div class="menu-title">
+                        <span class="fa fa-product-hunt"></span>
+                        <span>Products</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("Index", "FAProduct")" class="menu-title">
+                                <span class="fa fa-code"></span>
+                                Product Codes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "FAProcessProduct")" class="menu-title">
+                                <span class="fa fa-product-hunt"></span>
+                                Process & Product
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="menu-category">
+                    <div class="menu-title">
+                        <span class="fa fa-map"></span>
+                        <span>Sites</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("Index", "Sites")" class="menu-title">
+                                <span class="fa fa-sitemap"></span>
+                                FA Sites
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "AssySites")" class="menu-title">
+                                <span class="fa fa-tasks"></span>
+                                Assembly Sites
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Fabsite")" class="menu-title">
+                                <span class="fa fa-globe"></span>
+                                FAB Sites
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "LabSite")" class="menu-title">
+                                <span class="fa fa-hourglass-half"></span>
+                                Lab Site
+                            </a>
+                        </li>
+                    </ul>
+                    <ul></ul>
+                </li>
+
+                <li class="menu-category">
+                    <div class="menu-title">
+                        <span class="fa fa-list-alt"></span>
+                        <span>Types</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("Index", "FAService")" class="menu-title">
+                                <span class="fa fa-taxi"></span>
+                                Service Types
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "PackageType")" class="menu-title">
+                                <span class="fa fa-space-shuttle"></span>
+                                Package Types
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="menu-category">
+                    <div class="menu-title">
+                        <span class="fa fa-cogs"></span>
+                        <span>Failure</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("Index", "FailureType")" class="menu-title">
+                                <span class="fa fa-crosshairs"></span>
+                                Failure Types
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "FailureOrigin")" class="menu-title">
+                                <span class="fa fa-cube"></span>
+                                Failure Origin
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "FARMechanism")" class="menu-title">
+                                <span class="fa fa-cubes"></span>
+                                Failure Mechanism
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="menu-category">
+                    <div class="menu-title">
+                        <span class="fa fa-chevron-circle-right"></span>
+                        <span>Report</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("Index", "ReportType")" class="menu-title">
+                                <span class="fa fa-gear"></span>
+                                Report Types
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "FAReport")" class="menu-title">
+                                <span class="fa fa-fighter-jet"></span>
+                                FAR Report
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="menu-category">
+                    <div class="menu-title">
+                        <span class="fa fa-comments"></span>
+                        <span>Reason</span>
+                    </div>
+                    <ul class="sub">
+                        <li class="sub-menu">
+                            <div class="menu-title">
+                                <span class="fa fa-comment-o"></span>
+                                <span>Delay</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    <a href="@Url.Action("Index", "ReaDeINI")" class="menu-title">
+                                        <span class="fa fa-adjust"></span>
+                                        INI Report
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "ReaDeFIN")" class="menu-title">
+                                        <span class="fa fa-adjust"></span>
+                                        FIN Report
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sub-menu">
+                            <div class="menu-title">
+                                <span class="fa fa-comment-o"></span>
+                                <span>Change</span>
+                            </div>
+                            <ul>
+                                <li><a href="@Url.Action("Index", "ReaDeChangingINITarget")" class="menu-title">INI report Target date</a></li>
+                                <li><a href="@Url.Action("Index", "ReaDeChangingFINTarget")" class="menu-title">FIN report Target date</a></li>
+                                <li><a href="@Url.Action("Index", "ReaDeChangingPriority")" class="menu-title">Priority</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "ReaDeFAROnHold")" class="menu-title">
+                                <span class="fa fa-arrow-down"></span>
+                                FAR On-hold
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="menu-master menu-category">
+                    <div class="menu-title">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                        <span>Master</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("Index", "FAStatus")" class="menu-title">
+                                <span class="fa fa-retweet"></span>
+                                Request Status
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "BusinessUnit")" class="menu-title">
+                                <span class="fa fa-road"></span>
+                                Business Unit
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Origin")" class="menu-title">
+                                <span class="fa fa-rocket"></span>
+                                Request Origin
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "FAPriority")" class="menu-title">
+                                <span class="fa fa-signing"></span>
+                                Priority Codes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Dept")" class="menu-title">
+                                <span class="fa fa-dedent"></span>
+                                Departments
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "FACustomer")" class="menu-title">
+                                <span class="fa fa-user-times"></span>
+                                Customer
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "FAResult")" class="menu-title">
+                                <span class="fa fa-resistance"></span>
+                                Process Results
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "FARating")" class="menu-title">
+                                <span class="fa fa-deviantart"></span>
+                                Rating
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Tech")" class="menu-title">
+                                <span class="fa fa-amazon"></span>
+                                Technology
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="content" style="width:100%;height:100%; font-size:25px;padding-top:50px;color:#1a4a6c">
+            <p class="text-center" style="color:#1a4a6c;">
+                Administrator Modules
+            </p>
+        </div>
+    </div>
+</div>

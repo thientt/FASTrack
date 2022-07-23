@@ -15,6 +15,9 @@ namespace FASTrack.App_Start
     using FASTrack.Model.Concretes;
     using FASTrack.Utilities;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();

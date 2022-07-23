@@ -319,6 +319,10 @@
     <Compile Include="Entities\SYS_Users.cs">
       <DependentUpon>FailureAnalysisModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\LOGHistoryExtension.cs" />
+    <Compile Include="Extensions\FARFinalTargetLog.cs" />
+    <Compile Include="Extensions\FARAnalystReassignLogExtension.cs" />
+    <Compile Include="Extensions\FabSiteExtension.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveResult.cs" />

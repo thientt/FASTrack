@@ -52,8 +52,6 @@ namespace FASTrack.Model.Concretes
                                   Description = item.Description,
                                   LastUpdatedBy = item.LastUpdatedBy,
                                   LastUpdate = item.LastUpdate,
-                                  
-                                 
                               }).Single();
                 }
             }
@@ -85,8 +83,6 @@ namespace FASTrack.Model.Concretes
                                         Description = item.Description,
                                         LastUpdatedBy = item.LastUpdatedBy,
                                         LastUpdate = item.LastUpdate,
-                                        
-                                       
                                     }).SingleAsync();
                 }
             }
@@ -117,8 +113,6 @@ namespace FASTrack.Model.Concretes
                                    Description = item.Description,
                                    LastUpdatedBy = item.LastUpdatedBy,
                                    LastUpdate = item.LastUpdate,
-                                   
-                                  
                                }).ToList();
                 }
             }
@@ -149,8 +143,6 @@ namespace FASTrack.Model.Concretes
                                          Description = item.Description,
                                          LastUpdatedBy = item.LastUpdatedBy,
                                          LastUpdate = item.LastUpdate,
-                                         
-                                        
                                      }).ToListAsync();
                 }
             }
@@ -181,7 +173,7 @@ namespace FASTrack.Model.Concretes
                     assembly.LastUpdatedBy = entity.LastUpdatedBy;
                     assembly.LastUpdate = DateTime.Now;
 
-                    context.Entry<MST_Reason>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(assembly).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -213,7 +205,7 @@ namespace FASTrack.Model.Concretes
                     assembly.LastUpdatedBy = entity.LastUpdatedBy;
                     assembly.LastUpdate = DateTime.Now;
 
-                    context.Entry<MST_Reason>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(assembly).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -245,7 +237,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<MST_Reason>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(add).State = EntityState.Added;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -276,7 +268,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<MST_Reason>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(add).State = EntityState.Added;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -309,7 +301,7 @@ namespace FASTrack.Model.Concretes
                         add.LastUpdatedBy = entity.LastUpdatedBy;
                         add.LastUpdate = DateTime.Now;
 
-                        context.Entry<MST_Reason>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry(add).State = EntityState.Added;
                     }
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -343,7 +335,7 @@ namespace FASTrack.Model.Concretes
                         add.LastUpdatedBy = entity.LastUpdatedBy;
                         add.LastUpdate = DateTime.Now;
 
-                        context.Entry<MST_Reason>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry(add).State = EntityState.Added;
                     }
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -372,7 +364,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.MST_Reason.Single(x => x.Id == entity.Id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<MST_Reason>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(assembly).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -401,7 +393,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.MST_Reason.Single(x => x.Id == entity.Id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<MST_Reason>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(assembly).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -430,7 +422,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.MST_Reason.Single(x => x.Id == id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<MST_Reason>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(assembly).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -459,7 +451,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.MST_Reason.Single(x => x.Id == id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<MST_Reason>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(assembly).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }

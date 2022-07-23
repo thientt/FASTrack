@@ -1,0 +1,111 @@
+﻿@width-menu: 200px;
+@padding-menu: 15px;
+
+body {
+}
+
+.hover-list {
+    cursor: pointer;
+    background-color: #2ECC71;
+    transition: background 0.3s ease-in-out;
+
+    & > ul {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity transform 0.5s ease-in-out;
+        transform: translateX(0);
+    }
+}
+
+.menu {
+    padding-top: 10px;
+
+    & ul {
+        list-style: none;
+        padding-left: 0px;
+        margin: 0;
+
+        &.main-menu > li {
+            border-right: 1px solid #F1C40F;
+        }
+
+        & li {
+            &.menu-category {
+                position: relative;
+                padding: @padding-menu;
+                width: @width-menu;
+                background-color: #34495E;
+                border-top: 1px solid #BDC3C7;
+
+                & ul {
+                    opacity: 0;
+                    visibility: hidden;
+                    position: absolute;
+
+                    & li {
+                        padding: @padding-menu;
+                        width: @width-menu;
+                        background-color: #34495E;
+                        border-top: 1px solid #BDC3C7;
+
+                        &.sub-menu > ul {
+                            top: .1px;
+                        }
+
+                        &:hover {
+                            .hover-list();
+                        }
+                    }
+                }
+            }
+
+            &:hover {
+                .hover-list();
+            }
+
+            & a {
+                text-decoration: none;
+                outline: none;
+
+                &:hover {
+                    color: white;
+                }
+            }
+
+            &.menu-master {
+                & ul {
+                    top: -358px;
+                }
+            }
+        }
+
+        & ul {
+            width: @width-menu;
+            transition: all 0.5s;
+            opacity: 0;
+            position: absolute;
+            visibility: hidden;
+            left: @width-menu;
+            top: -1px;
+            transform: translateX(-100%) initial;
+        }
+    }
+}
+
+
+.menu-title {
+    color: white;
+
+    & span {
+        &:first-child {
+            padding-right: 10px;
+        }
+
+        &:last-child {
+        }
+    }
+}
+
+.sub > li {
+    border-right: 1px solid #F1C40F;
+}

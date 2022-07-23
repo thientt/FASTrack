@@ -1,4 +1,18 @@
-﻿using FASTrack.Model.Abstracts;
+﻿// ***********************************************************************
+// Assembly         : FASTrack.Model
+// Author           : tranthiencdsp@gmail.com
+// Created          : 10-06-2015
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 23-07-2022
+// ***********************************************************************
+// <copyright file="FARDeviceDetailsRepository.cs" company="Atmel Corporation">
+//     Copyright © Atmel 2015
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
+using FASTrack.Model.Abstracts;
 using FASTrack.Model.DTO;
 using FASTrack.Model.Entities;
 using FASTrack.Utilities;
@@ -21,7 +35,7 @@ namespace FASTrack.Model.Concretes
         /// <summary>
         /// The _log service
         /// </summary>
-        private ILogService _logService;
+        private readonly ILogService _logService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FARDeviceDetailsRepository"/> class.
@@ -29,7 +43,7 @@ namespace FASTrack.Model.Concretes
         /// <param name="logService">The log service.</param>
         public FARDeviceDetailsRepository(ILogService logService)
         {
-            this._logService = logService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -64,7 +78,7 @@ namespace FASTrack.Model.Concretes
                                       RequestDate = item.FAR_Master.RequestDate,
                                       FailureDesc = item.FAR_Master.FailureDesc,
                                   },
-                                  FailureDetail=item.FailureDetail,
+                                  FailureDetail = item.FailureDetail,
                                   WaferNo = item.WaferNo,
                                   SerialNo = item.SerialNo,
                                   LotNo = item.LotNo,
@@ -276,7 +290,7 @@ namespace FASTrack.Model.Concretes
                     device.LastUpdatedBy = entity.LastUpdatedBy;
                     device.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_DeviceDetails>(device).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(device).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -321,7 +335,7 @@ namespace FASTrack.Model.Concretes
                     device.LastUpdatedBy = entity.LastUpdatedBy;
                     device.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_DeviceDetails>(device).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(device).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -365,7 +379,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_DeviceDetails>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(add).State = EntityState.Added;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -408,7 +422,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_DeviceDetails>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(add).State = EntityState.Added;
                     context.SaveChanges();
 
                     result.Id = add.Id;
@@ -453,7 +467,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_DeviceDetails>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(add).State = EntityState.Added;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -491,7 +505,7 @@ namespace FASTrack.Model.Concretes
                     add.LastUpdatedBy = entity.LastUpdatedBy;
                     add.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_DeviceDetails>(add).State = System.Data.Entity.EntityState.Added;
+                    context.Entry(add).State = EntityState.Added;
                     await context.SaveChangesAsync();
 
                     result.Id = add.Id;
@@ -539,7 +553,7 @@ namespace FASTrack.Model.Concretes
                         add.LastUpdatedBy = entity.LastUpdatedBy;
                         add.LastUpdate = DateTime.Now;
 
-                        context.Entry<FAR_DeviceDetails>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry(add).State = EntityState.Added;
                     }
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -586,7 +600,7 @@ namespace FASTrack.Model.Concretes
                         add.LastUpdatedBy = entity.LastUpdatedBy;
                         add.LastUpdate = DateTime.Now;
 
-                        context.Entry<FAR_DeviceDetails>(add).State = System.Data.Entity.EntityState.Added;
+                        context.Entry(add).State = EntityState.Added;
                     }
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -617,7 +631,7 @@ namespace FASTrack.Model.Concretes
                     device.LastUpdate = DateTime.Now;
                     device.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<FAR_DeviceDetails>(device).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(device).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -648,7 +662,7 @@ namespace FASTrack.Model.Concretes
                     device.LastUpdate = DateTime.Now;
                     device.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<FAR_DeviceDetails>(device).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(device).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -678,7 +692,7 @@ namespace FASTrack.Model.Concretes
                     device.IsDeleted = true;
                     device.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_DeviceDetails>(device).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(device).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -708,7 +722,7 @@ namespace FASTrack.Model.Concretes
                     device.IsDeleted = true;
                     device.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_DeviceDetails>(device).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(device).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -850,7 +864,7 @@ namespace FASTrack.Model.Concretes
                     device.LastUpdatedBy = userName;
                     device.LastUpdate = DateTime.Now;
 
-                    context.Entry<FAR_DeviceDetails>(device).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(device).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }

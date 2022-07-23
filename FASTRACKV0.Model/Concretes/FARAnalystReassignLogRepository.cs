@@ -1,6 +1,21 @@
-﻿using FASTrack.Model.Abstracts;
+﻿// ***********************************************************************
+// Assembly         : FASTrack.Model
+// Author           : tranthiencdsp@gmail.com
+// Created          : 10-06-2022
+//
+// Last Modified By : tranthiencdsp@gmail.com
+// Last Modified On : 23-07-2022
+// ***********************************************************************
+// <copyright file="FARAnalystReassignLogRepository.cs" company="Atmel Corporation">
+//     Copyright © Atmel 2015
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
+using FASTrack.Model.Abstracts;
 using FASTrack.Model.DTO;
 using FASTrack.Model.Entities;
+using FASTrack.Model.Extensions;
 using FASTrack.Utilities;
 using System;
 using System.Collections.Generic;
@@ -21,7 +36,7 @@ namespace FASTrack.Model.Concretes
         /// <summary>
         /// The _log service
         /// </summary>
-        private ILogService _logService;
+        private readonly ILogService _logService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FARAnalystReassignLogRepository"/> class.
@@ -29,7 +44,7 @@ namespace FASTrack.Model.Concretes
         /// <param name="logService">The log service.</param>
         public FARAnalystReassignLogRepository(ILogService logService)
         {
-            this._logService = logService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -46,17 +61,7 @@ namespace FASTrack.Model.Concretes
                 {
                     result = (from item in context.LOG_FARAnalystReassign
                               where item.IsDeleted == false && item.Id == id
-                              select new FARAnalystReassignLogDto()
-                              {
-                                  Id = item.Id,
-                                  MasterId = item.MasterId,
-                                  AnalystFrom = item.AnalystFrom,
-                                  AnalystTo = item.AnalystTo,
-                                  UpdatedDate = item.UpdatedDate,
-                                  IsDeleted = item.IsDeleted,
-                                  LastUpdatedBy = item.LastUpdatedBy,
-                                  LastUpdate = item.LastUpdate,
-                              }).Single();
+                              select item.ToDto()).Single();
                 }
             }
             catch (Exception ex)
@@ -81,17 +86,7 @@ namespace FASTrack.Model.Concretes
                 {
                     result = await (from item in context.LOG_FARAnalystReassign
                                     where item.IsDeleted == false && item.Id == id
-                                    select new FARAnalystReassignLogDto()
-                                    {
-                                        Id = item.Id,
-                                        MasterId = item.MasterId,
-                                        AnalystFrom = item.AnalystFrom,
-                                        AnalystTo = item.AnalystTo,
-                                        UpdatedDate = item.UpdatedDate,
-                                        IsDeleted = item.IsDeleted,
-                                        LastUpdatedBy = item.LastUpdatedBy,
-                                        LastUpdate = item.LastUpdate,
-                                    }).SingleAsync();
+                                    select item.ToDto()).SingleAsync();
                 }
             }
             catch (Exception ex)
@@ -115,17 +110,7 @@ namespace FASTrack.Model.Concretes
                 {
                     results = (from item in context.LOG_FARAnalystReassign
                                where item.IsDeleted == false
-                               select new FARAnalystReassignLogDto()
-                               {
-                                   Id = item.Id,
-                                   MasterId = item.MasterId,
-                                   AnalystFrom = item.AnalystFrom,
-                                   AnalystTo = item.AnalystTo,
-                                   UpdatedDate = item.UpdatedDate,
-                                   IsDeleted = item.IsDeleted,
-                                   LastUpdatedBy = item.LastUpdatedBy,
-                                   LastUpdate = item.LastUpdate,
-                               }).ToList();
+                               select item.ToDto()).ToList();
                 }
             }
             catch (Exception ex)
@@ -149,17 +134,7 @@ namespace FASTrack.Model.Concretes
                 {
                     results = await (from item in context.LOG_FARAnalystReassign
                                      where item.IsDeleted == false
-                                     select new FARAnalystReassignLogDto()
-                                     {
-                                         Id = item.Id,
-                                         MasterId = item.MasterId,
-                                         AnalystFrom = item.AnalystFrom,
-                                         AnalystTo = item.AnalystTo,
-                                         UpdatedDate = item.UpdatedDate,
-                                         IsDeleted = item.IsDeleted,
-                                         LastUpdatedBy = item.LastUpdatedBy,
-                                         LastUpdate = item.LastUpdate,
-                                     }).ToListAsync();
+                                     select item.ToDto()).ToListAsync();
                 }
             }
             catch (Exception ex)
@@ -184,15 +159,7 @@ namespace FASTrack.Model.Concretes
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
                     var assembly = context.LOG_FARAnalystReassign.Single(x => x.Id == entity.Id && x.IsDeleted == false);
-
-                    assembly.MasterId = entity.MasterId;
-                    assembly.IsDeleted = entity.IsDeleted;
-                    assembly.AnalystFrom = entity.AnalystFrom;
-                    assembly.AnalystTo = entity.AnalystTo;
-                    assembly.LastUpdatedBy = entity.LastUpdatedBy;
-                    assembly.UpdatedDate = DateTime.Now;
-
-                    context.Entry<LOG_FARAnalystReassign>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    _update(context, entity, assembly);
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -219,15 +186,7 @@ namespace FASTrack.Model.Concretes
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
                     var assembly = context.LOG_FARAnalystReassign.Single(x => x.Id == entity.Id && x.IsDeleted == false);
-
-                    assembly.MasterId = entity.MasterId;
-                    assembly.IsDeleted = entity.IsDeleted;
-                    assembly.AnalystFrom = entity.AnalystFrom;
-                    assembly.AnalystTo = entity.AnalystTo;
-                    assembly.LastUpdatedBy = entity.LastUpdatedBy;
-                    assembly.UpdatedDate = DateTime.Now;
-
-                    context.Entry<LOG_FARAnalystReassign>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    _update(context, entity, assembly);
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -252,16 +211,7 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    LOG_FARAnalystReassign add = context.LOG_FARAnalystReassign.Create();
-
-                    add.MasterId = entity.MasterId;
-                    add.AnalystFrom = entity.AnalystFrom;
-                    add.AnalystTo = entity.AnalystTo;
-                    add.IsDeleted = entity.IsDeleted;
-                    add.LastUpdatedBy = entity.LastUpdatedBy;
-                    add.LastUpdate = DateTime.Now;
-
-                    context.Entry<LOG_FARAnalystReassign>(add).State = System.Data.Entity.EntityState.Added;
+                    _add(context, entity);
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -285,16 +235,7 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    LOG_FARAnalystReassign add = context.LOG_FARAnalystReassign.Create();
-
-                    add.MasterId = entity.MasterId;
-                    add.AnalystFrom = entity.AnalystFrom;
-                    add.AnalystTo = entity.AnalystTo;
-                    add.IsDeleted = entity.IsDeleted;
-                    add.LastUpdatedBy = entity.LastUpdatedBy;
-                    add.LastUpdate = DateTime.Now;
-
-                    context.Entry<LOG_FARAnalystReassign>(add).State = System.Data.Entity.EntityState.Added;
+                    _add(context, entity);
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -318,19 +259,9 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    LOG_FARAnalystReassign add = null;
                     foreach (var entity in entities)
                     {
-                        add = context.LOG_FARAnalystReassign.Create();
-
-                        add.MasterId = entity.MasterId;
-                        add.AnalystFrom = entity.AnalystFrom;
-                        add.AnalystTo = entity.AnalystTo;
-                        add.IsDeleted = entity.IsDeleted;
-                        add.LastUpdatedBy = entity.LastUpdatedBy;
-                        add.LastUpdate = DateTime.Now;
-
-                        context.Entry<LOG_FARAnalystReassign>(add).State = System.Data.Entity.EntityState.Added;
+                        _add(context, entity);
                     }
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -355,19 +286,9 @@ namespace FASTrack.Model.Concretes
             {
                 using (FailureAnalysisEntities context = new FailureAnalysisEntities())
                 {
-                    LOG_FARAnalystReassign add = null;
                     foreach (var entity in entities)
                     {
-                        add = context.LOG_FARAnalystReassign.Create();
-
-                        add.MasterId = entity.MasterId;
-                        add.AnalystFrom = entity.AnalystFrom;
-                        add.AnalystTo = entity.AnalystTo;
-                        add.IsDeleted = entity.IsDeleted;
-                        add.LastUpdatedBy = entity.LastUpdatedBy;
-                        add.LastUpdate = DateTime.Now;
-
-                        context.Entry<LOG_FARAnalystReassign>(add).State = System.Data.Entity.EntityState.Added;
+                        _add(context, entity);
                     }
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
@@ -396,7 +317,7 @@ namespace FASTrack.Model.Concretes
                     var assembly = context.LOG_FARAnalystReassign.Single(x => x.Id == entity.Id && x.IsDeleted == false);
                     assembly.IsDeleted = true;
 
-                    context.Entry<LOG_FARAnalystReassign>(assembly).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(assembly).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -427,7 +348,7 @@ namespace FASTrack.Model.Concretes
                     reassign.LastUpdate = DateTime.Now;
                     reassign.LastUpdatedBy = entity.LastUpdatedBy;
 
-                    context.Entry<LOG_FARAnalystReassign>(reassign).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(reassign).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -457,7 +378,7 @@ namespace FASTrack.Model.Concretes
                     reassign.IsDeleted = true;
                     reassign.LastUpdate = DateTime.Now;
 
-                    context.Entry<LOG_FARAnalystReassign>(reassign).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(reassign).State = EntityState.Modified;
                     result = context.SaveChanges() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -487,7 +408,7 @@ namespace FASTrack.Model.Concretes
                     reassign.IsDeleted = true;
                     reassign.LastUpdate = DateTime.Now;
 
-                    context.Entry<LOG_FARAnalystReassign>(reassign).State = System.Data.Entity.EntityState.Modified;
+                    context.Entry(reassign).State = EntityState.Modified;
                     result = await context.SaveChangesAsync() > 0 ? SaveResult.SUCCESS : SaveResult.FAILURE;
                 }
             }
@@ -498,6 +419,44 @@ namespace FASTrack.Model.Concretes
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="context"></param>
+        /// <param name="add"></param>
+        private static void _add(FailureAnalysisEntities context, FARAnalystReassignLogDto entity)
+        {
+            LOG_FARAnalystReassign add = context.LOG_FARAnalystReassign.Create();
+
+            add.MasterId = entity.MasterId;
+            add.AnalystFrom = entity.AnalystFrom;
+            add.AnalystTo = entity.AnalystTo;
+            add.IsDeleted = entity.IsDeleted;
+            add.LastUpdatedBy = entity.LastUpdatedBy;
+            add.LastUpdate = DateTime.Now;
+
+            context.Entry(add).State = EntityState.Added;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="context"></param>
+        /// <param name="assembly"></param>
+        private static void _update(FailureAnalysisEntities context, FARAnalystReassignLogDto entity, LOG_FARAnalystReassign assembly)
+        {
+            assembly.MasterId = entity.MasterId;
+            assembly.IsDeleted = entity.IsDeleted;
+            assembly.AnalystFrom = entity.AnalystFrom;
+            assembly.AnalystTo = entity.AnalystTo;
+            assembly.LastUpdatedBy = entity.LastUpdatedBy;
+            assembly.UpdatedDate = DateTime.Now;
+
+            context.Entry(assembly).State = EntityState.Modified;
         }
     }
 }
