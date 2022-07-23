@@ -24,6 +24,9 @@ using System.Web.Mvc;
 
 namespace FASTrack.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Authorize(Roles = AuthRole.Admin)]
     public class UserController : AppController
     {

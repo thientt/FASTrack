@@ -6,9 +6,6 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Linq;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Infrastructure
 {
     /// <summary>
@@ -192,7 +189,6 @@ namespace FASTrack.Infrastructure
         /// 
         /// </summary>
         /// <param name="sheet"></param>
-        /// <param name="items"></param>
         private void WriteContent(Excel.Worksheet sheet)
         {
             int startRow = 4;

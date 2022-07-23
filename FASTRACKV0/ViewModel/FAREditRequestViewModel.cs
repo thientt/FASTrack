@@ -5,9 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.ViewModel
 {
     /// <summary>

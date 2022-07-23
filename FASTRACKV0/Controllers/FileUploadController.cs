@@ -6,8 +6,14 @@ using System.Web.Mvc;
 
 namespace FASTrack.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class FileUploadController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [HttpGet]
         public ActionResult Index(int id)//idmaster
         {
@@ -16,6 +22,9 @@ namespace FASTrack.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [HttpPost]
         public ActionResult Index(int id, UploadFile model)//idmaster
         {
@@ -44,6 +53,9 @@ namespace FASTrack.Controllers
             return Content("File Uploaded.");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ActionResult Download(int id)
         {
             FASTrack.ViewModel.UploadFile file = new UploadFile();
@@ -51,6 +63,9 @@ namespace FASTrack.Controllers
             return View(file);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public FileContentResult FileDownload(int id)
         {
             string fileName = "";

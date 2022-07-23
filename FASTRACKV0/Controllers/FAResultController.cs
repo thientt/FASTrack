@@ -4,15 +4,11 @@ using FASTrack.Model.DTO;
 using FASTrack.ViewModel;
 using Ninject;
 using PagedList;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>
@@ -171,6 +167,9 @@ namespace FASTrack.Controllers
         [Inject]
         public IMSTProcessResultRepository ProcessResultRespository { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
         public IMSTProcessTypesRepository ProcessTypesRepository { get; set; }
     }

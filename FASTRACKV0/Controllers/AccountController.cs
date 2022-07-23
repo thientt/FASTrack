@@ -25,9 +25,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>

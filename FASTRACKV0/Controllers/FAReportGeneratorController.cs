@@ -70,6 +70,11 @@ namespace FASTrack.Controllers
             return View(farRequest);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult Index(FARReportGeneratorViewModel model)
         {
@@ -146,6 +151,13 @@ namespace FASTrack.Controllers
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="masterid"></param>
+        /// <param name="deviceid"></param>
+        /// <param name="processid"></param>
+        /// <returns></returns>
         [HttpGet]
         public List<FASTrack.Model.DTO.ViewPhoto> SelectPhotos(int masterid, int deviceid, int processid)
         {
@@ -182,6 +194,7 @@ namespace FASTrack.Controllers
         /// Downloads the specified file.
         /// </summary>
         /// <param name="file">The file.</param>
+        /// <param name="fa">The file.</param>
         /// <returns></returns>
         [HttpGet, Authorize]
         public FileResult Download(string file, string fa)

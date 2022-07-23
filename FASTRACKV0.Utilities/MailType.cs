@@ -14,10 +14,24 @@
 
 namespace FASTrack.Utilities
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum MailType
     {
+        /// <summary>
+        /// 
+        /// </summary>
         Normal = 0,
+
+        /// <summary>
+        /// 
+        /// </summary>
         Register = 1,
+
+        /// <summary>
+        /// 
+        /// </summary>
         RecoverPass = 2,
     }
 }

@@ -5,6 +5,9 @@ using System;
 
 namespace FASTrack.ViewModel
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ProcessProductViewModel
     {
         /// <summary>

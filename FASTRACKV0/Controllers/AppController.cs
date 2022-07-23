@@ -17,9 +17,6 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>

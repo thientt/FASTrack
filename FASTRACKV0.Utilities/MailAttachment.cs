@@ -18,6 +18,9 @@ using System.Net.Mime;
 
 namespace FASTrack.Utilities
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class MailAttachment
     {
         private MemoryStream _stream;

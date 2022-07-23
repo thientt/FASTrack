@@ -6,11 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-/// <summary>
-/// 
-/// </summary>
+
 namespace FASTrack.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Authorize(Roles = AuthRole.Admin)]
     public class ReOpenController : AppController
     {

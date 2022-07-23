@@ -18,6 +18,9 @@ using System.Collections.Generic;
 
 namespace FASTrack.Utilities
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class LogService : ILogService
     {
         private ILog _logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

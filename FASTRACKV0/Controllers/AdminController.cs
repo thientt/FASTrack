@@ -17,9 +17,6 @@ using FASTrack.Model.Abstracts;
 using Ninject;
 using System.Web.Mvc;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>

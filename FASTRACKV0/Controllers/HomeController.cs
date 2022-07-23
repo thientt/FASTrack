@@ -1,9 +1,6 @@
 ﻿using System.Web.Mvc;
 using FASTrack.Infrastructure;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>

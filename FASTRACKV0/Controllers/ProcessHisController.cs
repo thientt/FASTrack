@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using FASTrack.Model.Abstracts;
 using FASTrack.Model.DTO;
 using FASTrack.Model.Types;
@@ -20,9 +21,6 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
-/// <summary>
-/// The Controllers namespace.
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>

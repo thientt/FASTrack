@@ -57,7 +57,7 @@ namespace FASTrack.Infrastructure
             }
         }
 
-        private FASTrack.ViewModel.FARReportGeneratorViewModel dataSource = null;
+        private ViewModel.FARReportGeneratorViewModel dataSource = null;
 
         /// <summary>
         /// Data Source for Word
@@ -97,7 +97,10 @@ namespace FASTrack.Infrastructure
         /// </summary>
         public FASTrack.Model.DTO.SYSUsersDto Requestor { get; set; }
 
-        public System.Collections.Generic.List<FASTrack.Model.DTO.MSTProcessTypesDto> ProcessTypes { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public System.Collections.Generic.List<Model.DTO.MSTProcessTypesDto> ProcessTypes { get; set; }
 
         /// <summary>
         /// Execute create file word document
@@ -112,7 +115,7 @@ namespace FASTrack.Infrastructure
                 FindTables();
             }
 
-            catch (Exception ex)
+            catch
             {
                 fileName = String.Empty;
             }
@@ -135,6 +138,9 @@ namespace FASTrack.Infrastructure
             return (string)fileName;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void FindTables()
         {
             if (wordApp != null)
@@ -201,6 +207,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ExeFullGenerate(Word.Table pTable, FASTrack.Model.DTO.FARDeviceDetailsDto device)
         {
             int iMaxRow = 6; int iMaxXol = 3;
@@ -299,6 +308,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ExeTableDetail(Word.Table pTable, FASTrack.Model.DTO.FARDeviceDetailsDto device)
         {
             for (int iRow = 1; iRow <= pTable.Rows.Count; iRow++)
@@ -385,6 +397,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ExeTableInfo(Word.Table pTable, FASTrack.ViewModel.FARReportGeneratorViewModel master)
         {
             for (int iRow = 1; iRow <= pTable.Rows.Count; iRow++)
@@ -424,6 +439,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ExeTableProcess(System.Collections.Generic.List<FASTrack.Model.DTO.FARProcessHistoryDto> processes)
         {
             object missing = System.Reflection.Missing.Value; //Type.Missing;
@@ -474,6 +492,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void AddPicture(ref Word.Table wTable, System.Collections.Generic.List<string> photos, ref int row)
         {
             int iCountImage = (int)Math.Ceiling(photos.Count / 2d);
@@ -526,6 +547,9 @@ namespace FASTrack.Infrastructure
             row += iCountImage;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ReportProcessTypeCell(Word.Cell wCell, int row, int col, System.Collections.Generic.List<FASTrack.Model.DTO.FARProcessHistoryDto> processes)
         {
             Word.Paragraph pTable = wCell.Range.Paragraphs.Add(missing);
@@ -564,6 +588,9 @@ namespace FASTrack.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private string CopyFile(ExportType pType)
         {
             try
@@ -598,7 +625,14 @@ namespace FASTrack.Infrastructure
         /// </summary>
         protected internal enum ExportType
         {
+            /// <summary>
+            /// 
+            /// </summary>
             TEMP1 = 1,
+
+            /// <summary>
+            /// 
+            /// </summary>
             TEMP2 = 2
         }
 
@@ -607,32 +641,116 @@ namespace FASTrack.Infrastructure
         /// </summary>
         protected internal class KeyWord
         {
+            /// <summary>
+            /// 
+            /// </summary>
             public const string FAR_REF = "[FAR_REF]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string CUSTOMER = "[CUSTOMER]";
+            /// <summary>
+            /// 
+            /// </summary>
             public const string DATE_CODE = "[DATE_CODE]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string FAILURE_RATE = "[FAILURE_RATE]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string REQUEST_DATE = "[REQUEST_DATE]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string REQUESTOR = "[REQUESTOR]";
-            //public const string PRODUCT_LINE = "[PRO_LINE]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string PART_NUMBER = "[PART_NUM]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             //public const string PACK_TYPE = "[PACK_TYPE]";
             public const string ASSEMBLY_SITE = "[ASS_SITE]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string REQUESTOR_EMAIL = "[REQ_EMAIL]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string LOT_NUMBER = "[LOT_NUM]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string SAMPLES_QTY = "[SAMPLE_QTY]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string DEVICE_FAILURE = "[DEVICE_FAILURE]";
 
+            /// <summary>
+            /// 
+            /// </summary>
+
             public const string FA_DETAILS_DESCRIPTION = "[FA_DES]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string PROCESSES = "[PROCESSES]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string PROCESSES_COMMENT = "[PROCESSES_COMMENT]";
 
+            /// <summary>
+            /// 
+            /// </summary>
+
             public const string USER_GEN_RE = "[USER_GEN_RE]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string PHONE_1 = "[PHONE_1]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string FA_OVERALL_INCHARGE = "[FA_OVERALL_INCHARGE]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string PHONE_2 = "[PHONE_2]";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string APPROVED_BY = "APPROVED_BY";
+
+            /// <summary>
+            /// 
+            /// </summary>
             public const string PHONE_3 = "[PHONE_3]";
 
+            /// <summary>
+            /// 
+            /// </summary>
             public const string PROCESS_IMAGES = "[Processes from FA Process Flow and the attached photos per process]";
         }
     }

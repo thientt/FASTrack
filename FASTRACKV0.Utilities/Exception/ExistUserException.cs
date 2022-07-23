@@ -14,9 +14,6 @@
 
 using System;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Utilities
 {
     /// <summary>

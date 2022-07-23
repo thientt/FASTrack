@@ -50,6 +50,10 @@ namespace FASTrack.ViewModel
         /// 
         /// </summary>
         private DateTime requestDate = DateTime.Now;
+
+        /// <summary>
+        /// 
+        /// </summary>
         [Display(Name = "Request Date ")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime RequestDate
@@ -97,6 +101,10 @@ namespace FASTrack.ViewModel
         /// </summary>
         [Required(ErrorMessage = "Please the options Origin type")]
         public int OriginId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public IEnumerable<MSTOriginDto> Origins { get; set; }
 
         /// <summary>
@@ -104,6 +112,10 @@ namespace FASTrack.ViewModel
         /// </summary>
         [Required(ErrorMessage = "Please the options status type")]
         public int StatusId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [Display(Name = "Status")]
         public IEnumerable<MSTStatusDto> Status { get; set; }
 
@@ -112,6 +124,15 @@ namespace FASTrack.ViewModel
         /// </summary>
         [Required(ErrorMessage = "Please the options business unit type")]
         public int BUId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public MSTBuDto BU { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [Display(Name = "Business Unit")]
         public IEnumerable<MSTBuDto> BUs { get; set; }
 
@@ -120,6 +141,10 @@ namespace FASTrack.ViewModel
         /// </summary>
         [Required(ErrorMessage = "Please the option Failure Type")]
         public int FailureTypeId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [Display(Name = "Failure Type ")]
         public IEnumerable<MSTFailureTypeDto> FailureTypes { get; set; }
 
@@ -128,6 +153,10 @@ namespace FASTrack.ViewModel
         /// </summary>
         [Required(ErrorMessage = "Please the option Failure Origin")]
         public int FailureOriginId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [Display(Name = "Failure Origin")]
         public IEnumerable<MSTFailureOriginDto> FailureOrigins { get; set; }
 
@@ -145,6 +174,10 @@ namespace FASTrack.ViewModel
         [Display(Name = "Priority ")]
         [Required(ErrorMessage = "Please the option Priority value!")]
         public int PriorityId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public IEnumerable<MSTPriorityDto> Priorities { get; set; }
 
         /// <summary>

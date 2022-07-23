@@ -8,9 +8,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>
@@ -150,6 +147,9 @@ namespace FASTrack.Controllers
             return View(processtype);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
         public IMSTProcessTypesRepository ProcessTypesRepository { get; set; }
     }

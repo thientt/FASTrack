@@ -7,8 +7,14 @@ using System.Web.Routing;
 
 namespace FASTrack
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class RouteConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

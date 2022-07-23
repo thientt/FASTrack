@@ -21,9 +21,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-/// <summary>
-/// The Controllers namespace.
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>

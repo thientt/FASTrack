@@ -16,18 +16,39 @@ using System.Collections.Generic;
 
 namespace FASTrack.ViewModel
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class ViewPhoto
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string FilePath { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string FileName { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         //Enhancement FADB_Enhancemnet_UAT_result_20160601.pptx
         public bool IsSelected { get; set; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class ViewPhotoViewModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public List<ViewPhoto> Photos { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string Default { get; set; }
     }
 }

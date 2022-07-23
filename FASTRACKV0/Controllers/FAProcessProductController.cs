@@ -10,9 +10,6 @@ using System.Web.Mvc;
 using System.Linq;
 using FASTrack.Model.Types;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>
@@ -172,15 +169,27 @@ namespace FASTrack.Controllers
             return View(viewmodel);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
         public IMSTProcessProductRepository ProProtRep { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
         public IMSTProcessTypesRepository ProcessTypeRepository { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
         public IMSTProductRepository ProductRepository { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
         public ISYSUsersRepository UserRepository { get; set; }
     }

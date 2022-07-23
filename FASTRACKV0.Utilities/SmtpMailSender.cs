@@ -16,9 +16,6 @@ using System.Diagnostics;
 using System.Net.Mail;
 using System.Text;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Utilities
 {
     /// <summary>
@@ -29,7 +26,8 @@ namespace FASTrack.Utilities
         /// <summary>
         /// Sends and email
         /// </summary>
-        /// <param name="to">Message to address</param>
+        /// <param name="mailServerAddress">Message to address</param>
+        /// <param name="toAddress">Message to address</param>
         /// <param name="body">Text of message to send</param>
         /// <param name="subject">Subject line of message</param>
         /// <param name="fromAddress">Message from address</param>
@@ -37,6 +35,10 @@ namespace FASTrack.Utilities
         /// <param name="credentialUser">User whose credentials are used for message send</param>
         /// <param name="credentialPassword">User password used for message send</param>
         /// <param name="attachments">Optional attachments for message</param>
+        /// <param name="linkConfirm">Optional attachments for message</param>
+        /// <param name="passPlainText">Optional attachments for message</param>
+        /// <param name="mailType">Optional attachments for message</param>
+        /// <param name="mailpriority">Optional attachments for message</param>
         public static void Email(string mailServerAddress,
                                  string toAddress,
                                  string body,

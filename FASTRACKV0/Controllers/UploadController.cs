@@ -26,9 +26,6 @@ using System.Web.Mvc;
 using System.Linq;
 using FASTrack.ViewModel;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>
@@ -140,6 +137,7 @@ namespace FASTrack.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="type">The type.</param>
+        /// <param name="ReasonId">The type.</param>
         /// <returns></returns>
         [HttpPost, ActionName("AnaAttach")]
         public ContentResult AnaAttachReport(int id, string type, int ReasonId)//Id master
@@ -237,13 +235,14 @@ namespace FASTrack.Controllers
         }
 
         /// <summary>
-        /// Mans the attach report.
+        ///  Mans the attach report.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="type">The type.</param>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <param name="reasonId"></param>
         /// <returns></returns>
         [HttpPost, ActionName("ManAttach")]
-        public ContentResult ManAttachReport(int id, string type, int ReasonId)
+        public ContentResult ManAttachReport(int id, string type, int reasonId)
         {
             string saveFolder = Path.Combine(Server.MapPath("~/Upload"), id.ToString().PadLeft(10, '0'), type);
             if (!Directory.Exists(saveFolder))
@@ -268,7 +267,7 @@ namespace FASTrack.Controllers
                     FileName = hpf.FileName,
                     MasterId = id,
                     UploadedBy = this.CurrentName,
-                    ReasonId = ReasonId
+                    ReasonId = reasonId
                 };
                 UploadRep.Add(uploadFile);
             }

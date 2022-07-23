@@ -16,9 +16,6 @@ using FASTrack.Model.DTO;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-/// <summary>
-/// The ViewModel namespace.
-/// </summary>
 namespace FASTrack.ViewModel
 {
     /// <summary>

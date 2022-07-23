@@ -27,9 +27,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>
@@ -155,9 +152,11 @@ namespace FASTrack.Controllers
         }
 
         /// <summary>
-        /// Requestses the specified page.
+        ///  Requestses the specified page.
         /// </summary>
-        /// <param name="page">The page.</param>
+        /// <param name="sortOrder"></param>
+        /// <param name="page"></param>
+        /// <param name="SearchAll"></param>
         /// <returns></returns>
         [Authorize(Roles = AuthRole.Requestor)]
         public PartialViewResult AsRequests(string sortOrder, int? page, string SearchAll = null)
@@ -230,12 +229,14 @@ namespace FASTrack.Controllers
         /// <summary>
         /// Analysises the specified page.
         /// </summary>
-        /// <param name="page">The page.</param>
+        /// <param name="sortOrder"></param>
+        /// <param name="page"></param>
+        /// <param name="searchAll"></param>
         /// <returns></returns>
         [Authorize(Roles = AuthRole.Manager)]
-        public PartialViewResult AsManagement(string sortOrder, int? page, string SearchAll = null)
+        public PartialViewResult AsManagement(string sortOrder, int? page, string searchAll = null)
         {
-            ViewBag.Search = SearchAll;
+            ViewBag.Search = searchAll;
             ViewBag.FaNumberSortOrder = sortOrder == "FaNumberSortOrder" ? "FaNumberSortOrder_Desc" : "FaNumberSortOrder";
             ViewBag.PrioritySortOrder = sortOrder == "PrioritySortOrder" ? "PrioritySortOrder_Desc" : "PrioritySortOrder";
             ViewBag.OverallFASortOrder = sortOrder == "OverallFASortOrder" ? "OverallFASortOrder_Desc" : "OverallFASortOrder";
@@ -263,20 +264,20 @@ namespace FASTrack.Controllers
                 }
             }
 
-            if (!String.IsNullOrEmpty(SearchAll))
+            if (!String.IsNullOrEmpty(searchAll))
             {
-                var filter = dashboards.Where(x => Contains(x.Number, SearchAll) ||
-                            Contains((x.RefNo + ""), SearchAll) ||
-                            Contains(x.Requestor, SearchAll) ||
-                            Contains(x.FARPriority.Name, SearchAll) ||
-                            Contains(x.Analyst, (SearchAll)) ||
-                            Contains(x.FARStatus.Name, SearchAll) ||
-                            Contains(x.Bu.Name, SearchAll) ||
-                             Contains(x.Product, SearchAll) ||
-                            Contains(x.CurrentProcess, SearchAll) ||
-                            Contains(x.LastUpdate.ToString("MM/dd/yyyy"), SearchAll) ||
-                            Contains(x.LastUpdatedBy, SearchAll) ||
-                            Contains(x.FailureDesc, SearchAll));
+                var filter = dashboards.Where(x => Contains(x.Number, searchAll) ||
+                            Contains((x.RefNo + ""), searchAll) ||
+                            Contains(x.Requestor, searchAll) ||
+                            Contains(x.FARPriority.Name, searchAll) ||
+                            Contains(x.Analyst, (searchAll)) ||
+                            Contains(x.FARStatus.Name, searchAll) ||
+                            Contains(x.Bu.Name, searchAll) ||
+                             Contains(x.Product, searchAll) ||
+                            Contains(x.CurrentProcess, searchAll) ||
+                            Contains(x.LastUpdate.ToString("MM/dd/yyyy"), searchAll) ||
+                            Contains(x.LastUpdatedBy, searchAll) ||
+                            Contains(x.FailureDesc, searchAll));
                 if (filter != null)
                     dashboards = filter.ToList();
             }
@@ -304,7 +305,9 @@ namespace FASTrack.Controllers
         /// <summary>
         /// Analysises the specified page.
         /// </summary>
-        /// <param name="page">The page.</param>
+        /// <param name="sortOrder">The viewmodel.</param>
+        /// <param name="page">The viewmodel.</param>
+        /// <param name="SearchAll">The page.</param>
         /// <returns></returns>
         [Authorize(Roles = (AuthRole.Analyst))]
         public PartialViewResult AsAnalysis(string sortOrder, int? page, string SearchAll = null)
@@ -390,14 +393,16 @@ namespace FASTrack.Controllers
         }
 
         /// <summary>
-        /// Analysises the specified page.
+        ///  Analysises the specified page.
         /// </summary>
-        /// <param name="page">The page.</param>
+        /// <param name="sortOrder"></param>
+        /// <param name="page"></param>
+        /// <param name="searchAll"></param>
         /// <returns></returns>
         [Authorize(Roles = (AuthRole.Admin))]
-        public PartialViewResult AsAdministrators(string sortOrder, int? page, string SearchAll = null)
+        public PartialViewResult AsAdministrators(string sortOrder, int? page, string searchAll = null)
         {
-            ViewBag.Search = SearchAll;
+            ViewBag.Search = searchAll;
             ViewBag.FaNumberSortOrder = sortOrder == "FaNumberSortOrder" ? "FaNumberSortOrder_Desc" : "FaNumberSortOrder";
             ViewBag.PrioritySortOrder = sortOrder == "PrioritySortOrder" ? "PrioritySortOrder_Desc" : "PrioritySortOrder";
             ViewBag.OverallFASortOrder = sortOrder == "OverallFASortOrder" ? "OverallFASortOrder_Desc" : "OverallFASortOrder";
@@ -423,20 +428,20 @@ namespace FASTrack.Controllers
                 }
             }
 
-            if (!String.IsNullOrEmpty(SearchAll))
+            if (!String.IsNullOrEmpty(searchAll))
             {
-                var filter = dashboards.Where(x => Contains(x.Number, SearchAll) ||
-                            Contains((x.RefNo + ""), SearchAll) ||
-                            Contains(x.Requestor, SearchAll) ||
-                            Contains(x.FARPriority.Name, SearchAll) ||
-                            Contains(x.FARStatus.Name, SearchAll) ||
-                            Contains(x.Bu.Name, SearchAll) ||
-                    //Contains(x.FARProduct.Name, SearchAll) ||
-                             Contains(x.Product, SearchAll) ||
-                            Contains(x.CurrentProcess, SearchAll) ||
-                            Contains(x.LastUpdate.ToString("MM/dd/yyyy"), SearchAll) ||
-                            Contains(x.LastUpdatedBy, SearchAll) ||
-                            Contains(x.FailureDesc, SearchAll));
+                var filter = dashboards.Where(x => Contains(x.Number, searchAll) ||
+                            Contains((x.RefNo + ""), searchAll) ||
+                            Contains(x.Requestor, searchAll) ||
+                            Contains(x.FARPriority.Name, searchAll) ||
+                            Contains(x.FARStatus.Name, searchAll) ||
+                            Contains(x.Bu.Name, searchAll) ||
+                             //Contains(x.FARProduct.Name, SearchAll) ||
+                             Contains(x.Product, searchAll) ||
+                            Contains(x.CurrentProcess, searchAll) ||
+                            Contains(x.LastUpdate.ToString("MM/dd/yyyy"), searchAll) ||
+                            Contains(x.LastUpdatedBy, searchAll) ||
+                            Contains(x.FailureDesc, searchAll));
                 if (filter != null)
                     dashboards = filter.ToList();
             }
@@ -468,8 +473,9 @@ namespace FASTrack.Controllers
         /// </summary>
         /// <param name="sortOrder">The sort order.</param>
         /// <param name="page">The page.</param>
+        /// <param name="searcAll">The page.</param>
         /// <returns>PartialViewResult.</returns>
-        public PartialViewResult ListClosedRequest(string sortOrder, int? page, string SearchAll = null)
+        public PartialViewResult ListClosedRequest(string sortOrder, int? page, string searcAll = null)
         {
             ViewBag.FaNumberSortOrder = sortOrder == "FaNumberSortOrder" ? "FaNumberSortOrder_Desc" : "FaNumberSortOrder";
             ViewBag.PrioritySortOrder = sortOrder == "PrioritySortOrder" ? "PrioritySortOrder_Desc" : "PrioritySortOrder";
@@ -496,19 +502,19 @@ namespace FASTrack.Controllers
                 }
             }
 
-            if (!String.IsNullOrEmpty(SearchAll))
+            if (!String.IsNullOrEmpty(searcAll))
             {
-                var filter = dashboards.Where(x => Contains(x.Number, SearchAll) ||
-                            Contains((x.RefNo + ""), SearchAll) ||
-                            Contains(x.Requestor, SearchAll) ||
-                            Contains(x.FARPriority.Name, SearchAll) ||
-                            Contains(x.FARStatus.Name, SearchAll) ||
-                            Contains(x.Bu.Name, SearchAll) ||
-                            Contains(x.Product, SearchAll) ||
-                            Contains(x.CurrentProcess, SearchAll) ||
-                            Contains(x.LastUpdate.ToString("MM/dd/yyyy"), SearchAll) ||
-                            Contains(x.LastUpdatedBy, SearchAll) ||
-                            Contains(x.FailureDesc, SearchAll));
+                var filter = dashboards.Where(x => Contains(x.Number, searcAll) ||
+                            Contains((x.RefNo + ""), searcAll) ||
+                            Contains(x.Requestor, searcAll) ||
+                            Contains(x.FARPriority.Name, searcAll) ||
+                            Contains(x.FARStatus.Name, searcAll) ||
+                            Contains(x.Bu.Name, searcAll) ||
+                            Contains(x.Product, searcAll) ||
+                            Contains(x.CurrentProcess, searcAll) ||
+                            Contains(x.LastUpdate.ToString("MM/dd/yyyy"), searcAll) ||
+                            Contains(x.LastUpdatedBy, searcAll) ||
+                            Contains(x.FailureDesc, searcAll));
                 if (filter != null)
                     dashboards = filter.ToList();
             }
@@ -610,10 +616,10 @@ namespace FASTrack.Controllers
                             master.Analyst = product.MainPerson;
                         else
                             if (!String.IsNullOrEmpty(product.SecondaryPerson))
-                                master.Analyst = product.SecondaryPerson;
-                            else
+                            master.Analyst = product.SecondaryPerson;
+                        else
                                 if (!String.IsNullOrEmpty(product.TertiaryPerson))
-                                    master.Analyst = product.TertiaryPerson;
+                            master.Analyst = product.TertiaryPerson;
                     }
                 }
                 catch (Exception ex)
@@ -1293,35 +1299,6 @@ namespace FASTrack.Controllers
         }
 
         /// <summary>
-        /// Anas the process.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="process">The process.</param>
-        /// <param name="history">The history.</param>
-        /// <returns></returns>
-        //[HttpPost, Authorize(Roles = AuthRole.Analyst)]
-        //public async Task<ActionResult> AnaProcess(int id, ProcessHistoryViewModel process, List<FARProcessHistoryDto> history)
-        //{
-        //    if (id == 0)
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-        //    var result = FASTrack.Model.SaveResult.FAILURE;
-        //    foreach (var item in history)
-        //    {
-        //        result = await ProcessHisRep.IncludeAsync(item.Id, item.IsIncluded);
-        //    }
-        //    switch (result)
-        //    {
-        //        case Model.SaveResult.FAILURE:
-        //            ViewBag.Message = "";
-        //            break;
-        //    }
-        //    //var items = (await ProcessHistoryRepository.GetAllAsync()).Where(x => x.DeviceId == id).OrderBy(x => x.SeqNum).ToList();
-        //    process.Process = history;
-        //    return View(process);
-        //}
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
@@ -1694,7 +1671,6 @@ namespace FASTrack.Controllers
         /// Cancels the fa.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="viewmodel">The viewmodel.</param>
         /// <returns></returns>
         [HttpPost, Authorize(Roles = AuthRole.Requestor)]
         public async Task<JsonResult> CancelFA(int id)
@@ -1730,7 +1706,8 @@ namespace FASTrack.Controllers
         /// Closes the fa.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="viewmodel">The viewmodel.</param>
+        /// <param name="RatingId">The viewmodel.</param>
+        /// <param name="Comments">The viewmodel.</param>
         /// <returns></returns>
         [HttpPost, Authorize(Roles = AuthRole.Requestor)]
         public async Task<JsonResult> CloseFA(int id, int RatingId, string Comments)
@@ -1962,6 +1939,7 @@ namespace FASTrack.Controllers
         /// Views the fa.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="btnSubmit">The viewmodel.</param>
         /// <param name="viewmodel">The viewmodel.</param>
         /// <returns></returns>
         [HttpPost, Authorize(Roles = AuthRole.Analyst)]
@@ -2143,10 +2121,10 @@ namespace FASTrack.Controllers
                 {
                     Response.StatusCode = (int)HttpStatusCode.NotFound;
                     return new JsonResult
-                        {
-                            JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                            Data = new { code = "OH02" }
-                        };
+                    {
+                        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                        Data = new { code = "OH02" }
+                    };
                 }
 
                 if (master != null)
@@ -2717,6 +2695,8 @@ namespace FASTrack.Controllers
         /// Loads the processes.
         /// </summary>
         /// <param name="idDevice">The identifier.</param>
+        /// <param name="product">The identifier.</param>
+        /// <param name="isInclude">The identifier.</param>
         /// <returns></returns>
         private async Task<Model.SaveResult> AddProcess(int idDevice, string product, bool isInclude)
         {

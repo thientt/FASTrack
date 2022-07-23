@@ -8,9 +8,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-/// <summary>
-/// 
-/// </summary>
 namespace FASTrack.Controllers
 {
     /// <summary>
@@ -135,6 +132,9 @@ namespace FASTrack.Controllers
             return View(delayreason);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Inject]
         public IMSTReasonINIRepository Rep { get; set; }
     }

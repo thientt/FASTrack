@@ -12,11 +12,9 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System.Collections.Generic;
 
-/// <summary>
-/// The ViewModel namespace.
-/// </summary>
 namespace FASTrack.ViewModel
 {
     /// <summary>

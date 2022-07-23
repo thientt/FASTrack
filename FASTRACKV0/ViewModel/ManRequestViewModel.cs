@@ -17,9 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-/// <summary>
-/// The ViewModel namespace.
-/// </summary>
 namespace FASTrack.ViewModel
 {
     /// <summary>
@@ -33,14 +30,14 @@ namespace FASTrack.ViewModel
         /// <value>The far number.</value>
         [Display(Name = "FAR Number")]
         public string FARNumber { get; set; }
-       
+
         /// <summary>
         /// Gets or sets the reference no.
         /// </summary>
         /// <value>The reference no.</value>
         [Display(Name = "Reference No.")]
         public string RefNo { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the failure rate.
         /// </summary>

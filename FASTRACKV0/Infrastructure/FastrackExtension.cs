@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System.Collections.Specialized;
 using System.Linq.Expressions;
 using System.Linq;
@@ -20,9 +21,7 @@ using System.Web.Mvc.Html;
 using System.Web.Routing;
 using System;
 
-/// <summary>
-/// The Infrastructure namespace.
-/// </summary>
+
 namespace FASTrack.Infrastructure
 {
     /// <summary>
